@@ -18,6 +18,31 @@ $(function(){
 	    dots: true,
 	    fade: true,
 	  });
+	  $('.center').slick({
+		  centerMode: true,
+		  centerPadding: '60px',
+		  slidesToShow: 3,
+		  responsive: [
+		    {
+		      breakpoint: 768,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 3
+		      }
+		    },
+		    {
+		      breakpoint: 480,
+		      settings: {
+		        arrows: false,
+		        centerMode: true,
+		        centerPadding: '40px',
+		        slidesToShow: 1
+		      }
+		    }
+		  ]
+		});
 	});
 
 </script>
@@ -60,6 +85,16 @@ $(function(){
           <h3>6</h3>
         </div>
       </div>
+    </div>
+    <br><br><br><br>
+
+    <div class='container'>
+    	<div class='center'>
+    		<div><h3>1</h3></div>
+    		<div><h3>2</h3></div>
+    		<div><h3>3</h3></div>
+    		<div><h3>4</h3></div>
+    	</div>
     </div>
 </body>
 </html>
