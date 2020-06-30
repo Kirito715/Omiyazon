@@ -28,7 +28,7 @@ public class DBClass {
 		try {
 		    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-		    String serverName = "STRA-CL0158\\SQLEXPRESS";	// サーバ名
+		    String serverName = "Localhost\\SQLEXPRESS";	// サーバ名
 		    String dbName = "Omiyazon";						// データベース名
 
 		    String userName = "sa";							// ユーザ名
@@ -45,6 +45,9 @@ public class DBClass {
 			System.err.println(objEx.getClass().getName() + ":" + objEx.getMessage());
 		}
 	}
+
+
+
 
 	/**
 	 * DB接続処理
@@ -398,6 +401,45 @@ private DetailBean getNickName(DetailBean bean) {
 	}
 
 
+	//ユーザーログイン
+		public boolean UserLogin(String mail, String pass) {
 
+			// 戻り値定義
+			boolean bReturn = false;
+
+			try {
+				String sql = "";
+
+				sql += " SELECT *";
+				sql += " FROM   登録者マスタ ";
+				sql += " WHERE  メールアドレス LIKE ?";
+				sql += " AND    パスワード LIKE ?";
+
+				// データ取得
+				PreparedStatement ps = objCon.prepareStatement(sql);
+
+				// プレースホルダにパラメータを設定
+				ps.setString(1, mail);
+				ps.setString(2, pass);
+
+				// 問い合わせの実行
+				ResultSet rset = ps.executeQuery();
+				if (rset.next() == true) {
+					bReturn = true;
+				}
+
+				// 実行SQL確認
+				System.out.println(sql);
+
+				// 解放
+				ps.close();
+
+			} catch (SQLException e) {
+				System.out.println("エラー");
+				return bReturn = false;
+			}
+
+			return bReturn;
+		}
 
 }
