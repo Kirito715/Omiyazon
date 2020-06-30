@@ -46,7 +46,7 @@ public class HeaderItemSearch extends HttpServlet {
 		session.setAttribute("searchResult", searchResult);
 		session.setAttribute("searchCondition", searchCondition);
 
-		response.sendRedirect("jsp/itemList.jsp");
+		response.sendRedirect("jsp/user/itemList.jsp");
 
 	}
 

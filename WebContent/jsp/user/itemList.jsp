@@ -55,7 +55,7 @@
 		<ul>
 			<li>
 			<div class="form-text-field-all">
-				<form action="../HeaderItemSearch">
+				<form action="../../HeaderItemSearch">
 					<input type="text" name="search" placeholder="検索欄" value="<%=searchCondition[0] %>">
 					<input type="submit" value="検索">
 				</form>
@@ -75,7 +75,7 @@
 </header>
 
 <div class="form-text-field-all">
-<form action="../ItemSearch">
+<form action="../../ItemSearch">
 	<select name="selectRegion">
 		<option value ="">地方</option>
 		<%
@@ -116,7 +116,7 @@
 
 <table>
 	<tr>
-	<td><img style="width:200px; height:200px;" src="../img/testimg.png"></td>
+	<td><img style="width:200px; height:200px;" src="../../img/testimg.png"></td>
 	<td>商品名<br>
 		加盟店名<br>
 		評価<br>
@@ -128,7 +128,7 @@
 	for(String[] a: searchResult){
 	%>
 	<tr>
-	<td><img style="width:200px; height:200px; object-fit: cover;" src="../img/TokyoBanana.jpg"></td>
+	<td><img style="width:200px; height:200px; object-fit: cover;" src="../../img/TokyoBanana.jpg"></td>
 	<td><%=a[1] %><br>
 		<%=a[2] %><br>
 		<%=a[3] %><br>
