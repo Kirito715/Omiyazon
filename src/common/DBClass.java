@@ -101,6 +101,172 @@ public class DBClass {
 		}
 	}
 
+	/**
+	 * 商品検索(ヘッダー)
+	 * @param name
+	 * @return
+	 */
+	public ArrayList<String[]> getItemList(String name){
+		ArrayList<String[]> ary = new ArrayList<String[]>();
+
+		try {
+	        String sql = "";
+	        sql += " SELECT 商品ID,商品名,加盟店名,ジャンル名,単価,画像パス1,注文上限数";
+	        sql += " FROM   商品マスタ sm";
+	        sql += " INNER JOIN ジャンルマスタ gm";
+	        sql += " ON sm.ジャンルID = gm.ジャンルID";
+	        sql += " WHERE 商品名 LIKE ?";
+	        sql += " AND   削除フラグ=0";
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        ps.setString(1,"%"+ name +"%");
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	String[] strData = new String[8];
+
+	        	strData[0] =rs.getString("商品ID");
+	        	strData[1] =rs.getString("商品名");
+	        	strData[2] =rs.getString("加盟店名");
+	        	strData[3] =rs.getString("ジャンル名");
+	        	strData[4] =rs.getString("単価");
+	        	strData[5] =rs.getString("画像パス1");
+	        	//評価
+	        	strData[6] =getItemVal(strData[0]);
+
+	        	//在庫
+	        	if(rs.getInt("注文上限数") > getStock(rs.getInt("商品ID"))){
+	        		strData[7] = "在庫あり";
+	        	}
+	        	else {
+	        		strData[7] = "在庫なし";
+	        	}
+
+	        	ary.add(strData);
+	        }
+
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return ary;
+	}
+
+	/**
+	 * 地方データ取得
+	 * @return
+	 */
+	public ArrayList<String[]> getRegion(){
+		ArrayList<String[]> ary = new ArrayList<String[]>();
+		try {
+	        String sql = "";
+	        sql += " SELECT *";
+	        sql += " FROM   地方マスタ";
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	String[] strData = new String[6];
+
+	        	strData[0] =rs.getString("地方ID");
+	        	strData[1] =rs.getString("地方名");
+
+	        	ary.add(strData);
+	        }
+
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return ary;
+	}
+
+	/**
+	 * 都道府県データ取得
+	 * @return
+	 */
+	public ArrayList<String[]> getPref(){
+		ArrayList<String[]> ary = new ArrayList<String[]>();
+		try {
+	        String sql = "";
+	        sql += " SELECT *";
+	        sql += " FROM   県マスタ";
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	String[] strData = new String[6];
+
+	        	strData[0] =rs.getString("県ID");
+	        	strData[1] =rs.getString("都道府県名");
+	        	strData[2] =rs.getString("地方ID");
+
+	        	ary.add(strData);
+	        }
+
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return ary;
+	}
+
+	/**
+	 * 評価平均値を取得
+	 * @param id
+	 * @return
+	 */
+	public String getItemVal(String id) {
+		String val = "0";
+		try {
+	        String sql = "";
+	        sql += " SELECT AVG(評価) 平均評価";
+	        sql += " FROM   レビューマスタ";
+	        sql += " WHERE 商品ID = ?";
+	        sql += " GROUP BY 商品ID";
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        ps.setString(1,id);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	val =rs.getString("平均評価");
+	        }
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return val;
+	}
+
+
 //商品詳細の初期設定
 	public DetailBean getDetailData(DetailBean bean) {
 //ログイン状態に関わらず行う処理

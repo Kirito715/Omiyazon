@@ -1,0 +1,16 @@
+//HTML 画像表示
+
+<img src="画像パス">
+
+//サイズ指定
+//CSSなし
+<img width="横幅" height="縦幅" src="画像パス">
+
+//CSSあり
+<img style="width:横幅; height:縦幅;" src="画像パス">
+
+//画像を指定サイズでトリミング
+<img style="width:横幅; height:縦幅; object-fit: cover;" src="画像パス">
+
+//画像を指定サイズに変更+余白を表示
+<img style="width:横幅; height:縦幅; object-fit: contain;" src="画像パス">
