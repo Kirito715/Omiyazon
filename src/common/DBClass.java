@@ -607,5 +607,558 @@ private DetailBean getNickName(DetailBean bean) {
 
 			return bReturn;
 		}
+		public ArrayList<String[]> getTAll(){
+
+			ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " SELECT *";
+		        sql += " FROM  特集マスタ";
+		        sql += " order by 公開日時 desc";
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        ResultSet rset = stmt.executeQuery(sql);
+
+		        while(rset.next()) {
+
+		        	// 取得するフィールド分の配列生成
+		        	String[] strData = new String[7];
+
+		        	strData[0] =rset.getString("特集ID");
+		        	strData[1] =rset.getString("タイトル");
+		        	strData[2] =rset.getString("本文");
+		        	strData[3] =rset.getString("公開フラグ");
+		        	strData[4] =rset.getString("公開日時");
+		        	strData[5] =rset.getString("終了日時");
+		        	strData[6] =rset.getString("画像パス");
+
+		        	// リストに追加
+		        	Adata.add(strData);
+
+		        }
+
+		        rset.close();	// ResultSetのクローズ
+		        stmt.close();	// Statementのクローズ
+
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return Adata;
+		}
+		public ArrayList<String[]> getTsyousai(String tid){
+
+			ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " SELECT *";
+		        sql += " FROM  特集マスタ";
+		        sql += " where 特集ID='"+tid+"'";
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        ResultSet rset = stmt.executeQuery(sql);
+
+		        while(rset.next()) {
+
+		        	// 取得するフィールド分の配列生成
+		        	String[] strData = new String[7];
+
+		        	strData[0] =rset.getString("特集ID");
+		        	strData[1] =rset.getString("タイトル");
+		        	strData[2] =rset.getString("本文");
+		        	strData[3] =rset.getString("公開フラグ");
+		        	strData[4] =rset.getString("公開日時");
+		        	strData[5] =rset.getString("終了日時");
+		        	strData[6] =rset.getString("画像パス");
+
+		        	// リストに追加
+		        	Adata.add(strData);
+
+		        }
+
+		        rset.close();	// ResultSetのクローズ
+		        stmt.close();	// Statementのクローズ
+
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return Adata;
+		}
+		public int insertT( String title, String text, String z1, String z2, String z3, String z4,
+				String fdate, String qdate,String path) {
+
+			// 実行結果件数用変数
+			int retCount = 0;
+
+			//Statementを生成
+			Statement stmt;
+
+			try {
+
+				stmt = objCon.createStatement();
+				String sql = "";
+				sql += " insert 特集マスタ ";
+				sql += "values ((select max(特集ID)+1 from 特集マスタ),','" + title + "','" + text + "','0','"+fdate+"','"+qdate+"','"+path+"')";
+				// 実行SQL確認
+				System.out.println(sql);
+
+				// 問い合わせの実行
+				//更新、削除、登録にはexecuteUpdae
+				//確認はexecuteQuery
+				retCount = stmt.executeUpdate(sql);
+
+				stmt.close(); // Statementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+			return retCount;
+		}
+		public ArrayList<String[]> getTAll2(String combo,String txt){
+
+			ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " SELECT *";
+		        sql += " FROM  特集マスタ";
+		        if(combo.equals("1")) sql += " order by 公開日時 desc";
+		        else sql += " order by 公開日時";
+		        sql += " 特集名 like '"+txt+"'";
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        ResultSet rset = stmt.executeQuery(sql);
+
+		        while(rset.next()) {
+
+		        	// 取得するフィールド分の配列生成
+		        	String[] strData = new String[7];
+
+		        	strData[0] =rset.getString("特集ID");
+		        	strData[1] =rset.getString("タイトル");
+		        	strData[2] =rset.getString("本文");
+		        	strData[3] =rset.getString("公開フラグ");
+		        	strData[4] =rset.getString("公開日時");
+		        	strData[5] =rset.getString("終了日時");
+		        	strData[6] =rset.getString("画像パス");
+
+		        	// リストに追加
+		        	Adata.add(strData);
+
+		        }
+
+		        rset.close();	// ResultSetのクローズ
+		        stmt.close();	// Statementのクローズ
+
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return Adata;
+		}
+		public int updT(String tid,String txt){
+
+			// 実行結果件数用変数
+			int retCount = 0;
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " UPDATE 特集マスタ";
+		        sql += " set 本文='"+txt+"'";
+		        sql += " WHERE  特集ID= '"+ tid +"'";
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        //更新、削除、登録にはexecuteUpdae
+		        //確認はexecuteQuery
+		        retCount = stmt.executeUpdate(sql);
+
+		        stmt.close();	// Statementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return retCount;
+		}
+		public int updT2(String tid){
+
+			// 実行結果件数用変数
+			int retCount = 0;
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " UPDATE 特集マスタ";
+		        sql += " set 公開フラグ='1'";
+		        sql += " WHERE  特集ID= '"+ tid +"'";
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        //更新、削除、登録にはexecuteUpdae
+		        //確認はexecuteQuery
+		        retCount = stmt.executeUpdate(sql);
+
+		        stmt.close();	// Statementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return retCount;
+		}
+		public int updT3(String tid){
+
+			// 実行結果件数用変数
+			int retCount = 0;
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " UPDATE 特集マスタ";
+		        sql += " set 公開フラグ='0'";
+		        sql += " WHERE  特集ID= '"+ tid +"'";
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        //更新、削除、登録にはexecuteUpdae
+		        //確認はexecuteQuery
+		        retCount = stmt.executeUpdate(sql);
+
+		        stmt.close();	// Statementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return retCount;
+		}
+		public ArrayList<String[]> getTkanren(String tid){
+
+			ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += "select * " ;
+		        sql += " from 商品マスタ as a inner join 関連商品マスタ as b on a.商品ID=b.商品ID";
+		        sql += " where 特集ID="+tid+"";
+
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        ResultSet rset = stmt.executeQuery(sql);
+
+		        while(rset.next()) {
+
+		        	// 取得するフィールド分の配列生成
+		        	String[] strData = new String[7];
+
+		        	strData[0] =rset.getString("商品ID");
+		        	strData[1] =rset.getString("商品名");
+		        	strData[2] =rset.getString("単価");
+		        	strData[3] =rset.getString("画像パス1");
+		        	// リストに追加
+		        	Adata.add(strData);
+
+		        }
+
+		        rset.close();	// ResultSetのクローズ
+		        stmt.close();	// Statementのクローズ
+
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return Adata;
+		}
+		public ArrayList<String[]> getdenpyou(){
+
+			ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " SELECT *";
+		        sql += " FROM  伝票マスタ";
+		        sql += " order by 購入日時 desc";
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        ResultSet rset = stmt.executeQuery(sql);
+
+		        while(rset.next()) {
+
+		        	// 取得するフィールド分の配列生成
+		        	String[] strData = new String[7];
+
+		        	strData[0] =rset.getString("伝票ID");
+		        	strData[1] =rset.getString("登録者ID");
+		        	strData[2] =rset.getString("購入日時");
+		        	strData[3] =rset.getString("注文状態");
+		        	strData[4] =rset.getString("発送日時");
+
+		        	// リストに追加
+		        	Adata.add(strData);
+
+		        }
+
+		        rset.close();	// ResultSetのクローズ
+		        stmt.close();	// Statementのクローズ
+
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return Adata;
+		}
+		public ArrayList<String[]> getDsyousai(String did){
+
+			ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " SELECT *";
+		        sql += " FROM  商品マスタ as a inner join 売上明細マスタ as b on a.商品ID=b.商品ID";
+		        sql += " where 伝票ID='"+did+"'";
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        ResultSet rset = stmt.executeQuery(sql);
+
+		        while(rset.next()) {
+
+		        	// 取得するフィールド分の配列生成
+		        	String[] strData = new String[7];
+
+		        	strData[0] =rset.getString("商品ID");
+		        	strData[1] =rset.getString("商品名");
+		        	strData[2] =rset.getString("単価");
+
+		        	// リストに追加
+		        	Adata.add(strData);
+
+		        }
+
+		        rset.close();	// ResultSetのクローズ
+		        stmt.close();	// Statementのクローズ
+
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return Adata;
+		}
+		public ArrayList<String[]> getdenpyou2(String combo,String txt){
+
+			ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " SELECT *";
+		        sql += " FROM  伝票マスタ";
+		        if(combo.equals("1")) sql += " order by 購入日時 desc";
+		        else if(combo.equals("3")) {
+		        	sql += " where 注文状態='0'";
+		        	sql += " order by 購入日時";
+		        }
+		        else sql += " order by 購入日時";
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        ResultSet rset = stmt.executeQuery(sql);
+
+		        while(rset.next()) {
+
+		        	// 取得するフィールド分の配列生成
+		        	String[] strData = new String[7];
+
+		        	strData[0] =rset.getString("伝票ID");
+		        	strData[1] =rset.getString("登録者ID");
+		        	strData[2] =rset.getString("購入日時");
+		        	strData[3] =rset.getString("注文状態");
+		        	strData[4] =rset.getString("発送日時");
+
+
+		        	// リストに追加
+		        	Adata.add(strData);
+
+		        }
+
+		        rset.close();	// ResultSetのクローズ
+		        stmt.close();	// Statementのクローズ
+
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return Adata;
+		}
+		public int updD(String date){
+
+			// 実行結果件数用変数
+			int retCount = 0;
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " UPDATE 伝票マスタ";
+		        sql += " set 注文状態='1',発送日時='"+date+"'";
+		        sql += " WHERE  注文状態='0'";
+
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        //更新、削除、登録にはexecuteUpdae
+		        //確認はexecuteQuery
+		        retCount = stmt.executeUpdate(sql);
+
+		        stmt.close();	// Statementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return retCount;
+		}
+		public int updD2(String date,String did){
+
+			// 実行結果件数用変数
+			int retCount = 0;
+
+			//Statementを生成
+		    Statement stmt;
+
+			try {
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " UPDATE 伝票マスタ";
+		        sql += " set 注文状態='1',発送日時='"+date+"'";
+		        sql += " WHERE  伝票ID='"+did+"'";
+
+
+		        // 実行SQL確認
+		        System.out.println(sql);
+
+		        // 問い合わせの実行
+		        //更新、削除、登録にはexecuteUpdae
+		        //確認はexecuteQuery
+		        retCount = stmt.executeUpdate(sql);
+
+		        stmt.close();	// Statementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return retCount;
+		}
+	}
 
 }
