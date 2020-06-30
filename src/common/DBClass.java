@@ -449,7 +449,7 @@ public class DBClass {
 		// エラー表示
 		System.err.println(e.getClass().getName() + ":" + e.getMessage());
 	  }
-		if(i>0) {
+		if(i==0) {
 			bean = getNickName(bean);
 		}
 		return bean;
