@@ -11,7 +11,7 @@
 <meta name="author" content="">
 <link rel="icon" href="">
 
-<title>ログイン</title>
+<title>パスワード再設定</title>
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
@@ -26,15 +26,17 @@
 </head>
 
 <body class="text-center">
-	<form class="form-signin" action="../../UserLogin">
-		<h1 class="h3 mb-3 font-weight-normal">Login</h1>
+	<form class="form-signin" action="../../repass"method="post">
+		<h1 class="h3 mb-3 font-weight-normal">新しいパスワードを</h1>
+		<h1 class="h3 mb-3 font-weight-normal">入力してください</h1>
 		<label for="password" class="sr-only">password</label>
-		<input type="text" id="Mail" class="form-control" placeholder="mail" required autofocus name="Mail">
-		<label for="inputPassword" class="sr-only">Password</label>
-		<input type="password" id="Password" class="form-control" placeholder="Password" required name="Pass"> <br>
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+		<input type="text" id="NewPass" class="form-control" placeholder="パスワード" required autofocus name="NewPass">
+		<label for="inputPassword" class="sr-only">Password</label><br>
+				<input type="text" id="ConfPass" class="form-control" placeholder="パスワード確認" required autofocus name="ConfPass">
+		<label for="inputPassword" class="sr-only">Password</label><br>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">次へ進む</button>
 		<p class="mt-5 mb-3 text-muted">&copy; Omiyazon</p><br>
-		<a href='repass.jsp'>パスワードを忘れた方はこちら</a>
+
 
 	</form>
 </body>
