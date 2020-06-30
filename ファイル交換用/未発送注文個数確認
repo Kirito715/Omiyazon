@@ -1,0 +1,39 @@
+//引数 : 商品ID
+//戻り値 : 商品IDを渡すと注文状態=0の注文個数を返すメソッド
+
+public int getStock(int itemid) {
+
+		int iStock=0;
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " SELECT SUM(数量) AS 未発送注文個数";
+        sql += " FROM 伝票マスタ dm INNER JOIN 売上明細マスタ umm on dm.伝票ID=umm.伝票ID";
+        sql += " WHERE 注文状態 = '0' AND 商品ID = ? ";
+        sql += " GROUP BY 商品ID";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1, itemid);
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ResultSet rset = ps.executeQuery();
+		rset.next();
+		iStock=rset.getInt("未発送注文個数");
+
+        rset.close();	// ResultSetのクローズ
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return iStock;
+	}
