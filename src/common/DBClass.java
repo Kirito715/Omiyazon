@@ -1160,5 +1160,3 @@ private DetailBean getNickName(DetailBean bean) {
 			return retCount;
 		}
 	}
-
-}
