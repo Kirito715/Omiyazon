@@ -32,14 +32,11 @@ public class ItemDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-
-		int userid=1;
 		DetailBean bean = new DetailBean();
+		int itemid= Integer.parseInt(request.getParameter("itemid"));
+		int userid= Integer.parseInt(request.getParameter("userid"));
+
 		bean.setLogin(true);
-
-
-		//int itemid= Integer.parseInt(request.getParameter("itemid"));
-		int itemid=1;
 		bean.setUserid(userid);
 		bean.setItemid(itemid);
 
@@ -47,17 +44,18 @@ public class ItemDetail extends HttpServlet {
 		db.dbOpen();
 		bean = db.getDetailData(bean);
 		db.dbClose();
-		
-		int avg=0;
+
+		double sum=0;
 		if(bean.getReviewList()!=null) {
 			for(int i=0;i<bean.getReviewList().size();i++) {
-				avg +=  bean.getReviewList(i)[2];
+				sum +=  Integer.parseInt(bean.getReviewList().get(i)[2]);
 			}
 		}
+		bean.setAvgqua(sum/bean.getReviewList().size());
 
 		HttpSession session = request.getSession();
 		session.setAttribute("DetaillBean",bean);
-		response.sendRedirect("jsp/itemDetail.jsp");
+		response.sendRedirect("jsp/user/itemDetail.jsp");
 
 	}
 

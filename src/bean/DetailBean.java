@@ -16,11 +16,12 @@ public class DetailBean {
 	String image4;
 	String image5;
 	int ordable;
-	int avgqua;
+	double avgqua;
 	String storename;
 	String nickname;
 	Boolean favorite;
 	ArrayList<String[]> reviewList;
+
 
 	public ArrayList<String[]> getReviewList() {
 		return reviewList;
@@ -106,10 +107,10 @@ public class DetailBean {
 	public void setOrdable(int ordable) {
 		this.ordable = ordable;
 	}
-	public int getAvgqua() {
+	public double getAvgqua() {
 		return avgqua;
 	}
-	public void setAvgqua(int avgqua) {
+	public void setAvgqua(double avgqua) {
 		this.avgqua = avgqua;
 	}
 	public String getStorename() {
