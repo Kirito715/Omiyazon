@@ -1235,5 +1235,134 @@ private DetailBean getNickName(DetailBean bean) {
 			return retCount;
 		}
 
+		public ArrayList<String[]> getTokusyuData(String Tokusyu) {
+
+			ArrayList<String[]> data = new ArrayList<String[]>();
+
+
+			try {
+
+
+				String sql = "";
+				sql += " SELECT 特集ID,画像パス";
+				sql += " FROM  特集マスタ ";
+
+				PreparedStatement ps = objCon.prepareStatement(sql);
+				System.out.println(sql);
+
+				// 問い合わせの実行
+				ResultSet rset = ps.executeQuery();
+
+				while (rset.next()) {
+
+					// 取得するフィールド分の配列生成
+					String[] strData = new String[2];
+
+					strData[1] = rset.getString("画像パス");
+					// リストに追加
+					data.add(strData);
+
+				}
+
+				rset.close(); // ResultSetのクローズ
+				ps.close(); // Statementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return data;
+		}
+
+		public ArrayList<String[]> getJanruData(String JName) {
+
+			ArrayList<String[]> data = new ArrayList<String[]>();
+
+
+			try {
+
+
+				String sql = "";
+				sql += " SELECT ジャンル名";
+				sql += " FROM  ジャンルマスタ ";
+
+				PreparedStatement ps = objCon.prepareStatement(sql);
+
+				// 問い合わせの実行
+				ResultSet rset = ps.executeQuery();
+
+				while (rset.next()) {
+
+					// 取得するフィールド分の配列生成
+					String[] strData = new String[2];
+
+					strData[1] = rset.getString("ジャンル名");
+					// リストに追加
+					data.add(strData);
+
+				}
+
+				rset.close(); // ResultSetのクローズ
+				ps.close(); // Statementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return data;
+		}
+
+		public ArrayList<String[]> getRankingData(String fotPass1) {
+
+			ArrayList<String[]> data = new ArrayList<String[]>();
+
+
+			try {
+
+
+				String sql = "";
+				sql += " SELECT	top 5 画像パス1,商品名";
+				sql += " FROM 商品マスタ AS SM ";
+				sql += " INNER JOIN ";
+				sql += " (select a.商品ID,SUM(a.単価*a.数量) as 売上";
+				sql += " from　売上明細マスタ a INNER JOIN 商品マスタ b";
+				sql += " on a.商品ID = b.商品ID";
+				sql += " group by a.商品ID";
+				sql += " ) AS SQ";
+				sql	+= " ON SM.商品ID = SQ.商品ID ";
+				sql +=		"order by 売上 desc";
+
+				PreparedStatement ps = objCon.prepareStatement(sql);
+
+				System.out.println(sql);
+
+				// 問い合わせの実行
+				ResultSet rset = ps.executeQuery();
+
+				while (rset.next()) {
+
+					// 取得するフィールド分の配列生成
+					String[] strData = new String[2];
+
+					strData[0] = rset.getString("画像パス1");
+					strData[1] = rset.getString("商品名");
+
+					// リストに追加
+					data.add(strData);
+
+				}
+
+				rset.close(); // ResultSetのクローズ
+				ps.close(); // Statementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return data;
+		}
 
 	}

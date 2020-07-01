@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -60,41 +61,38 @@ $(function(){
   color: #419be0;
   background: white;
 }
+img {
+    width: 100%;
+    height: 50vw;
+    object-fit: cover;
+}
 </style>
 
 </head>
 <body>
 <div class='container'>
       <div class='single-item'>
+      <% ArrayList <String[]> Tok = (ArrayList<String[]>)session.getAttribute("reqTokusyuPass");
+	for(int i = 0; i < Tok.size(); i++){%>
         <div>
-          <h3>1</h3>
+          <a href=""><img src="<%= Tok.get(i)[1] %>"></a>
         </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
-        </div>
-      </div>
+        <%} %>
     </div>
-    <br><br><br><br>
+    </div>
 
+
+    <br><br><br><br>
     <div class='container'>
     	<div class='center'>
-    		<div><h3>1</h3></div>
-    		<div><h3>2</h3></div>
-    		<div><h3>3</h3></div>
-    		<div><h3>4</h3></div>
+    	<% ArrayList <String[]> arr = (ArrayList<String[]>)session.getAttribute("reqRanking");
+	for(int i = 0; i < arr.size(); i++){%>
+    		<div>
+    		<img src="<%= arr.get(i)[0] %>">
+    		</div>
+    		<%} %>
     	</div>
     </div>
+
 </body>
 </html>

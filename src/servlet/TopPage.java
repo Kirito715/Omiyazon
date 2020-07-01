@@ -43,6 +43,7 @@ public class TopPage extends HttpServlet {
 
 		db.dbOpen();
 
+		ArrayList<String[]>  getTokusyuData = db. getTokusyuData(TPass);
 		ArrayList<String[]> aryRanking5 = db.getRankingData(Pass1);
 
 		session.setAttribute("reqRanking", aryRanking5);
