@@ -1383,7 +1383,7 @@ private DetailBean getNickName(DetailBean bean) {
 
 
 				String sql = "";
-				sql += " SELECT	top 5 画像パス1,商品名,SM.商品ID";
+				sql += " SELECT	top 5 画像パス1,商品名,SM.商品ID,ジャンルID";
 				sql += " FROM 商品マスタ AS SM ";
 				sql += " INNER JOIN ";
 				sql += " (select a.商品ID,SUM(a.単価*a.数量) as 売上";
@@ -1404,11 +1404,12 @@ private DetailBean getNickName(DetailBean bean) {
 				while (rset.next()) {
 
 					// 取得するフィールド分の配列生成
-					String[] strData = new String[3];
+					String[] strData = new String[4];
 
 					strData[0] = rset.getString("画像パス1");
 					strData[1] = rset.getString("商品名");
 					strData[2] = rset.getString("商品ID");
+					strData[3] = rset.getString("ジャンルID");
 
 
 					// リストに追加

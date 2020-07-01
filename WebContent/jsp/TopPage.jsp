@@ -81,11 +81,14 @@ $(function(){
     <br><br><br><br>
 
      <% ArrayList <String[]> Jnr = (ArrayList<String[]>)session.getAttribute("reqJanruname");
-	for(int i = 0; i < Jnr.size(); i++){%>
-    	<div>
-    	<input type="button" value="<%=Jnr.get(i)[1] %>">
-    	</div>
-    	<%} %>
+ 	for(int i = 0; i < Jnr.size(); i++){%>
+	<div>
+		<form action="../janruchange" method="post">
+	<button name="submit" value="<%=Jnr.get(i)[0] %>"><%=Jnr.get(i)[1] %></button>
+	<input type="hidden" name="hidGenreID" value="<%=Jnr.get(i)[0]%>">
+		</form>
+	</div>
+	<%} %>
 
 
     <br><br><br><br>
@@ -98,6 +101,7 @@ $(function(){
 		for(int i = 0; i < arr.size(); i++){%>
     		<div class="item">
     		<a href="../ItemDetail?itemid="<%=arr.get(i)[2]%>><img src="<%= arr.get(i)[0] %>" class="center"></a>
+    		<br>
     		<%= arr.get(i)[1]%>
     		<br>
     		<%= i+1+"位"%>
