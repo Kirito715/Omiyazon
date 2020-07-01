@@ -1,26 +1,28 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import common.DBClass;
+import comon.DBClass;
 
 /**
- * Servlet implementation class Test
+ * Servlet implementation class TAlltokusyuu
  */
-@WebServlet("/Test")
-public class Test extends HttpServlet {
+@WebServlet("/TAlltokusyuu")
+public class TAlltokusyuu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Test() {
+    public TAlltokusyuu() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,14 +31,18 @@ public class Test extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DBClass db=new DBClass();
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		String no="0";
+		System.out.println(no);
+		session.setAttribute("page",no);
+		DBClass db = new DBClass();
 		db.dbOpen();
-
-
-		System.out.println(db.getStock(1));
-
+		ArrayList<String[]> ary = db.getTAll();
 		db.dbClose();
-
+		session.setAttribute("tokusyuu", ary);
+		response.sendRedirect("jsp/TAlltokusyuu.jsp");
 	}
 
 	/**
