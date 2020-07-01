@@ -327,7 +327,7 @@ public class DBClass {
 		return bean;
 	}
 
-	private DetailBean getReview(DetailBean bean) {
+	public DetailBean getReview(DetailBean bean) {
 		ArrayList<String[]> data = new ArrayList<String[]>();
 
 		//Statementを生成
@@ -351,7 +351,9 @@ public class DBClass {
 
 			// sqlを実行し、結果を取得
 			ResultSet rset = ps.executeQuery();
-
+			String[] a=new String[1];
+			a[0]="0";
+			data.add(a);
 	        while(rset.next()) {
 	        	// 取得するフィールド分の配列生成
 	        	String[] strData = new String[3];
@@ -376,6 +378,60 @@ public class DBClass {
 
 		return bean;
 	}
+
+	public DetailBean getReview(DetailBean bean,int i) {
+		ArrayList<String[]> data = new ArrayList<String[]>();
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += " SELECT ニックネーム,レビュー,評価";
+	        sql += " FROM 登録者マスタ tm inner join レビューマスタ rm on tm.登録者ID=rm.登録者ID";
+	        sql += " WHERE 商品ID = ?";
+	        sql += " ORDER BY 評価 ASC";
+
+			// データ取得
+			PreparedStatement ps = objCon.prepareStatement(sql);
+			// プレースホルダにパラメータを設定
+			ps.setInt(1,bean.getItemid());
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// sqlを実行し、結果を取得
+			ResultSet rset = ps.executeQuery();
+			String[] a=new String[1];
+			a[0]="1";
+			data.add(a);
+		        while(rset.next()) {
+	        	// 取得するフィールド分の配列生成
+	        	String[] strData = new String[3];
+	        	strData[0] =rset.getString("ニックネーム");
+	        	strData[1] =rset.getString("レビュー");
+	        	strData[2] =rset.getString("評価");
+	        	// リストに追加
+	        	data.add(strData);
+
+	        }
+
+	        bean.setReviewList(data);
+
+	        rset.close();	// ResultSetのクローズ
+	        stmt.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return bean;
+	}
+
 
 	private DetailBean judgeFavorite(DetailBean bean) {
 		Statement stmt;
