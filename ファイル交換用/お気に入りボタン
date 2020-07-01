@@ -1,0 +1,52 @@
+-------------リンク-----------------------------------------
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+------------------------------------------------------------
+
+--------------css--------------------------------------------
+@keyframes heartAnimation {
+  0% {
+    /* アイコンサイズをもとのより小さくする */
+    transform: scale(0.5);
+  }
+  10% {
+    transform: scale(0.7);
+  }
+  30% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  80% {
+    transform: scale(1.5);
+  }
+  100% {
+    /* もとのサイズに戻す */
+    transform: scale(1.0);
+  }
+}
+
+.LikesIcon-fa-heart{
+  font-size: 30px;
+}
+.LikesIcon-fa-heart.heart{
+  /* heartAnimationアニメーションを200ミリ秒かけて実行する */
+  animation: heartAnimation .2s;
+  /* アイコン色を黒から赤へ変更する */
+  color: #e2264d;
+}
+---------------------------------------------------------------
+
+---------------js----------------------------------------------
+ $('.LikesIcon').on('click', function() {
+		  let $btn = $(this);
+		  // Likeボタンがonクラス持っていたら
+		  if ($btn.hasClass('on')) {
+		    $btn.removeClass('on');
+		    // 白抜きアイコンに戻す
+		    $btn.children("i").attr('class', 'far fa-heart LikesIcon-fa-heart');
+		  } else {
+		    $btn.addClass('on');
+		    $btn.children("i").attr('class', 'fas fa-heart LikesIcon-fa-heart heart');
+		  }
+	});
