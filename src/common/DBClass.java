@@ -432,7 +432,6 @@ public class DBClass {
 		return bean;
 	}
 
-
 	private DetailBean judgeFavorite(DetailBean bean) {
 		Statement stmt;
 
