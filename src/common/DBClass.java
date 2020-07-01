@@ -1202,4 +1202,38 @@ private DetailBean getNickName(DetailBean bean) {
 
 			return retCount;
 		}
+
+		public int PassUpd(String pass) {
+
+			// 実行結果件数用変数
+			int retCount = 0;
+
+			try {
+				String sql = "";
+				sql += " DELETE  FROM 登録者マスタ";
+				sql += " WHERE パスワード = ?";
+
+				// データ取得
+				PreparedStatement ps = objCon.prepareStatement(sql);
+
+				// プレースホルダにパラメータを設定
+				ps.setString(1, pass);
+
+				// 実行SQL確認
+				System.out.println(sql);
+
+				// 結果を出力
+				retCount = ps.executeUpdate();
+
+				ps.close(); // PreparedStatementのクローズ
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return retCount;
+		}
+
+
 	}

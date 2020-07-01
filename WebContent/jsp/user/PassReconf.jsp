@@ -26,7 +26,7 @@
 </head>
 
 <body class="text-center">
-	<form class="form-signin" action="../../repass"method="post">
+	<form class="form-signin" action="../../PassChange"method="post">
 		<h1 class="h3 mb-3 font-weight-normal">新しいパスワードを</h1>
 		<h1 class="h3 mb-3 font-weight-normal">入力してください</h1>
 		<label for="password" class="sr-only">password</label>
