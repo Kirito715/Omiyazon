@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form action="../../ItemDetail" method="post">
+登録者ID:<input type="number" name="userid"><br>
+商品ID:<input type="number" name="itemid"><br>
+<input type="submit" value="確定">
 
+</form>
 </body>
 </html>

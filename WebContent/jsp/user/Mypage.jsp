@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<p>Mypageの中身</p>
 </body>
 </html>
