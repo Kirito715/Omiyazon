@@ -62,8 +62,8 @@ $(function(){
   background: white;
 }
 img {
-    width: 100%;
-    height: 50vw;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
 }
 </style>
@@ -86,9 +86,18 @@ img {
     <div class='container'>
     	<div class='center'>
     	<% ArrayList <String[]> arr = (ArrayList<String[]>)session.getAttribute("reqRanking");
-	for(int i = 0; i < arr.size(); i++){%>
+		for(int i = 0; i < arr.size(); i++){%>
     		<div>
-    		<img src="<%= arr.get(i)[0] %>">
+    		<img src="<%= arr.get(i)[0] %>" >
+    		</div>
+    		<%} %>
+    	</div>
+    </div>
+        <div class='container'>
+    	<div class='center'>
+	<% 	for(int i = 1; i <= 6; i++){%>
+    		<div>
+    		<h3><%=i %></h3>
     		</div>
     		<%} %>
     	</div>
