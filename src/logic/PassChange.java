@@ -57,11 +57,15 @@ public class PassChange extends HttpServlet {
 
 				// DB接続
 				db.dbOpen();
-				
-				// editItemDataを実行
-				String[] data = db.PassUpd(NewPass);
-				
+
+				String userMail = (String)Session.getAttribute("userMail");
+
+
 					if(NewPass.equals(ConfPass)) {
+
+						// editItemDataを実行
+						int data = db.PassUpd(NewPass,userMail);
+
 						//パスワード再設定確認遷移
 						response.sendRedirect("jsp/user/PassChange.jsp");
 					}

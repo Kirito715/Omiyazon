@@ -57,6 +57,9 @@ public class UserLogin extends HttpServlet {
 
 		// ログインチェック
 		if (db.UserLogin(UserMail,UserPass)) {
+
+			Session.setAttribute("userMail", UserMail);
+
 			//マイページ遷移
 			response.sendRedirect("jsp/user/Mypage.jsp");
 
