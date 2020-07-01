@@ -40,7 +40,8 @@ public class TopPage extends HttpServlet {
 		DBClass db = new DBClass();
 
 		String TPass = request.getParameter("TPass");
-		String Pass1 = request.getParameter("gPass");
+		String Pass1 = request.getParameter("rPass");
+		String SId = request.getParameter("sID");
 
 		db.dbOpen();
 

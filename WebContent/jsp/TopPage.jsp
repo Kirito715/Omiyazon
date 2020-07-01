@@ -19,30 +19,10 @@ $(function(){
 	    dots: true,
 	    fade: true,
 	  });
-	  $('.center').slick({
-		  centerMode: true,
-		  centerPadding: '60px',
+	  $('.multiple-items').slick({
+		  infinite: true,
 		  slidesToShow: 3,
-		  responsive: [
-		    {
-		      breakpoint: 768,
-		      settings: {
-		        arrows: false,
-		        centerMode: true,
-		        centerPadding: '40px',
-		        slidesToShow: 3
-		      }
-		    },
-		    {
-		      breakpoint: 480,
-		      settings: {
-		        arrows: false,
-		        centerMode: true,
-		        centerPadding: '40px',
-		        slidesToShow: 1
-		      }
-		    }
-		  ]
+		  slidesToScroll: 3
 		});
 	});
 
@@ -58,13 +38,25 @@ $(function(){
 
 .slick-slide {
   text-align: center;
-  color: #419be0;
-  background: white;
+  background:#419be0;
 }
 img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 200px;
     object-fit: cover;
+}
+.item {
+    /* slickでslider化するとimgがblockになるのでtext-alignでは中央寄せできなくなる */
+    text-align: center;
+}
+
+.item img {
+    /* 100%にしてしまえば横幅目一杯に広がるので「左に寄る問題」自体が発生しなくなる */
+    width: 80%;
+}
+.center {
+    /* slickでslider化するとimgがblockになるのでmarginで中央寄せにしないといけない */
+    margin: 0 auto;
 }
 </style>
 
@@ -75,7 +67,7 @@ img {
       <% ArrayList <String[]> Tok = (ArrayList<String[]>)session.getAttribute("reqTokusyuPass");
 	for(int i = 0; i < Tok.size(); i++){%>
         <div>
-          <a href=""><img src="<%= Tok.get(i)[1] %>"></a>
+          <input type="hidden" name="tid" value="<%=Tok.get(i)[0] %>"><a href="../Tsyousai"><img src="<%= Tok.get(i)[1] %>"></a>
         </div>
         <%} %>
     </div>
@@ -84,24 +76,19 @@ img {
 
     <br><br><br><br>
     <div class='container'>
-    	<div class='center'>
+    	<div class='multiple-items'>
     	<% ArrayList <String[]> arr = (ArrayList<String[]>)session.getAttribute("reqRanking");
 		for(int i = 0; i < arr.size(); i++){%>
-    		<div>
-    		<img src="<%= arr.get(i)[0] %>" >
+    		<div class="item">
+    		<a href="../ItemDetail?itemid="<%=arr.get(i)[2]%>><img src="<%= arr.get(i)[0] %>" class="center"></a>
+    		<%= arr.get(i)[1]%>
+    		<br>
+    		<%= i+1+"位"%>
     		</div>
     		<%} %>
     	</div>
     </div>
-        <div class='container'>
-    	<div class='center'>
-	<% 	for(int i = 1; i <= 6; i++){%>
-    		<div>
-    		<h3><%=i %></h3>
-    		</div>
-    		<%} %>
-    	</div>
-    </div>
+
 
 </body>
 </html>
