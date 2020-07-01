@@ -276,9 +276,10 @@ public class DBClass {
 		if(bean.getLogin()) {
 			bean=judgeFavorite(bean);
 			bean=judgeReview(bean);
-			bean.setOrdable(bean.getOrdable()-getStock(bean.getItemid()));
 			bean=judgeCart(bean);
 		}
+
+		bean.setOrdable(bean.getOrdable()-getStock(bean.getItemid()));
 		return bean;
 	}
 
