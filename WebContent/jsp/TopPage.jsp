@@ -40,11 +40,6 @@ $(function(){
   text-align: center;
   background:#419be0;
 }
-img {
-    width: 150px;
-    height: 200px;
-    object-fit: cover;
-}
 .item {
     /* slickでslider化するとimgがblockになるのでtext-alignでは中央寄せできなくなる */
     text-align: center;
@@ -52,6 +47,9 @@ img {
 
 .item img {
     /* 100%にしてしまえば横幅目一杯に広がるので「左に寄る問題」自体が発生しなくなる */
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
     width: 80%;
 }
 .center {
