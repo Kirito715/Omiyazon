@@ -7,23 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- jQuery読み込み -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<%
+	String userId = (String)session.getAttribute("userId");
 
-<script>
-  $(function () {
-    $(document).on('click', '.form-text-field-all .submit_button', function () {
-
-      var data = $(this).closest('form').serialize();
-
-      alert(data);
-    });
-  });
-</script>
-
-</head>
-<body>
-
+	if(userId == null){
+		userId = "1";
+		session.setAttribute("userId",userId);
+	}
+%>
 <%
 	ArrayList<String[]> region = (ArrayList<String[]>)session.getAttribute("regionList");
 	ArrayList<String[]> pref = (ArrayList<String[]>)session.getAttribute("prefList");
@@ -45,18 +36,64 @@
 	}
 	if(searchCondition == null){
 		searchCondition = new String[11];
+		searchCondition[0] ="";
+		for(int i = 1;i<11;i++){
+			searchCondition[i] ="0";
+		}
+	}
+%>
+<%
+	//カート
+	String cartNum = "0";
+	{
+	DBClass db = new DBClass();
+	db.dbOpen();
+
+	cartNum = db.getCartNum(userId);
+
+	db.dbClose();
 	}
 %>
 
+<!-- jQuery読み込み -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+<script>
+  $(function () {
+    $("#submit_button").click(function () {
+      //var data = $(this).closest('form').serialize();
+      //alert(data);
+    $("#searchtext").val($('#search').val());
+    $('#frm2').submit();
+    });
+  });
+
+  function select_checked() {
+		$("#selectRegion").val("<%=searchCondition[1]%>");
+		$("#selectPref").val("<%=searchCondition[2]%>");
+		$(".genre[value=<%=searchCondition[3]%>]").attr("checked","checked");
+		$(".genre[value=<%=searchCondition[4]%>]").attr("checked","checked");
+		$(".genre[value=<%=searchCondition[5]%>]").attr("checked","checked");
+		$(".genre[value=<%=searchCondition[6]%>]").attr("checked","checked");
+		$(".genre[value=<%=searchCondition[7]%>]").attr("checked","checked");
+		$(".genre[value=<%=searchCondition[8]%>]").attr("checked","checked");
+		$(".genre[value=<%=searchCondition[9]%>]").attr("checked","checked");
+		$(".genre[value=<%=searchCondition[10]%>]").attr("checked","checked");
+  }
+</script>
+
+</head>
+<body onLoad="select_checked()">
+
+<%--ヘッダー --%>
 <header>
 	<nav>
 		<h2><a href="#">Omiyazon</a></h2>
 		<ul>
 			<li>
 			<div class="form-text-field-all">
-				<form action="../../HeaderItemSearch">
-					<input type="text" name="search" placeholder="検索欄" value="<%=searchCondition[0] %>">
+				<form action="../../HeaderItemSearch" id="frm1" name="frm1">
+					<input type="text" name="search" id="search" placeholder="検索欄" value="<%=searchCondition[0] %>">
 					<input type="submit" value="検索">
 				</form>
 			</div>
@@ -64,20 +101,36 @@
 			<li>
 				<a href="#">特集一覧</a>
 			</li>
+			<%
+				if(userId!=null){
+			%>
 			<li>
-				<a href="#">カート</a>
+				<a href="#">カート:<%=cartNum %></a>
 			</li>
+			<%}%>
 			<li>
+				<%
+				if(userId!=null){
+				%>
+				<a href="#">マイページ</a>
+				<%}else{ %>
 				<a href="#">ログイン</a>
+				<%} %>
 			</li>
 		</ul>
 	</nav>
 </header>
 
-<div class="form-text-field-all">
-<form action="../../ItemSearch">
-	<select name="selectRegion">
-		<option value ="">地方</option>
+<br>
+<div class="LikesIcon">
+	<i class="far fa-heart LikesIcon-fa-heart"></i>
+</div>
+<br>
+
+<div>
+<form action="../../ItemSearch" id="frm2" name="frm2">
+	<select name="selectRegion" id="selectRegion">
+		<option value ="0">地方</option>
 		<%
 			for(String[] a: region){
 		%>
@@ -85,8 +138,8 @@
 		<%} %>
 	</select>
 	<br>
-	<select name="selectPref">
-		<option value ="">都道府県</option>
+	<select name="selectPref" id="selectPref">
+		<option value ="0">都道府県</option>
 		<%
 			for(String[] a: pref){
 		%>
@@ -94,16 +147,16 @@
 		<%} %>
 	</select>
 	<br>
-	<input type="checkbox" name="genre" value="1">加工食品<br>
-	<input type="checkbox" name="genre" value="2">果物<br>
-	<input type="checkbox" name="genre" value="3">和菓子<br>
-	<input type="checkbox" name="genre" value="4">洋菓子・スイーツ<br>
-	<input type="checkbox" name="genre" value="5">水・飲料<br>
-	<input type="checkbox" name="genre" value="6">お酒<br>
-	<input type="checkbox" name="genre" value="7">調味料<br>
-	<input type="checkbox" name="genre" value="8">雑貨・工芸品<br>
-	<button type="button" class="submit_button">仮検索</button>
-	<input type="submit" value="検索">
+	<input type="checkbox" name="genre" class="genre" value="1">加工食品<br>
+	<input type="checkbox" name="genre" class="genre" value="2">果物<br>
+	<input type="checkbox" name="genre" class="genre" value="3">和菓子<br>
+	<input type="checkbox" name="genre" class="genre" value="4">洋菓子・スイーツ<br>
+	<input type="checkbox" name="genre" class="genre" value="5">水・飲料<br>
+	<input type="checkbox" name="genre" class="genre" value="6">お酒<br>
+	<input type="checkbox" name="genre" class="genre" value="7">調味料<br>
+	<input type="checkbox" name="genre" class="genre" value="8">雑貨・工芸品<br>
+	<button type="button" id="submit_button">検索</button>
+	<input type="hidden" name="searchtext" id="searchtext">
 </form>
 </div>
 
@@ -135,6 +188,11 @@
 		<%=a[4] %><br>
 		<%=a[6] %><br>
 		<%=a[7] %></td>
+	<td>
+	<%if(userId!=null){ %>
+	<input type="checkbox"<%if(a[8].equals("1")){%> checked="checked" <%}%> >お気に入り
+	<%} %>
+	</td>
 	</tr>
 
 	<%} %>
