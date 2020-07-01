@@ -1341,10 +1341,12 @@ private DetailBean getNickName(DetailBean bean) {
 
 
 				String sql = "";
-				sql += " SELECT ジャンル名";
+				sql += " SELECT ジャンルID,ジャンル名";
 				sql += " FROM  ジャンルマスタ ";
 
 				PreparedStatement ps = objCon.prepareStatement(sql);
+
+				System.out.println(sql);
 
 				// 問い合わせの実行
 				ResultSet rset = ps.executeQuery();
@@ -1354,6 +1356,7 @@ private DetailBean getNickName(DetailBean bean) {
 					// 取得するフィールド分の配列生成
 					String[] strData = new String[2];
 
+					strData[0] = rset.getString("ジャンルID");
 					strData[1] = rset.getString("ジャンル名");
 					// リストに追加
 					data.add(strData);

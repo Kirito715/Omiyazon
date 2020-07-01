@@ -45,6 +45,12 @@ $(function(){
     text-align: center;
 }
 
+.Tokusyu img{
+
+	width:100%;
+
+}
+
 .item img {
     /* 100%にしてしまえば横幅目一杯に広がるので「左に寄る問題」自体が発生しなくなる */
     width: 150px;
@@ -64,7 +70,7 @@ $(function(){
       <div class='single-item'>
       <% ArrayList <String[]> Tok = (ArrayList<String[]>)session.getAttribute("reqTokusyuPass");
 	for(int i = 0; i < Tok.size(); i++){%>
-        <div>
+        <div class='Tokusyu'>
           <input type="hidden" name="tid" value="<%=Tok.get(i)[0] %>"><a href="../Tsyousai"><img src="<%= Tok.get(i)[1] %>"></a>
         </div>
         <%} %>
@@ -73,6 +79,19 @@ $(function(){
 
 
     <br><br><br><br>
+
+     <% ArrayList <String[]> Jnr = (ArrayList<String[]>)session.getAttribute("reqJanruname");
+	for(int i = 0; i < Jnr.size(); i++){%>
+    	<div>
+    	<input type="button" value="<%=Jnr.get(i)[1] %>">
+    	</div>
+    	<%} %>
+
+
+    <br><br><br><br>
+
+
+
     <div class='container'>
     	<div class='multiple-items'>
     	<% ArrayList <String[]> arr = (ArrayList<String[]>)session.getAttribute("reqRanking");
