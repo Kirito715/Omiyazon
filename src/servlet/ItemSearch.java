@@ -13,16 +13,16 @@ import javax.servlet.http.HttpSession;
 import common.DBClass;
 
 /**
- * Servlet implementation class HeaderItemSearch
+ * Servlet implementation class ItemSearch
  */
-@WebServlet("/HeaderItemSearch")
-public class HeaderItemSearch extends HttpServlet {
+@WebServlet("/ItemSearch")
+public class ItemSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HeaderItemSearch() {
+    public ItemSearch() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,20 +36,45 @@ public class HeaderItemSearch extends HttpServlet {
 
 		String userId = (String)session.getAttribute("userId");
 
-		String search = request.getParameter("search");
+		String text = request.getParameter("searchtext");
+		String regionId = request.getParameter("selectRegion");
+		String prefId = request.getParameter("selectPref");
+		String[] genre = request.getParameterValues("genre");
+		if(genre == null) {
+			genre = new String[1];
+			genre[0] = "0";
+		}
+
+		System.out.println(text);
+		System.out.println(regionId);
+		System.out.println(prefId);
+		for (int i = 0; i < genre.length; i++){
+		System.out.println(genre[i]);
+		}
 
 		DBClass db = new DBClass();
 		db.dbOpen();
-		ArrayList<String[]>searchResult = db.getItemList(search,userId);
+		ArrayList<String[]>searchResult = db.getItemList(text,regionId,prefId,genre,userId);
 		db.dbClose();
 
-		String[] searchCondition = {search,"0","0","0","0","0","0","0","0","0","0"};
+		String[] genrecon = {"0","0","0","0","0","0","0","0"};
+		for (int i = 0; i < genre.length; i++){
+			if(!genre[i].equals("0")) {
+				genrecon[Integer.parseInt(genre[i])-1] = genre[i];
+			}
+		}
+
+		for (int i = 0; i < genrecon.length; i++){
+			System.out.println(genrecon[i]);
+			}
+
+
+		String[] searchCondition = {text,regionId,prefId,genrecon[0],genrecon[1],genrecon[2],genrecon[3],genrecon[4],genrecon[5],genrecon[6],genrecon[7]};
 
 		session.setAttribute("searchResult", searchResult);
 		session.setAttribute("searchCondition", searchCondition);
 
 		response.sendRedirect("jsp/user/itemList.jsp");
-
 	}
 
 	/**

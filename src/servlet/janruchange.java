@@ -1,28 +1,24 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import common.DBClass;
 
 /**
- * Servlet implementation class HeaderItemSearch
+ * Servlet implementation class janruchange
  */
-@WebServlet("/HeaderItemSearch")
-public class HeaderItemSearch extends HttpServlet {
+@WebServlet("/janruchange")
+public class janruchange extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HeaderItemSearch() {
+    public janruchange() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +27,11 @@ public class HeaderItemSearch extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
+		// TODO Auto-generated method stub
 
-		String userId = (String)session.getAttribute("userId");
+		String GenreID = request.getParameter("hidGenreID");
 
-		String search = request.getParameter("search");
-
-		DBClass db = new DBClass();
-		db.dbOpen();
-		ArrayList<String[]>searchResult = db.getItemList(search,userId);
-		db.dbClose();
-
-		String[] searchCondition = {search,"0","0","0","0","0","0","0","0","0","0"};
-
-		session.setAttribute("searchResult", searchResult);
-		session.setAttribute("searchCondition", searchCondition);
-
-		response.sendRedirect("jsp/user/itemList.jsp");
+		System.out.println(GenreID);
 
 	}
 

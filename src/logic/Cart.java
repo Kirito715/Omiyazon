@@ -1,28 +1,26 @@
-package servlet;
+package logic;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import common.DBClass;
 
 /**
- * Servlet implementation class HeaderItemSearch
+ * Servlet implementation class Cart
  */
-@WebServlet("/HeaderItemSearch")
-public class HeaderItemSearch extends HttpServlet {
+@WebServlet("/Cart")
+public class Cart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HeaderItemSearch() {
+    public Cart() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,33 +29,19 @@ public class HeaderItemSearch extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-
-		String userId = (String)session.getAttribute("userId");
-
-		String search = request.getParameter("search");
-
-		DBClass db = new DBClass();
-		db.dbOpen();
-		ArrayList<String[]>searchResult = db.getItemList(search,userId);
-		db.dbClose();
-
-		String[] searchCondition = {search,"0","0","0","0","0","0","0","0","0","0"};
-
-		session.setAttribute("searchResult", searchResult);
-		session.setAttribute("searchCondition", searchCondition);
-
-		response.sendRedirect("jsp/user/itemList.jsp");
-
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+		
+		//DBクラス生成
+				DBClass db = new DBClass();
+		
 	}
 
 }
