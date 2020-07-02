@@ -34,7 +34,7 @@ public class ItemDetail extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String action =request.getParameter("action");
 		HttpSession session = request.getSession();
-		DetailBean bean = new DetailBean();;
+		DetailBean bean = new DetailBean();
 
 		if(action==null) {
 		int itemid= Integer.parseInt(request.getParameter("itemid"));
