@@ -27,7 +27,7 @@ $(function(){
 		});
 
 	<%String[][] color =(String[][])session.getAttribute("color");
-	int c=0;%>
+	int c=1;%>
 	var areas = [
 		{"code": 1 , "name":"北海道地方", "color":"<%=color[c][0]%>", "hoverColor":"<%=color[0][1]%>", "prefectures":[1]},
 		{"code": 2 , "name":"東北地方",   "color":"<%=color[++c][0]%>", "hoverColor":"<%=color[c][1]%>", "prefectures":[2,3,4,5,6,7]},
