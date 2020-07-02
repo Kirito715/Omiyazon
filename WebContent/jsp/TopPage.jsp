@@ -56,7 +56,11 @@ $(function(){
 			fontColor : "areaColor", //地図に表示する文字の色。"areaColor"でエリアの色に合わせる
 			fontShadowColor : "black", //地図に表示する文字の影の色
 			onSelect:function(data){
-			window.location.href = '../ItemSerch?pre='+data.code;
+				if(data.code<10){
+					window.location.href = '../ItemSearch?selectPref=10'+data.code;
+					}else{
+						window.location.href = '../ItemSearch?selectPref=1'+data.code;
+					}
 			},
 		}
 	);
