@@ -55,7 +55,7 @@ public class TopPage extends HttpServlet {
 			color[i][0]="#BDBDBD";
 			color[i][1]="#E6E6E6";
 		}
-
+		//地方カラー
 		if(region!=null) {
 		for(int i=0;i<region.size();i++) {
 			color[Integer.parseInt(region.get(i))-1][0]="#FF0000";
