@@ -1,0 +1,169 @@
+------------------------------------js--------------------------------------------------------------------
+
+		 $('#favorite').on('click', function() {
+		  let $btn = $(this);
+		  // Likeボタンがonクラス持っていたら
+		  if ($btn.hasClass('on')) {
+			  var request = {
+					action : 'delete',
+					itemid : '<%=bean.getItemid()%>',  //商品ID
+					userid : '<%=bean.getUserid()%>'   //登録者ID
+			  };
+					  //ajaxでservletにリクエストを送信
+			 $.ajax({
+					type    : "GET",          //GET / POST
+					url     : "../AjaxServlet",  //送信先のServlet URL（適当に変えて下さい）
+					data    : request,        //リクエストJSON
+				    async   : true,           //true:非同期(デフォルト), false:同期
+					success : function(data) {
+
+								$btn.removeClass('on');
+							    // 白抜きアイコンに戻す
+							    $btn.children("i").attr('class', 'far fa-heart LikesIcon-fa-heart');
+
+					    }, error : function(XMLHttpRequest, textStatus, errorThrown) {
+						      alert("リクエスト時にエラーが発生しました：" + textStatus +":\n" + errorThrown);
+					    }
+					  });
+
+		  } else {
+			  //リクエストJSON
+			  var request = {
+				 action : 'create',
+				 itemid : '<%=bean.getItemid()%>', //商品ID
+				 userid : '<%=bean.getUserid()%>'  //登録者ID
+			  };
+
+			  //ajaxでservletにリクエストを送信
+			  $.ajax({
+			    type    : "GET",          //GET / POST
+			    url     : "../AjaxServlet",  //送信先のServlet URL（適当に変えて下さい）
+			    data    : request,        //リクエストJSON
+			    async   : true,           //true:非同期(デフォルト), false:同期
+				success : function(data) {
+					 $btn.addClass('on');
+					 $btn.children("i").attr('class', 'fas fa-heart LikesIcon-fa-heart heart');
+			    },
+			    error : function(XMLHttpRequest, textStatus, errorThrown) {
+			      alert("リクエスト時にエラーが発生しました：" + textStatus +":\n" + errorThrown);
+			    }
+			  });
+
+		  }
+		});
+
+----------------------------------------------------------------------------------
+
+
+----------------------------html-------------------------------------------------
+
+<span id="favorite" class="LikesIcon">
+<i class="far fa-heart LikesIcon-fa-heart"></i>
+</span>
+
+
+----------------------------------------------------------------------------------
+
+
+------------------DBClassメソッド(insertとdelete)------------------------------
+
+	public void createFavorite(int itemid ,int userid) {
+
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " INSERT INTO お気に入りマスタ";
+        sql += " VALUES( ? , ? )";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1, userid);
+		ps.setInt(2, itemid);
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ps.executeUpdate();
+
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return;
+	}
+
+	public void deleteFavorite(int itemid ,int userid) {
+
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " DELETE FROM お気に入りマスタ";
+        sql += " WHERE 登録者ID = ? AND  商品ID=? ";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1, userid);
+		ps.setInt(2, itemid);
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ps.executeUpdate();
+
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return;
+	}
+
+	----------------------------------------------------------------------------------------------------------
+
+	------------------------------------------------------css-------------------------------------------------
+	@keyframes heartAnimation {
+  0% {
+    /* アイコンサイズをもとのより小さくする */
+    transform: scale(0.5);
+  }
+  10% {
+    transform: scale(0.7);
+  }
+  30% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  80% {
+    transform: scale(1.5);
+  }
+  100% {
+    /* もとのサイズに戻す */
+    transform: scale(1.0);
+  }
+}
+
+.LikesIcon-fa-heart{
+  font-size: 30px;
+}
+.LikesIcon-fa-heart.heart{
+  /* heartAnimationアニメーションを200ミリ秒かけて実行する */
+  animation: heartAnimation .2s;
+  /* アイコン色を黒から赤へ変更する */
+  color: #e2264d;
+}
+------------------------------------------------------------------------------------------------------------
