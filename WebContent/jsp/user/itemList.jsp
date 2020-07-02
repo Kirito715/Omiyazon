@@ -147,7 +147,10 @@
 		<%
 			if(userId!=null){
 		%>
-			<a class="nav-link" href="#" role="button">カート:<%=cartNum %></a>
+			<a class="nav-link hover" href="#" role="button">
+			<img alt="カート" src="../../img/cart.png"  width=40 height=35 >
+			<span class="text-warning" style="position:relative; left:-29px; top:-8px; font-size: 20px; font-weight: bold"><%=cartNum %></span>
+			</a>
 			<a class="btn btn-warning text-right" href="#" role="button">マイページ</a>
 		<%}else{%>
 			<a class="btn btn-warning text-right" href="#" role="button">ログイン</a>
@@ -220,7 +223,7 @@
 	for(String[] a: searchResult){
 %>
 <div class="DivLink">
-<img style="width:200px; height:200px; float:left; margin-right:20px;" src="<%=a[5] %>">
+<img style="width:200px; height:200px; float:left; margin-right:20px;" src="../<%=a[5] %>">
 
 	<h4><%=a[1] %></h4><br>
 	<%=a[2] %><br>

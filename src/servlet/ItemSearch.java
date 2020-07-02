@@ -37,6 +37,9 @@ public class ItemSearch extends HttpServlet {
 		String userId = (String)session.getAttribute("userId");
 
 		String text = request.getParameter("searchtext");
+		if(text == null) {
+			text = "";
+		}
 		String regionId = request.getParameter("selectRegion");
 		if(regionId== null) {
 			regionId = "0";
