@@ -220,7 +220,7 @@
 	for(String[] a: searchResult){
 %>
 <div class="DivLink">
-<img style="width:200px; height:200px; float:left; margin-right:20px;" src="../../img/testimg.png">
+<img style="width:200px; height:200px; float:left; margin-right:20px;" src="<%=a[5] %>">
 
 	<h4><%=a[1] %></h4><br>
 	<%=a[2] %><br>
