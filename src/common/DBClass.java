@@ -1638,7 +1638,7 @@ private DetailBean getNickName(DetailBean bean) {
 	        sql += " SELECT 地方ID";
 	        sql += " FROM 伝票マスタ dm inner join 売上明細マスタ umm on dm.伝票ID=umm.伝票ID";
 	        sql += " inner join 商品マスタ sm on umm.商品ID=sm.商品ID";
-	        sql += " WHERE 登録者ID=? AND 注文状態 ='1' or 注文状態 ='2'";
+	        sql += " WHERE 登録者ID=? AND (注文状態 ='1' or 注文状態 ='2')";
 
 			// データ取得
 			PreparedStatement ps = objCon.prepareStatement(sql);
