@@ -106,7 +106,7 @@ public class DBClass {
 	 * @param name
 	 * @return
 	 */
-	public ArrayList<String[]> getItemList(String name){
+	public ArrayList<String[]> getItemList(String name,String userId){
 		ArrayList<String[]> ary = new ArrayList<String[]>();
 
 		try {
@@ -125,7 +125,7 @@ public class DBClass {
 	        ResultSet rs = ps.executeQuery();
 
 	        while(rs.next()) {
-	        	String[] strData = new String[8];
+	        	String[] strData = new String[9];
 
 	        	strData[0] =rs.getString("商品ID");
 	        	strData[1] =rs.getString("商品名");
@@ -144,12 +144,108 @@ public class DBClass {
 	        		strData[7] = "在庫なし";
 	        	}
 
+	        	//お気に入り
+	        	if(userId !=null) {
+	        		strData[8] = getFavorite(strData[0],userId);
+	        	}
+
 	        	ary.add(strData);
 	        }
 
 	        rs.close();	// ResultSetのクローズ
 	        ps.close();	// Statementのクローズ
 
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return ary;
+	}
+
+	public ArrayList<String[]> getItemList(String name, String rid, String pid, String[] genre,String userId){
+		ArrayList<String[]> ary = new ArrayList<String[]>();
+
+		try {
+	        String sql = "";
+	        sql += " SELECT 商品ID,商品名,加盟店名,ジャンル名,単価,画像パス1,注文上限数";
+	        sql += " FROM   商品マスタ sm";
+	        sql += " INNER JOIN ジャンルマスタ gm";
+	        sql += " ON sm.ジャンルID = gm.ジャンルID";
+	        sql += " WHERE 商品名 LIKE ?";
+	        if(!rid.equals("0")) {
+	        	sql += " AND 地方ID = ?";
+	        }
+	        if(!pid.equals("0")) {
+	        	sql += " AND 県ID = ?";
+	        }
+	        sql += " AND 削除フラグ=0";
+	        sql += " AND gm.ジャンルID in (SELECT ジャンルID from ジャンルマスタ";
+	        for(int i = 0;i < genre.length;i++) {
+	        	if(!genre[i].equals("0")) {
+	        		if(i == 0) {
+	        			sql += " WHERE ジャンルID = "+genre[i];
+	        		}
+	        		else {
+	        			sql += " OR ジャンルID = "+genre[i];
+	        		}
+	        	}
+	        }
+	        sql += ")";
+
+	        System.out.println(sql);
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        int i = 1;
+	        ps.setString(i,"%"+ name +"%");
+	        if(!rid.equals("0")) {
+	        	i+=1;
+	        	ps.setString(i,rid);
+	        }
+	        if(!pid.equals("0")) {
+	        	i+=1;
+	        	ps.setString(i,pid);
+	        }
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	String[] strData = new String[9];
+
+	        	strData[0] =rs.getString("商品ID");
+	        	strData[1] =rs.getString("商品名");
+	        	strData[2] =rs.getString("加盟店名");
+	        	strData[3] =rs.getString("ジャンル名");
+	        	strData[4] =rs.getString("単価");
+	        	strData[5] =rs.getString("画像パス1");
+	        	//評価
+	        	if(getItemVal(strData[0]).equals("0")) {
+	        		strData[6] = "評価はありません";
+	        	}
+	        	else {
+	        		strData[6] =getItemVal(strData[0]);
+	        	}
+
+	        	//在庫
+	        	if(rs.getInt("注文上限数") > getStock(rs.getInt("商品ID"))){
+	        		strData[7] = "在庫あり";
+	        	}
+	        	else {
+	        		strData[7] = "在庫なし";
+	        	}
+
+	        	//お気に入り
+	        	if(userId !=null) {
+	        		strData[8] = getFavorite(strData[0],userId);
+	        	}
+
+	        	ary.add(strData);
+	        }
+
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
 
 		} catch (SQLException e) {
 			// エラー表示
@@ -232,12 +328,46 @@ public class DBClass {
 		return ary;
 	}
 
+	private String getFavorite(String itemId,String userId) {
+		String sRet ="0";
+		try {
+        String sql = "";
+        sql += " SELECT count(*) AS 判定";
+        sql += " FROM お気に入りマスタ";
+        sql += " WHERE 登録者ID = ? AND 商品ID = ? ";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setString(1,userId);
+		ps.setString(2,itemId);
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ResultSet rset = ps.executeQuery();
+		rset.next();
+		if(rset.getInt("判定")>0) {
+			sRet = "1";
+		}else {
+			sRet = "0";
+		}
+        rset.close();	// ResultSetのクローズ
+        ps.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return sRet;
+	}
+
 	/**
 	 * 評価平均値を取得
 	 * @param id
 	 * @return
 	 */
-	public String getItemVal(String id) {
+	private String getItemVal(String id) {
 		String val = "0";
 		try {
 	        String sql = "";
@@ -265,6 +395,37 @@ public class DBClass {
 
 		return val;
 	}
+
+	public String getCartNum(String userId) {
+		String num ="0";
+
+		try {
+	        String sql = "";
+	        sql += " SELECT SUM(個数) 合計";
+	        sql += " FROM   カートマスタ";
+	        sql += " WHERE 登録者ID = ?";
+	        sql += " GROUP BY 登録者ID";
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        ps.setString(1,userId);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	num =rs.getString("合計");
+	        }
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return num;
+	}
+
 
 
 //商品詳細の初期設定
@@ -431,7 +592,6 @@ public class DBClass {
 
 		return bean;
 	}
-
 
 	private DetailBean judgeFavorite(DetailBean bean) {
 		Statement stmt;

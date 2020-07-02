@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import common.DBClass;
+import comon.DBClass;
 
 /**
- * Servlet implementation class HeaderItemSearch
+ * Servlet implementation class TAlltokusyuu
  */
-@WebServlet("/HeaderItemSearch")
-public class HeaderItemSearch extends HttpServlet {
+@WebServlet("/TAlltokusyuu")
+public class TAlltokusyuu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HeaderItemSearch() {
+    public TAlltokusyuu() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +31,18 @@ public class HeaderItemSearch extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-
-		String userId = (String)session.getAttribute("userId");
-
-		String search = request.getParameter("search");
-
+		String no="0";
+		System.out.println(no);
+		session.setAttribute("page",no);
 		DBClass db = new DBClass();
 		db.dbOpen();
-		ArrayList<String[]>searchResult = db.getItemList(search,userId);
+		ArrayList<String[]> ary = db.getTAll();
 		db.dbClose();
-
-		String[] searchCondition = {search,"0","0","0","0","0","0","0","0","0","0"};
-
-		session.setAttribute("searchResult", searchResult);
-		session.setAttribute("searchCondition", searchCondition);
-
-		response.sendRedirect("jsp/user/itemList.jsp");
-
+		session.setAttribute("tokusyuu", ary);
+		response.sendRedirect("jsp/TAlltokusyuu.jsp");
 	}
 
 	/**

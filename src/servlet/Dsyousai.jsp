@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,11 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="../../ItemDetail" method="post">
-登録者ID:<input type="number" name="userid"><br>
-商品ID:<input type="number" name="itemid"><br>
-<input type="submit" value="確定">
-
-</form>
+<%ArrayList<String[]> Dsyousai = (ArrayList<String[]>) session.getAttribute("Dsyousai");%>
+<%for(int i=0;i<Dsyousai.size();i++){%>
+<%=Dsyousai.get(i)[0]%>
+<br>
+<%}%>
 </body>
 </html>
