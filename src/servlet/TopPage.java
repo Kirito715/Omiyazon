@@ -32,24 +32,12 @@ public class TopPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-		String[][] color =new String[10][2];
-		
-		for(int i=0; i <= str.length()-1;i++) {
-			if(str.charAt(i)=='0') {
-				color[i][0]="#BDBDBD";
-				color[i][1]="#E6E6E6";
-			}else {
-				color[i][0]="#FF0000";
-				color[i][1]="#FA5858";
-			}
-		}
-
-
 
 		HttpSession session=request.getSession();
 
 		DBClass db = new DBClass();
-
+		String[][] color =new String[10][2];
+		int userId=Integer.parseInt(request.getParameter("userId"));
 		String TPass = request.getParameter("TPass");
 		String jbutton = request.getParameter("jbutton");
 //		String Pass1 = request.getParameter("rPass");
@@ -59,9 +47,22 @@ public class TopPage extends HttpServlet {
 		ArrayList<String[]>  getTokusyuData = db. getTokusyuData(TPass);
 		ArrayList<String[]>  getJanruData = db. getJanruData(jbutton);
 		ArrayList<String[]> aryRanking5 = db.getRankingData(null);
-		
-		String[][] color =db.getComplete(userid);
-		
+
+		//日本地図の色設定
+		ArrayList<String> region =db.getComplete(userId);
+		//初期カラー
+		for(int i=0; i < 10 ; i++) {
+			color[i][0]="#BDBDBD";
+			color[i][1]="#E6E6E6";
+		}
+
+		if(region!=null) {
+		for(int i=0;i<region.size();i++) {
+			color[Integer.parseInt(region.get(i))][0]="#FF0000";
+			color[Integer.parseInt(region.get(i))][1]="#FA5858";
+		 }
+		}
+
 		session.setAttribute("reqTokusyuPass", getTokusyuData);
 		session.setAttribute("reqJanruname", getJanruData);
 		session.setAttribute("reqRanking", aryRanking5);

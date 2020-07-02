@@ -9,7 +9,7 @@
 <body>
 <FORM action="../TopPage" method="POST">
 
-<input type="text" maxlength="10" name="str" >
+<input type="number" maxlength="100" name="userId" >
 <input type="submit" value="送信" >
 </FORM>
 </body>
