@@ -1374,7 +1374,7 @@ private DetailBean getNickName(DetailBean bean) {
 			return data;
 		}
 
-		public ArrayList<String[]> getRankingData(String fotPass1) {
+		public ArrayList<String[]> getRankingData(String genreId) {
 
 			ArrayList<String[]> data = new ArrayList<String[]>();
 
@@ -1392,6 +1392,9 @@ private DetailBean getNickName(DetailBean bean) {
 				sql += " group by a.商品ID";
 				sql += " ) AS SQ";
 				sql	+= " ON SM.商品ID = SQ.商品ID ";
+				if(!(genreId == null)) {
+				sql += " where ジャンルID = '"+ genreId+"'";
+				}
 				sql +=		"order by 売上 desc";
 
 				PreparedStatement ps = objCon.prepareStatement(sql);

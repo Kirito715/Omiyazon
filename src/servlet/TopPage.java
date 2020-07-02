@@ -41,13 +41,13 @@ public class TopPage extends HttpServlet {
 
 		String TPass = request.getParameter("TPass");
 		String jbutton = request.getParameter("jbutton");
-		String Pass1 = request.getParameter("rPass");
+//		String Pass1 = request.getParameter("rPass");
 
 		db.dbOpen();
 
 		ArrayList<String[]>  getTokusyuData = db. getTokusyuData(TPass);
 		ArrayList<String[]>  getJanruData = db. getJanruData(jbutton);
-		ArrayList<String[]> aryRanking5 = db.getRankingData(Pass1);
+		ArrayList<String[]> aryRanking5 = db.getRankingData(null);
 
 		session.setAttribute("reqTokusyuPass", getTokusyuData);
 		session.setAttribute("reqJanruname", getJanruData);

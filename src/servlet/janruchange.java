@@ -1,12 +1,16 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import common.DBClass;
 
 /**
  * Servlet implementation class janruchange
@@ -32,7 +36,16 @@ public class janruchange extends HttpServlet {
 		String GenreID = request.getParameter("hidGenreID");
 
 		System.out.println(GenreID);
+		HttpSession session = request.getSession();
 
+		DBClass db = new DBClass();
+
+		db.dbOpen();
+		ArrayList<String[]> aryRanking5 = db.getRankingData(GenreID);
+		db.dbClose();
+
+		session.setAttribute("reqRanking", aryRanking5);
+		response.sendRedirect("jsp/TopPage.jsp");
 	}
 
 	/**
