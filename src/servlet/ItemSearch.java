@@ -38,7 +38,13 @@ public class ItemSearch extends HttpServlet {
 
 		String text = request.getParameter("searchtext");
 		String regionId = request.getParameter("selectRegion");
+		if(regionId.equals(null)) {
+			regionId = "0";
+		}
 		String prefId = request.getParameter("selectPref");
+		if(prefId.equals(null)) {
+			prefId = "0";
+		}
 		String[] genre = request.getParameterValues("genre");
 		if(genre == null) {
 			genre = new String[1];
