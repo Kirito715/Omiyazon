@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%
+	//ログイン情報
 	String userId = (String)session.getAttribute("userId");
 
 	if(userId == null){
@@ -42,6 +43,12 @@
 		}
 	}
 %>
+<%	//検索結果
+	ArrayList<String[]>searchResult = (ArrayList<String[]>)session.getAttribute("searchResult");
+	if(searchResult == null){
+		searchResult = new ArrayList<String[]>();
+	}
+%>
 <%
 	//カート
 	String cartNum = "0";
@@ -54,9 +61,12 @@
 	db.dbClose();
 	}
 %>
-
+<!-- BootstrapのCSS読み込み -->
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
 <!-- jQuery読み込み -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- BootstrapのJS読み込み -->
+<script src="../../js/bootstrap.min.js"></script>
 
 <script>
   $(function () {
@@ -80,56 +90,77 @@
 		$(".genre[value=<%=searchCondition[9]%>]").attr("checked","checked");
 		$(".genre[value=<%=searchCondition[10]%>]").attr("checked","checked");
   }
+
 </script>
+<style>
+.DivLink {
+	position: relative;
+    padding: 20px;
+    overflow: auto;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.DivLink a {
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-indent:-999px;
+    z-index: 2;
+
+}
+
+.DivLink:hover {
+	filter:alpha(opacity=70);
+	-ms-filter: "alpha(opacity=70)";
+	-moz-opacity:0.7;
+	-khtml-opacity: 0.7;
+	opacity:0.7;
+	zoom:1;
+}
+
+</style>
 
 </head>
 <body onLoad="select_checked()">
 
 <%--ヘッダー --%>
-<header>
-	<nav>
-		<h2><a href="#">Omiyazon</a></h2>
-		<ul>
-			<li>
-			<div class="form-text-field-all">
-				<form action="../../HeaderItemSearch" id="frm1" name="frm1">
-					<input type="text" name="search" id="search" placeholder="検索欄" value="<%=searchCondition[0] %>">
-					<input type="submit" value="検索">
-				</form>
-			</div>
-			</li>
-			<li>
-				<a href="#">特集一覧</a>
-			</li>
-			<%
-				if(userId!=null){
-			%>
-			<li>
-				<a href="#">カート:<%=cartNum %></a>
-			</li>
-			<%}%>
-			<li>
-				<%
-				if(userId!=null){
-				%>
-				<a href="#">マイページ</a>
-				<%}else{ %>
-				<a href="#">ログイン</a>
-				<%} %>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
+<a class="navbar-brand text-white" href="#">Omiyazon</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<form class="form-inline " id="frm1" name="frm1" action="../../HeaderItemSearch">
+			<input class="form-control" type="text" placeholder="検索" aria-label="Search" name="search" id="search" value="<%=searchCondition[0] %>">
+			<button class="btn btn-success" type="submit">検索</button>
+		</form>
+
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link text-white" href="#">特集一覧</a>
 			</li>
 		</ul>
-	</nav>
-</header>
 
-<br>
-<div class="LikesIcon">
-	<i class="far fa-heart LikesIcon-fa-heart"></i>
-</div>
-<br>
+		<%
+			if(userId!=null){
+		%>
+			<a class="nav-link" href="#" role="button">カート:<%=cartNum %></a>
+			<a class="btn btn-warning text-right" href="#" role="button">マイページ</a>
+		<%}else{%>
+			<a class="btn btn-warning text-right" href="#" role="button">ログイン</a>
+		<%} %>
+	</div>
+</nav>
+<div class="container-fluid">
+<div class="row">
+<div class="col-sm-4">
 
-<div>
 <form action="../../ItemSearch" id="frm2" name="frm2">
-	<select name="selectRegion" id="selectRegion">
+<br>
+	<select name="selectRegion" id="selectRegion" class="custom-select">
 		<option value ="0">地方</option>
 		<%
 			for(String[] a: region){
@@ -138,7 +169,7 @@
 		<%} %>
 	</select>
 	<br>
-	<select name="selectPref" id="selectPref">
+	<select name="selectPref" id="selectPref" class="custom-select">
 		<option value ="0">都道府県</option>
 		<%
 			for(String[] a: pref){
@@ -147,57 +178,75 @@
 		<%} %>
 	</select>
 	<br>
-	<input type="checkbox" name="genre" class="genre" value="1">加工食品<br>
-	<input type="checkbox" name="genre" class="genre" value="2">果物<br>
-	<input type="checkbox" name="genre" class="genre" value="3">和菓子<br>
-	<input type="checkbox" name="genre" class="genre" value="4">洋菓子・スイーツ<br>
-	<input type="checkbox" name="genre" class="genre" value="5">水・飲料<br>
-	<input type="checkbox" name="genre" class="genre" value="6">お酒<br>
-	<input type="checkbox" name="genre" class="genre" value="7">調味料<br>
-	<input type="checkbox" name="genre" class="genre" value="8">雑貨・工芸品<br>
-	<button type="button" id="submit_button">検索</button>
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" id="check1" name="genre" class="genre" value="1">
+		<label class="form-check-label" for="check1">加工食品</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" id="check2" name="genre" class="genre" value="2">
+		<label class="form-check-label" for="check2">果物</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" id="check3" name="genre" class="genre" value="3">
+		<label class="form-check-label" for="check3">和菓子</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" id="check4" name="genre" class="genre" value="4">
+		<label class="form-check-label" for="check4">洋菓子・スイーツ</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" id="check5" name="genre" class="genre" value="5">
+		<label class="form-check-label" for="check5">水・飲料</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" id="check6" name="genre" class="genre" value="6">
+		<label class="form-check-label" for="check6">お酒</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" id="check7" name="genre" class="genre" value="7">
+		<label class="form-check-label" for="check7">調味料</label>
+	</div>
+	<div class="form-check">
+		<input class="form-check-input" type="checkbox" id="check8" name="genre" class="genre" value="8">
+		<label class="form-check-label" for="check8">雑貨・工芸品</label>
+	</div>
+	<button class="btn btn-outline-primary" type="button" id="submit_button">検索</button>
 	<input type="hidden" name="searchtext" id="searchtext">
+	<br>
 </form>
 </div>
-
+<div class="col-sm-8">
 <%
-	ArrayList<String[]>searchResult = (ArrayList<String[]>)session.getAttribute("searchResult");
-	if(searchResult == null){
-		searchResult = new ArrayList<String[]>();
-	}
-%>
-
-<table>
-	<tr>
-	<td><img style="width:200px; height:200px;" src="../../img/testimg.png"></td>
-	<td>商品名<br>
-		加盟店名<br>
-		評価<br>
-		ジャンル<br>
-		値段<br>
-		在庫有無</td>
-	</tr>
-	<%
 	for(String[] a: searchResult){
-	%>
-	<tr>
-	<td><img style="width:200px; height:200px; object-fit: cover;" src="../../img/TokyoBanana.jpg"></td>
-	<td><%=a[1] %><br>
-		<%=a[2] %><br>
-		<%=a[3] %><br>
-		<%=a[4] %><br>
-		<%=a[6] %><br>
-		<%=a[7] %></td>
-	<td>
-	<%if(userId!=null){ %>
-	<input type="checkbox"<%if(a[8].equals("1")){%> checked="checked" <%}%> >お気に入り
-	<%} %>
-	</td>
-	</tr>
+%>
+<div class="DivLink">
+<img style="width:200px; height:200px; float:left; margin-right:20px;" src="../../img/testimg.png">
 
-	<%} %>
-</table>
+	<h4><%=a[1] %></h4><br>
+	<%=a[2] %><br>
+	<%=a[3] %><br>
+	<%=a[4] %>円<br>
+	<%=a[6] %><br>
+	<%=a[7] %>
 
+<%if(userId!=null){ %>
+	<%if(a[8].equals("1")){%>
+		<span style="text-align: right; display: block;">
+ 			<img style="width:30px; height:30px;" src="../../img/heart1.png">
+ 		</span>
+	<%}else{%>
+		<span style="text-align: right; display: block;">
+			<img style="width:30px; height:30px;" src="../../img/heart0.png">
+		</span>
+	<%} %>
+<%} %>
+<a href="#<%=a[0] %>"></a>
+</div>
+<hr>
+<%} %>
+</div>
+</div>
+</div>
 
 </body>
 </html>
