@@ -1,4 +1,4 @@
-package logic;
+package servlet;
 
 import java.io.IOException;
 
@@ -7,20 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import common.DBClass;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Cart
+ * Servlet implementation class SendAddress
  */
-@WebServlet("/Cart")
-public class Cart extends HttpServlet {
+@WebServlet("/SendAddress")
+public class SendAddress extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Cart() {
+    public SendAddress() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,11 +36,29 @@ public class Cart extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		
-		//DBクラス生成
-				DBClass db = new DBClass();
-		
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+
+		//画面遷移確認
+		System.out.println("SendAddressの中身");
+
+		// 入力パラメタ取得
+		String Post=request.getParameter("post");
+		String Address1=request.getParameter("address1");
+		String Address2=request.getParameter("address2");
+
+
+		System.out.println(Post);
+		System.out.println(Address1);
+		System.out.println(Address2);
+
+		HttpSession  Session = request.getSession();
+		Session.setAttribute("post",Post );
+		Session.setAttribute("address1",Address1 );
+		Session.setAttribute("address2",Address2 );
+
+		//購入確認遷移
+		response.sendRedirect("jsp/item/Conf.jsp");
 	}
 
 }

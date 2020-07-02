@@ -58,8 +58,8 @@ public class TopPage extends HttpServlet {
 
 		if(region!=null) {
 		for(int i=0;i<region.size();i++) {
-			color[Integer.parseInt(region.get(i))][0]="#FF0000";
-			color[Integer.parseInt(region.get(i))][1]="#FA5858";
+			color[Integer.parseInt(region.get(i))-1][0]="#FF0000";
+			color[Integer.parseInt(region.get(i))-1][1]="#FA5858";
 		 }
 		}
 
