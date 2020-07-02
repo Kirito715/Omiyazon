@@ -66,6 +66,7 @@ $(function(){
 
 </head>
 <body>
+<header></header>
 <div class='container'>
       <div class='single-item'>
       <% ArrayList <String[]> Tok = (ArrayList<String[]>)session.getAttribute("reqTokusyuPass");
@@ -79,12 +80,14 @@ $(function(){
 
 
     <br><br><br><br>
-
+	<form action="../janruchange" method="post">
+	<button name="submit" value="NULL">総合</button>
+	</form>
      <% ArrayList <String[]> Jnr = (ArrayList<String[]>)session.getAttribute("reqJanruname");
  	for(int i = 0; i < Jnr.size(); i++){%>
 	<div>
 		<form action="../janruchange" method="post">
-	<button name="submit" value="<%=Jnr.get(i)[0] %>"><%=Jnr.get(i)[1] %></button>
+		<button name="submit" value="<%=Jnr.get(i)[0] %>"><%=Jnr.get(i)[1] %></button>
 	<input type="hidden" name="hidGenreID" value="<%=Jnr.get(i)[0]%>">
 		</form>
 	</div>
