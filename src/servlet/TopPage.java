@@ -32,10 +32,8 @@ public class TopPage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=UTF-8");
-
-		String str=request.getParameter("str");
 		String[][] color =new String[10][2];
-
+		
 		for(int i=0; i <= str.length()-1;i++) {
 			if(str.charAt(i)=='0') {
 				color[i][0]="#BDBDBD";
@@ -61,7 +59,9 @@ public class TopPage extends HttpServlet {
 		ArrayList<String[]>  getTokusyuData = db. getTokusyuData(TPass);
 		ArrayList<String[]>  getJanruData = db. getJanruData(jbutton);
 		ArrayList<String[]> aryRanking5 = db.getRankingData(null);
-
+		
+		String[][] color =db.getComplete(userid);
+		
 		session.setAttribute("reqTokusyuPass", getTokusyuData);
 		session.setAttribute("reqJanruname", getJanruData);
 		session.setAttribute("reqRanking", aryRanking5);

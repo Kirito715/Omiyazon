@@ -1624,4 +1624,49 @@ private DetailBean getNickName(DetailBean bean) {
 			return retCount;
 		}
 
+	public ArrayList<String> getComplete(int userid){
+		ArrayList<String> data = new ArrayList<String>();
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += " SELECT 地方ID";
+	        sql += " FROM 伝票マスタ dm inner join 売上明細マスタ umm on dm.伝票ID=umm.伝票ID";
+	        sql += " inner join 商品マスタ sm on umm.商品ID=sm.商品ID";
+	        sql += " WHERE 登録者ID=? AND 注文状態 ='1' or 注文状態 ='2'";
+
+			// データ取得
+			PreparedStatement ps = objCon.prepareStatement(sql);
+			// プレースホルダにパラメータを設定
+			ps.setInt(1,userid);
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// sqlを実行し、結果を取得
+			ResultSet rset = ps.executeQuery();
+
+		        while(rset.next()) {
+	        	// 取得するフィールド分の配列生成
+	        	String strData;
+	        	strData =rset.getString("地方ID");
+	        	data.add(strData);
+	        }
+
+	        rset.close();	// ResultSetのクローズ
+	        stmt.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return data;
+	}
+
 	}
