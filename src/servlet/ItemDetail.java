@@ -38,9 +38,15 @@ public class ItemDetail extends HttpServlet {
 
 		if(action==null) {
 		int itemid= Integer.parseInt(request.getParameter("itemid"));
-		int userid= Integer.parseInt(request.getParameter("userid"));
-		bean.setLogin(true);
-		bean.setUserid(userid);
+		String uid = request.getParameter("userid");
+		if(uid != null) {
+			int userid= Integer.parseInt(request.getParameter("userid"));
+			bean.setUserid(userid);
+			bean.setLogin(true);
+		}
+		else {
+			bean.setLogin(false);
+		}
 		bean.setItemid(itemid);
 		DBClass db=new DBClass();
 		db.dbOpen();
@@ -68,7 +74,7 @@ public class ItemDetail extends HttpServlet {
 			session.setAttribute("DetaillBean",bean);
 		}
 
-		response.sendRedirect("jsp/itemDetail.jsp");
+		response.sendRedirect("jsp/user/itemDetail.jsp");
 	}
 
 	/**

@@ -37,7 +37,11 @@ public class TopPage extends HttpServlet {
 
 		DBClass db = new DBClass();
 		String[][] color =new String[10][2];
-		int userId=Integer.parseInt(request.getParameter("userId"));
+		String uid = request.getParameter("userId");
+		int userId = 0;
+		if(uid != null) {
+			userId=Integer.parseInt(request.getParameter("userId"));
+		}
 		String TPass = request.getParameter("TPass");
 		String jbutton = request.getParameter("jbutton");
 //		String Pass1 = request.getParameter("rPass");
@@ -48,8 +52,14 @@ public class TopPage extends HttpServlet {
 		ArrayList<String[]>  getJanruData = db. getJanruData(jbutton);
 		ArrayList<String[]> aryRanking5 = db.getRankingData(null);
 
+		ArrayList<String> region = new ArrayList<String>();
 		//日本地図の色設定
-		ArrayList<String> region =db.getComplete(userId);
+		if(uid != null) {
+			region =db.getComplete(userId);
+		}
+		else {
+			region = null;
+		}
 		//初期カラー
 		for(int i=0; i < 10 ; i++) {
 			color[i][0]="#BDBDBD";

@@ -91,6 +91,10 @@
 		$(".genre[value=<%=searchCondition[10]%>]").attr("checked","checked");
   }
 
+	function goDetail(id){
+		$("#itemid").val(id);
+		document.frm3.submit();
+	}
 </script>
 <style>
 .DivLink {
@@ -128,7 +132,7 @@
 
 <%--ヘッダー --%>
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
-<a class="navbar-brand text-white" href="../TopPage.jsp">Omiyazon</a>
+<a class="navbar-brand text-white" href="../../TopPage">Omiyazon</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
@@ -243,13 +247,15 @@
 		</span>
 	<%} %>
 <%} %>
-<a href="#<%=a[0] %>"></a>
+	<a href="#<%=a[0] %>"; onclick="goDetail('<%=a[0]%>');return false;"></a>
 </div>
 <hr>
 <%} %>
 </div>
 </div>
 </div>
-
+<form action="../../ItemDetail" name="frm3" id="frm3">
+	<input type="hidden" name="itemid" id="itemid">
+</form>
 </body>
 </html>
