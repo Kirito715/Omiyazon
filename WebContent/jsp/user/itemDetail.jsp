@@ -80,7 +80,7 @@ $(function(){
 		  }
 		});
 
-	$('#itemimage').attr('src','<%=bean.getImage1()%>');
+	$('#itemimage').attr('src','../<%=bean.getImage1()%>');
 
 	var irev=<%=bean.getReviewList().size()%>;
 	$('#sort').addClass('hide');
