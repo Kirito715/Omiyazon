@@ -1998,6 +1998,130 @@ private DetailBean getNickName(DetailBean bean) {
 	  }
 		return;
 	}
+	public int insertkanren( String sid) {
+
+		// 実行結果件数用変数
+		int retCount = 0;
+
+		//Statementを生成
+		Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+			String sql = "";
+			sql += " insert 関連商品マスタ ";
+			sql += "values ((select max(特集ID) from 特集マスタ),'"+sid+"')";
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// 問い合わせの実行
+			//更新、削除、登録にはexecuteUpdae
+			//確認はexecuteQuery
+			retCount = stmt.executeUpdate(sql);
+
+			stmt.close(); // Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+		return retCount;
+	}
+	public int insertdenpyou( String uid,String date,String num,String zyusyo1,String zyusyo2) {
+
+		// 実行結果件数用変数
+		int retCount = 0;
+
+		//Statementを生成
+		Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+			String sql = "";
+			sql += " insert 伝票マスタ ";
+			sql += "values ((select max(伝票ID)+1 from 伝票マスタ),'"+uid+"','"+date+"','0',null,'"+num+"'"
+					+ ",'"+zyusyo1+"','"+zyusyo2+"')";
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// 問い合わせの実行
+			//更新、削除、登録にはexecuteUpdae
+			//確認はexecuteQuery
+			retCount = stmt.executeUpdate(sql);
+
+			stmt.close(); // Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+		return retCount;
+	}
+	public int inserturiage( String sid,String snum,String svalue) {
+
+		// 実行結果件数用変数
+		int retCount = 0;
+
+		//Statementを生成
+		Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+			String sql = "";
+			sql += " insert 売上明細マスタ ";
+			sql += "values ((select max(伝票ID) from 伝票マスタ),'"+sid+"','"+snum+"','"+svalue+"')";
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// 問い合わせの実行
+			//更新、削除、登録にはexecuteUpdae
+			//確認はexecuteQuery
+			retCount = stmt.executeUpdate(sql);
+
+			stmt.close(); // Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+		return retCount;
+	}
+	public int deleteAllcart(String uid) {
+
+		// 実行結果件数用変数
+		int retCount = 0;
+
+		//Statementを生成
+		Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+			String sql = "";
+			sql += "delete from  カートマスタ  ";
+			sql += " WHERE 登録者ID='"+uid+"'";
+
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// 問い合わせの実行
+			//更新、削除、登録にはexecuteUpdae
+			//確認はexecuteQuery
+			retCount = stmt.executeUpdate(sql);
+
+			stmt.close(); // Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return retCount;
+	}
 
 
 }
