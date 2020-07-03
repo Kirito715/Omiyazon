@@ -67,6 +67,15 @@ $(function(){
 });
 </script>
 <style type="text/css">
+
+html {
+   background-color: yellowgreen; /* 周囲の背景色 */
+}
+body {
+   margin:0px 15%;
+   padding: 0px;   /* 内側の余白を消す */
+   background-color: white; /* 本文部分の背景色 */
+}
 .container {
   margin: 0 auto;
   padding: 40px;
@@ -101,6 +110,7 @@ $(function(){
     /* slickでslider化するとimgがblockになるのでmarginで中央寄せにしないといけない */
     margin: 0 auto;
 }
+
 </style>
 
 </head>
