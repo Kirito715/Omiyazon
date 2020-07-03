@@ -11,10 +11,10 @@
 	//ログイン情報
 	String userId = (String)session.getAttribute("userId");
 
-	if(userId == null){
-		userId = "1";
-		session.setAttribute("userId",userId);
-	}
+	//if(userId == null){
+	//	userId = "1";
+	//	session.setAttribute("userId",userId);
+	//}
 %>
 <%
 	ArrayList<String[]> region = (ArrayList<String[]>)session.getAttribute("regionList");
@@ -128,7 +128,7 @@
 
 <%--ヘッダー --%>
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
-<a class="navbar-brand text-white" href="#">Omiyazon</a>
+<a class="navbar-brand text-white" href="../TopPage.jsp">Omiyazon</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
@@ -140,7 +140,7 @@
 
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link text-white" href="#">特集一覧</a>
+				<a class="nav-link text-white" href="../../TAlltokusyuu">特集一覧</a>
 			</li>
 		</ul>
 
@@ -151,9 +151,9 @@
 			<img alt="カート" src="../../img/cart.png"  width=40 height=35 >
 			<span class="text-warning" style="position:relative; left:-29px; top:-8px; font-size: 20px; font-weight: bold"><%=cartNum %></span>
 			</a>
-			<a class="btn btn-warning text-right" href="#" role="button">マイページ</a>
+			<a class="btn btn-warning text-right" href="Mypage.jsp" role="button">マイページ</a>
 		<%}else{%>
-			<a class="btn btn-warning text-right" href="#" role="button">ログイン</a>
+			<a class="btn btn-warning text-right" href="Login.jsp" role="button">ログイン</a>
 		<%} %>
 	</div>
 </nav>
