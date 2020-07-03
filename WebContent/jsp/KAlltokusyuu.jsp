@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
+
 <script type="text/javascript">
 function actionA(){
 	 document.getElementById('form').action="../Thensyuu";
