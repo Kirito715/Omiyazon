@@ -124,15 +124,6 @@ $(function(){
        });
     });
 
-    $mainNav2.append("<li id='magic-line-two'></li>");
-    var $magicLineTwo = $("#magic-line-two");
-    $magicLineTwo
-       .width($(".current_page_item_two").width())
-       .height($mainNav2.height())
-       .css("left", $(".current_page_item_two a").position().left)
-       .data("origLeft", $(".current_page_item_two a").position().left)
-       .data("origWidth", $magicLineTwo.width())
-       .data("origColor", $(".current_page_item_two a").attr("rel"));
 });
 
 
@@ -144,11 +135,8 @@ function nextPage(id){
 
 </script>
 <style type="text/css">
-html {
-   background-color: yellowgreen; /* 周囲の背景色 */
-}
-body {
-   margin: 0px 15%;  /* 外側の余白を、上下はゼロで左右は画面横幅の15％に */
+.body {
+   margin: 0px 10%;  /* 外側の余白を、上下はゼロで左右は画面横幅の15％に */
    padding: 0px;     /* 内側の余白を消す */
    background-color: white;  /* 本文部分の背景色は白色 */
 
@@ -180,7 +168,7 @@ body {
 .item img {
     /* 100%にしてしまえば横幅目一杯に広がるので「左に寄る問題」自体が発生しなくなる */
     width: 150px;
-    height: 250px;
+    height: 280px;
     object-fit: cover;
     width: 80%;
 }
@@ -227,7 +215,7 @@ body {
 
 </head>
 <body>
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark" style="margin-top:-25px;">
 <a class="navbar-brand text-white" href="../TopPage">Omiyazon</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
@@ -258,8 +246,8 @@ body {
 	</div>
 </nav>
 
-<br><br><br><br>
-
+<br><br>
+<div class="body">
 <div class='container'>
       <div class='single-item'>
       <% ArrayList <String[]> Tok = (ArrayList<String[]>)session.getAttribute("reqTokusyuPass");
@@ -303,7 +291,7 @@ body {
     	<% ArrayList <String[]> arr = (ArrayList<String[]>)session.getAttribute("reqRanking");
 		for(int i = 0; i < arr.size(); i++){%>
     		<div class="item">
-    		<a href="../ItemDetail?itemid="<%=arr.get(i)[2]%>><img src="<%= arr.get(i)[0] %>" class="center"></a>
+    		<a href="../ItemDetail?itemid=<%=arr.get(i)[2]%>"><img src="<%= arr.get(i)[0] %>" class="center"></a>
     		<br>
     		<%= arr.get(i)[1]%>
     		<br>
@@ -314,6 +302,10 @@ body {
 
 <br><br><br><br>
 <div id="map" align="center"></div>
+
+<p class="mt-5 mb-3 text-muted" align="center">&copy; Omiyazon</p>
+
+</div>
 
 </body>
 </html>

@@ -1935,6 +1935,70 @@ private DetailBean getNickName(DetailBean bean) {
 		return Adata;
 	}
 
+	public void createFavorite(int itemid ,int userid) {
+
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " INSERT INTO お気に入りマスタ";
+        sql += " VALUES( ? , ? )";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1, userid);
+		ps.setInt(2, itemid);
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ps.executeUpdate();
+
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return;
+	}
+
+	public void deleteFavorite(int itemid ,int userid) {
+
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " DELETE FROM お気に入りマスタ";
+        sql += " WHERE 登録者ID = ? AND  商品ID=? ";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1, userid);
+		ps.setInt(2, itemid);
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ps.executeUpdate();
+
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return;
+	}
+
 
 }
 
