@@ -15,6 +15,17 @@
 	//	userId = "1";
 	//	session.setAttribute("userId",userId);
 	//}
+
+	//カート
+	String cartNum = "0";
+	{
+	DBClass db = new DBClass();
+	db.dbOpen();
+
+	cartNum = db.getCartNum(userId);
+
+	db.dbClose();
+	}
 %>
 <%
 	ArrayList<String[]> region = (ArrayList<String[]>)session.getAttribute("regionList");
@@ -49,18 +60,7 @@
 		searchResult = new ArrayList<String[]>();
 	}
 %>
-<%
-	//カート
-	String cartNum = "0";
-	{
-	DBClass db = new DBClass();
-	db.dbOpen();
 
-	cartNum = db.getCartNum(userId);
-
-	db.dbClose();
-	}
-%>
 <!-- BootstrapのCSS読み込み -->
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <!-- jQuery読み込み -->

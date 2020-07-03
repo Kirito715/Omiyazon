@@ -256,6 +256,94 @@ public class DBClass {
 	}
 
 	/**
+	 *
+	 * @param text
+	 * @param regionId
+	 * @param prefId
+	 * @param genre
+	 * @param itemState
+	 * @return
+	 */
+	public ArrayList<String[]> getMngItemList(String text,String regionId,String prefId,String genre,String itemState){
+		ArrayList<String[]> ary = new ArrayList<String[]>();
+
+		try {
+	        String sql = "";
+	        sql += " SELECT 商品ID,商品名,単価 as 価格,ジャンル名,加盟店名,都道府県名,地方名";
+	        sql += " FROM   商品マスタ sm";
+	        sql += " INNER JOIN ジャンルマスタ gm ON sm.ジャンルID = gm.ジャンルID";
+	        sql += " INNER JOIN 県マスタ km ON sm.県ID = km.県ID";
+	        sql += " INNER JOIN 地方マスタ tm ON sm.地方ID = tm.地方ID";
+	        sql += " WHERE 商品名 LIKE ?";
+	        if(!regionId.equals("0")) {
+	        	sql += " AND sm.地方ID = ?";
+	        }
+	        if(!prefId.equals("0")) {
+	        	sql += " AND sm.県ID = ?";
+	        }
+	        if(!genre.equals("0")) {
+	        	 sql += " AND gm.ジャンルID = ?";
+	        }
+	        sql += " AND 削除フラグ= ?";
+
+
+	        System.out.println(sql);
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        int i = 1;
+	        ps.setString(i,"%"+ text +"%");
+	        if(!regionId.equals("0")) {
+	        	i+=1;
+	        	ps.setString(i,regionId);
+	        }
+	        if(!prefId.equals("0")) {
+	        	i+=1;
+	        	ps.setString(i,prefId);
+	        }
+	        if(!genre.equals("0")) {
+	        	i+=1;
+	        	ps.setString(i, genre);
+	        }
+	        i+=1;
+	        ps.setString(i,itemState);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	String[] strData = new String[8];
+
+	        	strData[0] =rs.getString("商品ID");
+	        	strData[1] =rs.getString("商品名");
+	        	strData[2] =rs.getString("価格");
+	        	strData[3] =rs.getString("ジャンル名");
+	        	strData[4] =rs.getString("加盟店名");
+	        	strData[5] =rs.getString("都道府県名");
+	        	strData[6] =rs.getString("地方名");
+	        	//在庫
+	        	if(0 < getStock(rs.getInt("商品ID"))){
+	        		strData[7] = "未発送あり";
+	        	}
+	        	else {
+	        		strData[7] = "未発送なし";
+	        	}
+
+	        	ary.add(strData);
+	        }
+
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return ary;
+	}
+
+
+	/**
 	 * 地方データ取得
 	 * @return
 	 */
