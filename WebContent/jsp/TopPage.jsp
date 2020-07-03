@@ -1,3 +1,4 @@
+<%@page import="common.DBClass"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -5,12 +6,41 @@
 <html>
 <head>
  <meta charset="utf-8">
- 　　  <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+	 <!-- BootstrapのCSS読み込み -->
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<!-- jQuery読み込み -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- BootstrapのJS読み込み -->
+	<script src="../js/bootstrap.min.js"></script>
+ 　　<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 	   <script type="text/javascript" src="../js/jquery.japan-map.min.js"></script>
  　　  <link rel="stylesheet" href="../css/slick-theme.css" type="text/css">
  　　  <link rel="stylesheet" href="../css/slick.css" type="text/css">
  　　  <script src="../js/slick.js" type="text/javascript"></script>
-　　　 <title>jQuery</title>
+　　　 <title>Omiyazon～お土産専門通販サイト～</title>
+		<%
+			//ログイン情報
+			String userId = (String)session.getAttribute("userId");
+
+			//if(userId == null){
+			//	userId = "1";
+			//	session.setAttribute("userId",userId);
+			//}
+		%>
+		<%
+			//カート
+			String cartNum = "0";
+			{
+			DBClass db = new DBClass();
+			db.dbOpen();
+
+			cartNum = db.getCartNum(userId);
+
+			db.dbClose();
+			}
+		%>
+
+
 <script type="text/javascript">
 $(function(){
 	  $('.single-item').slick({
@@ -22,9 +52,12 @@ $(function(){
 	  });
 	  $('.multiple-items').slick({
 		  infinite: true,
+		  autoplay: true,
+		    autoplaySpeed: 5000,
 		  slidesToShow: 3,
 		  slidesToScroll: 3
 		});
+
 
 	<%String[][] color =(String[][])session.getAttribute("color");
 	int c=0;%>
@@ -64,18 +97,63 @@ $(function(){
 			},
 		}
 	);
+
+	var $el, leftPos, newWidth,
+    $mainNav = $("#example-one");
+
+    /* example1 */
+    $mainNav.append("<li id='magic-line'></li>");
+    var $magicLine = $("#magic-line");
+    $magicLine
+       .width($(".current_page_item").width())
+       .css("left", $(".current_page_item a").position().left)
+       .data("origLeft", $magicLine.position().left)
+       .data("origWidth", $magicLine.width());
+    $("#example-one li a").hover(function() {
+       $el = $(this);
+       leftPos = $el.position().left;
+       newWidth = $el.parent().width();
+       $magicLine.stop().animate({
+          left: leftPos,
+          width: newWidth
+       });
+    }, function() {
+       $magicLine.stop().animate({
+          left: $magicLine.data("origLeft"),
+          width: $magicLine.data("origWidth")
+       });
+    });
+
+    $mainNav2.append("<li id='magic-line-two'></li>");
+    var $magicLineTwo = $("#magic-line-two");
+    $magicLineTwo
+       .width($(".current_page_item_two").width())
+       .height($mainNav2.height())
+       .css("left", $(".current_page_item_two a").position().left)
+       .data("origLeft", $(".current_page_item_two a").position().left)
+       .data("origWidth", $magicLineTwo.width())
+       .data("origColor", $(".current_page_item_two a").attr("rel"));
 });
+
+
+function nextPage(id){
+
+	$('#hidGenreID').val(id);
+	document.frm.submit();
+}
+
 </script>
 <style type="text/css">
-
 html {
    background-color: yellowgreen; /* 周囲の背景色 */
 }
 body {
-   margin:0px 15%;
-   padding: 0px;   /* 内側の余白を消す */
-   background-color: white; /* 本文部分の背景色 */
+   margin: 0px 15%;  /* 外側の余白を、上下はゼロで左右は画面横幅の15％に */
+   padding: 0px;     /* 内側の余白を消す */
+   background-color: white;  /* 本文部分の背景色は白色 */
+
 }
+
 .container {
   margin: 0 auto;
   padding: 40px;
@@ -86,7 +164,7 @@ body {
 
 .slick-slide {
   text-align: center;
-  background:#419be0;
+  background:white;
 }
 .item {
     /* slickでslider化するとimgがblockになるのでtext-alignでは中央寄せできなくなる */
@@ -102,7 +180,7 @@ body {
 .item img {
     /* 100%にしてしまえば横幅目一杯に広がるので「左に寄る問題」自体が発生しなくなる */
     width: 150px;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
     width: 80%;
 }
@@ -110,12 +188,77 @@ body {
     /* slickでslider化するとimgがblockになるのでmarginで中央寄せにしないといけない */
     margin: 0 auto;
 }
-
+.nav-wrap {
+            margin:20px auto; padding:0;
+            background-color:rgba(0,0,0,0.6);
+            border-top:2px solid #fff;
+            border-bottom:2px solid #fff;
+         }
+         #example-one {
+            position:relative;
+            margin:0 auto; padding:0;
+            list-style:none;
+            width:960px;
+         }
+         #example-one li {
+            margin:0; padding:0;
+            list-style:none;
+            display:inline-block; /* inline->inline-block */
+         }
+         #example-one li a {
+            color:#bbb;
+            display:block; float:left;
+            padding:4px 10px 2px 10px;
+            text-decoration:none;
+            text-transform:uppercase;
+            font-size:14px;
+         }
+         #example-one li a:hover {
+            color:#fff;
+         }
+         #magic-line {
+            position:absolute;
+            bottom:-2px; left:0;
+            width:100px; height:2px;
+            background:#fe4902;
+            z-index:9999px;
+         }
 </style>
 
 </head>
 <body>
-<header></header>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
+<a class="navbar-brand text-white" href="../TopPage">Omiyazon</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<form class="form-inline " id="frm1" name="frm1" action="../HeaderItemSearch">
+			<input class="form-control" type="text" placeholder="検索" aria-label="Search" name="search" id="search">
+			<button class="btn btn-success" type="submit">検索</button>
+		</form>
+
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link text-white" href="../TAlltokusyuu">特集一覧</a>
+			</li>
+		</ul>
+
+		<%
+			if(userId!=null){
+		%>
+			<a class="nav-link hover" href="#" role="button">
+			<img alt="カート" src="../../img/cart.png"  width=40 height=35 >
+			<span class="text-warning" style="position:relative; left:-29px; top:-8px; font-size: 20px; font-weight: bold"><%=cartNum %></span>
+			</a>
+			<a class="btn btn-warning text-right" href="Mypage.jsp" role="button">マイページ</a>
+		<%}else{%>
+			<a class="btn btn-warning text-right" href="Login.jsp" role="button">ログイン</a>
+		<%} %>
+	</div>
+</nav>
+
+
 <div class='container'>
       <div class='single-item'>
       <% ArrayList <String[]> Tok = (ArrayList<String[]>)session.getAttribute("reqTokusyuPass");
@@ -129,25 +272,30 @@ body {
 
 
     <br><br><br><br>
-	<form action="../janruchange" method="post">
-	<button name="submit" value="NULL">総合</button>
+
+	<br><br><br>
+	<form action="../janruchange" method="post" name="frm">
+	<div class="nav-wrap" align="center">
+            <ul class="group" id="example-one">
+            <li class="current_page_item"><a href="../janruchange">総合</a></li>
+	<%
+	ArrayList <String[]> Jnr = (ArrayList<String[]>)session.getAttribute("reqJanruname");
+		String under = "class='current_page_item'";
+
+	for(int i = 0; i < Jnr.size(); i++){%>
+
+			<li <%= under %>><a href="#" onClick="nextPage('<%=Jnr.get(i)[0]%>')"><%=Jnr.get(i)[1] %></a></li>
+
+	<%
+		under = "";
+	} %>
+		</ul>
+         </div>
+         <input type="hidden" name="hidGenreID" id="hidGenreID" value="">
 	</form>
-     <% ArrayList <String[]> Jnr = (ArrayList<String[]>)session.getAttribute("reqJanruname");
- 	for(int i = 0; i < Jnr.size(); i++){%>
-	<div>
-		<form action="../janruchange" method="post">
-		<button name="submit" value="<%=Jnr.get(i)[0] %>"><%=Jnr.get(i)[1] %></button>
-	<input type="hidden" name="hidGenreID" value="<%=Jnr.get(i)[0]%>">
-		</form>
-	</div>
-	<%} %>
 
+		<br><br>
 
-    <br><br><br><br>
-
-
-
-    <div class='container'>
     	<div class='multiple-items'>
     	<% ArrayList <String[]> arr = (ArrayList<String[]>)session.getAttribute("reqRanking");
 		for(int i = 0; i < arr.size(); i++){%>
@@ -160,9 +308,8 @@ body {
     		</div>
     		<%} %>
     	</div>
-    </div>
 
-<br><br>
+<br><br><br><br>
 <div id="map" align="center"></div>
 
 </body>
