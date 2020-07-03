@@ -32,9 +32,10 @@
 		<input type="text" id="Mail" class="form-control" placeholder="mail" required autofocus name="Mail">
 		<label for="inputPassword" class="sr-only">Password</label>
 		<input type="password" id="Password" class="form-control" placeholder="Password" required name="Pass"> <br>
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-		<p class="mt-5 mb-3 text-muted">&copy; Omiyazon</p><br>
-		<a href='repass.jsp'>パスワードを忘れた方はこちら</a>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button><br>
+		<a href='repass.jsp'>パスワードを忘れた方はこちら</a><br>
+		<p class="mt-5 mb-3 text-muted">&copy; Omiyazon</p>
+
 
 	</form>
 </body>
