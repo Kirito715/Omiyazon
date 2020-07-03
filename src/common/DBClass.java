@@ -1936,4 +1936,4 @@ private DetailBean getNickName(DetailBean bean) {
 }
 
 
-	}
+
