@@ -153,7 +153,7 @@ $(function(){
     </div>
 
 <br><br>
-<div id="map"></div>
+<div id="map" align="center"></div>
 
 </body>
 </html>
