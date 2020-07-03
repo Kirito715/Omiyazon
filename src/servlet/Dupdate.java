@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import comon.DBClass;
+import common.DBClass;
 
 /**
  * Servlet implementation class Dupdate
