@@ -258,6 +258,7 @@ body {
 	</div>
 </nav>
 
+<br><br><br><br>
 
 <div class='container'>
       <div class='single-item'>
@@ -274,6 +275,8 @@ body {
     <br><br><br><br>
 
 	<br><br><br>
+
+		<h3>売上ランキング!!</h3>
 	<form action="../janruchange" method="post" name="frm">
 	<div class="nav-wrap" align="center">
             <ul class="group" id="example-one">
