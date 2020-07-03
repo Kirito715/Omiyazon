@@ -12,16 +12,16 @@ import javax.servlet.http.HttpSession;
 import common.DBClass;
 
 /**
- * Servlet implementation class PassChange
+ * Servlet implementation class Repass
  */
-@WebServlet("/PassChange")
-public class PassChange extends HttpServlet {
+@WebServlet("/Repass")
+public class Repass extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PassChange() {
+    public Repass() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,41 +41,42 @@ public class PassChange extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		//画面遷移確認
-		System.out.println("PassChangeの中身");
+		System.out.println("RePassの中身");
 
 		// 入力パラメタ取得
-		String NewPass=request.getParameter("NewPass");
-		String ConfPass=request.getParameter("ConfPass");
+		String UserMail=request.getParameter("Mail");
+
 		//入力パラメーター確認
-				System.out.println(NewPass);
-				System.out.println(ConfPass);
-				HttpSession  Session = request.getSession();
-				Session.setAttribute("text",NewPass );
-				Session.setAttribute("text",ConfPass );
-				//DBクラス生成
-				DBClass db = new DBClass();
-
-				// DB接続
-				db.dbOpen();
-
-				String userMail = (String)Session.getAttribute("userMail");
+		System.out.println(UserMail);
 
 
-					if(NewPass.equals(ConfPass)) {
-						//  PassUpdを実行
-						int data = db.PassUpd(NewPass,userMail);
-
-						//パスワード再設定確認遷移
-						response.sendRedirect("jsp/user/PassChange.jsp");
-					}
-					else {
-						response.sendRedirect("jsp/user/PassReconf.jsp");
-					}
+		HttpSession  Session = request.getSession();
+		Session.setAttribute("text",UserMail );
 
 
+		//DBクラス生成
+		DBClass db = new DBClass();
 
-				// DB切断
-				db.dbClose();
+		// DB接続
+		db.dbOpen();
+
+		// ログインチェック
+		if (db.RePass(UserMail)) {
+
+			Session.setAttribute("userMail", UserMail);
+
+			//パスワード再設定
+			response.sendRedirect("jsp/user/PassReconf.jsp");
+
+		} else {
+			System.out.println("エラー");
+			//ログイン画面遷移
+			response.sendRedirect("jsp/user/repass.jsp");
+		}
+
+		// DB切断
+		db.dbClose();
 	}
+
 
 }

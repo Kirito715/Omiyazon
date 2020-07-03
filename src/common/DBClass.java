@@ -866,6 +866,9 @@ private DetailBean getNickName(DetailBean bean) {
 					return bReturn;
 				}
 
+
+
+
 		public ArrayList<String[]> getTAll(){
 
 			ArrayList<String[]> Adata = new ArrayList<String[]>();
@@ -1426,7 +1429,7 @@ private DetailBean getNickName(DetailBean bean) {
 
 			try {
 				String sql = "";
-				sql += " DELETE  FROM 登録者マスタ";
+				sql += " UPDATE  FROM 登録者マスタ";
 				sql += " WHERE パスワード = ?";
 
 				// データ取得
