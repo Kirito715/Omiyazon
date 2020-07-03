@@ -241,7 +241,7 @@ function nextPage(id){
 			</a>
 			<a class="btn btn-warning text-right" href="Mypage.jsp" role="button">マイページ</a>
 		<%}else{%>
-			<a class="btn btn-warning text-right" href="Login.jsp" role="button">ログイン</a>
+			<a class="btn btn-warning text-right" href="user/Login.jsp" role="button">ログイン</a>
 		<%} %>
 	</div>
 </nav>
