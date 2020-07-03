@@ -1668,5 +1668,272 @@ private DetailBean getNickName(DetailBean bean) {
 
 		return data;
 	}
+	public ArrayList<String[]> getcart(String uid){
 
+		ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += " SELECT *";
+	        sql += " FROM  商品マスタ as a inner join カートマスタ as b on a.商品ID=b.商品ID";
+	        sql += " where 登録者ID='"+uid+"'";
+
+	        // 実行SQL確認
+	        System.out.println(sql);
+
+	        // 問い合わせの実行
+	        ResultSet rset = stmt.executeQuery(sql);
+
+	        while(rset.next()) {
+
+	        	// 取得するフィールド分の配列生成
+	        	String[] strData = new String[7];
+
+	        	strData[0] =rset.getString("商品ID");
+	        	strData[1] =rset.getString("商品名");
+	        	strData[2] =rset.getString("個数");
+	        	strData[3] =rset.getString("加盟店名");
+	        	strData[3] =rset.getString("画像パス");
+
+
+	        	// リストに追加
+	        	Adata.add(strData);
+
+	        }
+
+	        rset.close();	// ResultSetのクローズ
+	        stmt.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return Adata;
 	}
+	public int deletecart(String sid,String uid) {
+
+		// 実行結果件数用変数
+		int retCount = 0;
+
+		//Statementを生成
+		Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+			String sql = "";
+			sql += "delete from  カートマスタ  ";
+			sql += " WHERE 商品ID = '" + sid + "' and 登録者ID='"+uid+"'";
+
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// 問い合わせの実行
+			//更新、削除、登録にはexecuteUpdae
+			//確認はexecuteQuery
+			retCount = stmt.executeUpdate(sql);
+
+			stmt.close(); // Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return retCount;
+	}
+	public int updcart(String num,String uid,String sid){
+
+		// 実行結果件数用変数
+		int retCount = 0;
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += " UPDATE カートマスタ";
+	        sql += " set 個数='"+num+"'";
+	        sql += " WHERE  登録者ID='"+uid+"' and 商品ID='"+sid+"'";
+
+
+	        // 実行SQL確認
+	        System.out.println(sql);
+
+	        // 問い合わせの実行
+	        //更新、削除、登録にはexecuteUpdae
+	        //確認はexecuteQuery
+	        retCount = stmt.executeUpdate(sql);
+
+	        stmt.close();	// Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return retCount;
+	}
+	public ArrayList<String[]> getrecode(String uid){
+
+		ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += " SELECT b.商品ID,商品名,画像パス1,CONVERT(date, 購入日時) as 購入日時,注文状態,発送日時";
+	        sql += " FROM  伝票マスタ as a inner join 売上明細マスタ as b on a.伝票ID=b.伝票ID";
+	        sql += " inner join 商品マスタ as c on b.商品ID=c.商品ID";
+	        sql +=" where 登録者ID='"+uid+"'";
+
+	        // 実行SQL確認
+	        System.out.println(sql);
+
+	        // 問い合わせの実行
+	        ResultSet rset = stmt.executeQuery(sql);
+
+	        while(rset.next()) {
+
+	        	// 取得するフィールド分の配列生成
+	        	String[] strData = new String[7];
+
+	        	strData[0] =rset.getString("商品ID");
+	        	strData[1] =rset.getString("商品名");
+	        	strData[2] =rset.getString("画像パス1");
+	        	strData[3] =rset.getString("購入日時");
+	        	strData[4] =rset.getString("注文状態");
+	        	strData[5] =rset.getString("発送日時");
+
+
+	        	// リストに追加
+	        	Adata.add(strData);
+
+	        }
+
+	        rset.close();	// ResultSetのクローズ
+	        stmt.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return Adata;
+	}
+	public ArrayList<String[]> getbook(String uid){
+
+		ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += " SELECT *";
+	        sql += " FROM  商品マスタ as a inner join お気に入りマスタ as b on a.商品ID=b.商品ID";
+	        sql +=" where 登録者ID='"+uid+"'";
+
+	        // 実行SQL確認
+	        System.out.println(sql);
+
+	        // 問い合わせの実行
+	        ResultSet rset = stmt.executeQuery(sql);
+
+	        while(rset.next()) {
+
+	        	// 取得するフィールド分の配列生成
+	        	String[] strData = new String[7];
+
+	        	strData[0] =rset.getString("商品ID");
+	        	strData[1] =rset.getString("商品名");
+	        	strData[2] =rset.getString("画像パス1");
+
+	        	// リストに追加
+	        	Adata.add(strData);
+
+	        }
+
+	        rset.close();	// ResultSetのクローズ
+	        stmt.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return Adata;
+	}
+	public ArrayList<String[]> getuser(String uid){
+
+		ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += " SELECT *";
+	        sql += " FROM 登録者マスタ";
+	        sql +=" where 登録者ID='"+uid+"'";
+
+	        // 実行SQL確認
+	        System.out.println(sql);
+
+	        // 問い合わせの実行
+	        ResultSet rset = stmt.executeQuery(sql);
+
+	        while(rset.next()) {
+
+	        	// 取得するフィールド分の配列生成
+	        	String[] strData = new String[7];
+
+	        	strData[0] =rset.getString("氏名");
+	        	strData[1] =rset.getString("住所1");
+	        	strData[2] =rset.getString("住所2");
+
+	        	// リストに追加
+	        	Adata.add(strData);
+
+	        }
+
+	        rset.close();	// ResultSetのクローズ
+	        stmt.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return Adata;
+	}
+
+
+}
+
+
+

@@ -11,6 +11,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <link href="../css/omiyastyle.css" rel="stylesheet">
+
 <script type="text/javascript">
 $(function(){
 	<% DetailBean bean = (DetailBean)session.getAttribute("DetaillBean");%>
@@ -20,18 +21,62 @@ $(function(){
 
 	if(<%=bean.getLogin()%>){
 		$('#favorite').show();
+		if(<%=bean.getFavorite()%>){
+			 $('#favorite').addClass('on');
+			 $('#favorite').children("i").attr('class', 'fas fa-heart LikesIcon-fa-heart heart');
+		}
 	}
 
-	 $('.LikesIcon').on('click', function() {
+
+	 $('#favorite').on('click', function() {
 		  let $btn = $(this);
 		  // Likeボタンがonクラス持っていたら
 		  if ($btn.hasClass('on')) {
-		    $btn.removeClass('on');
-		    // 白抜きアイコンに戻す
-		    $btn.children("i").attr('class', 'far fa-heart LikesIcon-fa-heart');
+			  var request = {
+					action : 'delete',
+					itemid : '<%=bean.getItemid()%>',
+					userid : '<%=bean.getUserid()%>'
+			  };
+					  //ajaxでservletにリクエストを送信
+			 $.ajax({
+					type    : "GET",          //GET / POST
+					url     : "../AjaxServlet",  //送信先のServlet URL（適当に変えて下さい）
+					data    : request,        //リクエストJSON
+				    async   : true,           //true:非同期(デフォルト), false:同期
+					success : function(data) {
+
+								$btn.removeClass('on');
+							    // 白抜きアイコンに戻す
+							    $btn.children("i").attr('class', 'far fa-heart LikesIcon-fa-heart');
+
+					    }, error : function(XMLHttpRequest, textStatus, errorThrown) {
+						      alert("リクエスト時にエラーが発生しました：" + textStatus +":\n" + errorThrown);
+					    }
+					  });
+
 		  } else {
-		    $btn.addClass('on');
-		    $btn.children("i").attr('class', 'fas fa-heart LikesIcon-fa-heart heart');
+			  //リクエストJSON
+			  var request = {
+				 action : 'create',
+				 itemid : '<%=bean.getItemid()%>',
+				 userid : '<%=bean.getUserid()%>'
+			  };
+
+			  //ajaxでservletにリクエストを送信
+			  $.ajax({
+			    type    : "GET",          //GET / POST
+			    url     : "../AjaxServlet",  //送信先のServlet URL（適当に変えて下さい）
+			    data    : request,        //リクエストJSON
+			    async   : true,           //true:非同期(デフォルト), false:同期
+				success : function(data) {
+					 $btn.addClass('on');
+					 $btn.children("i").attr('class', 'fas fa-heart LikesIcon-fa-heart heart');
+			    },
+			    error : function(XMLHttpRequest, textStatus, errorThrown) {
+			      alert("リクエスト時にエラーが発生しました：" + textStatus +":\n" + errorThrown);
+			    }
+			  });
+
 		  }
 		});
 
@@ -69,11 +114,11 @@ $(function(){
 	});
 
 
-	$('#review').hide();
+	$('#rebtn').hide();
 	if(<%=bean.getLogin()%>){
 		if(<%=bean.getNickname()%>!=null){
-		$('#review').val("<%=bean.getNickname()%>");
-		$('#review').show();
+		$('#rebtn').val("レビューを投稿する");
+		$('#rebtn').show();
 	 }
 	}
 
@@ -89,9 +134,9 @@ $(function(){
 <span id="avgqua"></span>
 
 
-<div id="favorite" class="LikesIcon">
+<span id="favorite" class="LikesIcon">
 <i class="far fa-heart LikesIcon-fa-heart"></i>
-</div>
+</span>
 
 <br>
 <img id=itemimage style="width:300; height:300; object-fit: cover;"><br>
@@ -114,7 +159,7 @@ $(function(){
 <option value="quo">評価順</option>
 </select>
 
-<input type=button id="review"><br>
+<input type=button id="rebtn"><br>
 <br>
 </body>
 </html>
