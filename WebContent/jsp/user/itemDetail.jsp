@@ -183,7 +183,7 @@ $(function(){
 	});
 
 $(function () {
-	  $('#rebtn').click(function(){
+	  $('#rebtn').click(function(score){
 	      $('#modalArea').fadeIn();
 	  });
 	  $('#closeModal , #modalBg').click(function(){
@@ -192,13 +192,16 @@ $(function () {
 });
 
 $(function() {
-    $('#star').raty( {
+
+	$('#star').raty( {
+	 score : 3.5,
      readOnly: false,   //閲覧者によるスコアの変更不可
-     score: function() {
+     targetScore: '#target',
+     click: function(score) {
         return $(this).attr('data-score');
      },
      path:'../../ratyimage' //サーバ上のRaty画像のパス
-});
+    });
 });
 
 
@@ -312,7 +315,7 @@ $(function() {
 		<div class="modalWrapper">
 		<div class="modalContents">
     		<!-- ここに中身を書く -->
-		<FORM METHOD="POST" action="../../ItemDetail">
+		<FORM method="POST" action="../../ItemDetail">
     		<div class="row">
 				<div class="col-md-6 mb-3">
    					<label for="nickName">ニックネーム : </label>
@@ -326,13 +329,14 @@ $(function() {
 					<label for="rev">評価 </label>
 				</div>
   				<div  class="col-md-6 mb-3" id="star">
+  				<input type="hidden" id="target" name="star">
   				</div>
   			</div>
 			<div class="col-md-6 mb-3">
-				<textarea  name=review  cols="50" rows="8" placeholder="レビュー" ></textarea>
+				<textarea  name=review  cols="50" rows="8" placeholder="レビュー" required></textarea>
 			</div>
 
-			<input type=submit class="btn btn-outline-primary" value="送信">
+			<input type=submit class="btn btn-outline-primary" value="投稿">
 
 			</FORM>
 
