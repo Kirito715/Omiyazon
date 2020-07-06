@@ -145,14 +145,13 @@ function nextPage(id){
 .container {
   margin: 0 auto;
   padding: 40px;
-  width: 80%;
+  width: 100%;
   color: #333;
-  background: lightgrey;
+  background: #DDDDDD;
 }
 
 .slick-slide {
   text-align: center;
-  background:white;
 }
 .item {
     /* slickでslider化するとimgがblockになるのでtext-alignでは中央寄せできなくなる */
@@ -264,7 +263,8 @@ function nextPage(id){
 		<font size="42"><%=Tsyousai.get(0)[1]%></font><br>
           <p align="right"><%=Tsyousai.get(0)[4]%></p><br>
 <%=Tsyousai.get(0)[2]%><br><br><br>
-関連商品<br>
+関連商品<br><br>
+		<div class="container">
     	<div class='multiple-items'>
     	<%	for(int i=0;i<Tkanren.size();i++){%>
     		<div class="item">
@@ -275,6 +275,7 @@ function nextPage(id){
     		<%=Tkanren.get(i)[2]+'円'%>
     		</div>
     		<%} %>
+    	</div>
     	</div>
 
 
