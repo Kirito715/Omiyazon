@@ -224,7 +224,7 @@ $(function(){
 </span>
 
 <br>
-<img id=itemimage style="width:300; height:300; object-fit: cover;"><br>
+<img id=itemimage style="width:200; height:200; object-fit: cover;"><br>
 <span id="price"></span><br>
 <span id="storename"></span><br>
 <input type=button id="cart"><br>

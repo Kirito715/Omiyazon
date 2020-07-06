@@ -53,7 +53,7 @@ $(function(){
 	  $('.multiple-items').slick({
 		  infinite: true,
 		  autoplay: true,
-		    autoplaySpeed: 5000,
+		  autoplaySpeed: 3000,
 		  slidesToShow: 3,
 		  slidesToScroll: 3
 		});
@@ -162,6 +162,7 @@ function nextPage(id){
 .Tokusyu img{
 
 	width:100%;
+	height: 300px;
 
 }
 
@@ -211,6 +212,12 @@ function nextPage(id){
             background:#fe4902;
             z-index:9999px;
          }
+
+
+ .slick-prev:before,
+ .slick-next:before {
+   color: black;
+ }
 </style>
 
 </head>
