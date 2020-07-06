@@ -46,14 +46,14 @@ $(function(){
 	  $('.single-item').slick({
 	    accessibility: true,
 	    autoplay: true,
-	    autoplaySpeed: 1000,
+	    autoplaySpeed: 6000,
 	    dots: true,
 	    fade: true,
 	  });
 	  $('.multiple-items').slick({
 		  infinite: true,
 		  autoplay: true,
-		  autoplaySpeed: 3000,
+		  autoplaySpeed: 5000,
 		  slidesToShow: 3,
 		  slidesToScroll: 3
 		});
