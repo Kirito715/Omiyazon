@@ -63,6 +63,7 @@
 	}
 %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="../../js/jquery.raty.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
@@ -172,7 +173,8 @@ $(function(){
 
 	$('#rebtn').hide();
 	if(<%=bean.getLogin()%>){
-		if(<%=bean.getNickname()%>!=null){
+		var nickname = "<%=bean.getNickname()%>";
+		if(nickname!=null){
 		$('#rebtn').val("レビューを投稿する");
 		$('#rebtn').show();
 	 }
@@ -181,13 +183,24 @@ $(function(){
 	});
 
 $(function () {
-	  $('#openModal').click(function(){
+	  $('#rebtn').click(function(){
 	      $('#modalArea').fadeIn();
 	  });
 	  $('#closeModal , #modalBg').click(function(){
 	    $('#modalArea').fadeOut();
 	  });
-	});
+});
+
+$(function() {
+    $('#star').raty( {
+     readOnly: false,   //閲覧者によるスコアの変更不可
+     score: function() {
+        return $(this).attr('data-score');
+     },
+     path:'../../ratyimage' //サーバ上のRaty画像のパス
+});
+});
+
 
 
 </script>
@@ -293,19 +306,41 @@ $(function () {
 <option value="quo">評価順</option>
 </select>
 
-<input type=button id="openModal" value="開けゴマ">
-
-<input type=button id="rebtn"><br>
+<input type=button id="rebtn" >
 <section id="modalArea" class="modalArea">
 	<div id="modalBg" class="modalBg"></div>
 		<div class="modalWrapper">
 		<div class="modalContents">
     		<!-- ここに中身を書く -->
-		</div>
+		<FORM METHOD="POST" action="../../ItemDetail">
+    		<div class="row">
+				<div class="col-md-6 mb-3">
+   					<label for="nickName">ニックネーム : </label>
+   				</div>
+    			<div class="col-md-6 mb-3">
+    				<label><%=bean.getNickname()%></label>
+  				</div>
+  			</div>
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="rev">評価 </label>
+				</div>
+  				<div  class="col-md-6 mb-3" id="star">
+  				</div>
+  			</div>
+			<div class="col-md-6 mb-3">
+				<textarea  name=review  cols="50" rows="8" placeholder="レビュー" ></textarea>
+			</div>
+
+			<input type=submit class="btn btn-outline-primary" value="送信">
+
+			</FORM>
+
 		<div id="closeModal" class="closeModal">
 			×
 		</div>
 	</div>
+</div>
 </section>
 
 <br>
