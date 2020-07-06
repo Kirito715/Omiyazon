@@ -205,8 +205,6 @@ $(function() {
 
 
 
-=======
->>>>>>> branch 'master' of https://github.com/Kirito715/Omiyazon
 </script>
 
 </head>
