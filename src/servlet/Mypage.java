@@ -1,4 +1,4 @@
-package servret;
+package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import comon.DBClass;
+import common.DBClass;
 
 /**
- * Servlet implementation class denpyou
+ * Servlet implementation class Mypage
  */
-@WebServlet("/denpyou")
-public class denpyou extends HttpServlet {
+@WebServlet("/Mypage")
+public class Mypage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public denpyou() {
+    public Mypage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,17 +34,21 @@ public class denpyou extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		String no="0";
-		String txt="";
-		System.out.println(no);
-		session.setAttribute("page",no);
 		DBClass db = new DBClass();
+		String uid=request.getParameter("userid");
+		uid="1";
 		db.dbOpen();
-		ArrayList<String[]> ary = db.getdenpyou();
+		ArrayList<String[]> a = db.getuser(uid);
+		ArrayList<String[]> b = db.getrecode(uid);
+		ArrayList<String[]> c = db.getbook(uid);
 		db.dbClose();
-		session.setAttribute("txt", txt);
-		session.setAttribute("denpyou", ary);
-		response.sendRedirect("jsp/denpyou.jsp");
+		session.setAttribute("myuser",a);
+		session.setAttribute("myrecode",b);
+		session.setAttribute("mybook",c);
+		session.setAttribute("uid",uid);
+
+
+		response.sendRedirect("jsp/Mypage.jsp");
 	}
 
 	/**
