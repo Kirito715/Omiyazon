@@ -145,7 +145,7 @@ function nextPage(id){
 .container {
   margin: 0 auto;
   padding: 40px;
-  width: 80%;
+  width: 100%;
   color: #333;
   background: lightgrey;
 }
@@ -255,7 +255,7 @@ function nextPage(id){
 
 <br><br>
 <div class="body">
-<div class='container'>
+
       <div class='single-item'>
       <% ArrayList <String[]> Tok = (ArrayList<String[]>)session.getAttribute("reqTokusyuPass");
 	for(int i = 0; i < Tok.size(); i++){%>
@@ -263,7 +263,6 @@ function nextPage(id){
           <input type="hidden" name="tid" value="<%=Tok.get(i)[0] %>"><a href="../Tsyousai?tid=<%=Tok.get(i)[0] %>"><img src="<%= Tok.get(i)[1] %>"></a>
         </div>
         <%} %>
-    </div>
     </div>
 
 
