@@ -1,0 +1,84 @@
+@charset "UTF-8";
+.body {
+   margin: 0px 10%;  /* 外側の余白を、上下はゼロで左右は画面横幅の15％に */
+   padding: 0px;     /* 内側の余白を消す */
+   background-color: white;  /* 本文部分の背景色は白色 */
+
+}
+
+.container {
+  margin: 0 auto;
+  padding: 40px;
+  width: 80%;
+  color: #333;
+  background: lightgrey;
+}
+
+.slick-slide {
+  text-align: center;
+  background:white;
+}
+.item {
+    /* slickでslider化するとimgがblockになるのでtext-alignでは中央寄せできなくなる */
+    text-align: center;
+}
+
+.Tokusyu img{
+
+	width:100%;
+	height: 300px;
+
+}
+
+.item img {
+    /* 100%にしてしまえば横幅目一杯に広がるので「左に寄る問題」自体が発生しなくなる */
+    width: 150px;
+    height: 280px;
+    object-fit: cover;
+    width: 80%;
+}
+.center {
+    /* slickでslider化するとimgがblockになるのでmarginで中央寄せにしないといけない */
+    margin: 0 auto;
+}
+.nav-wrap {
+            margin:20px auto; padding:0;
+            background-color:rgba(0,0,0,0.6);
+            border-top:2px solid #fff;
+            border-bottom:2px solid #fff;
+         }
+         #example-one {
+            position:relative;
+            margin:0 auto; padding:0;
+            list-style:none;
+            width:960px;
+         }
+         #example-one li {
+            margin:0; padding:0;
+            list-style:none;
+            display:inline-block; /* inline->inline-block */
+         }
+         #example-one li a {
+            color:#bbb;
+            display:block; float:left;
+            padding:4px 10px 2px 10px;
+            text-decoration:none;
+            text-transform:uppercase;
+            font-size:14px;
+         }
+         #example-one li a:hover {
+            color:#fff;
+         }
+         #magic-line {
+            position:absolute;
+            bottom:-2px; left:0;
+            width:100px; height:2px;
+            background:#fe4902;
+            z-index:9999px;
+         }
+
+
+ .slick-prev:before,
+ .slick-next:before {
+   color: black;
+ }
