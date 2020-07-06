@@ -1501,14 +1501,16 @@ public class DBClass {
 			stmt = objCon.createStatement();
 
 	        String sql = "";
-	        sql += " SELECT distinct a.特集ID,CAST(タイトル as nvarchar)as タイトル,公開フラグ,CONVERT(date, 公開日時) as 公開日時";
+	        sql += " SELECT 特集ID,CAST(タイトル as nvarchar)as タイトル,公開フラグ,CONVERT(date, 公開日時) as 公開日時";
 	        sql +=",終了日時";
-	        sql += " FROM  特集マスタ as a inner join 関連商品マスタ as b on a.特集ID=b.特集ID";
-	        sql += " inner join 商品マスタ as c on b.商品ID=c.商品ID";
+	        sql += " FROM  特集マスタ";
 	        sql +=" where タイトル like '%"+txt+"%'";
-	        sql +=" or 商品名 like '%"+txt+"%'";
-	        if(combo.equals("1")) sql += " order by 公開日時 desc";
-	        else sql += " order by 公開日時";
+	        if(combo.equals("1")) {
+	        	 sql += " order by 公開日時 desc";
+	        }
+	        if(combo.equals("2")) {
+	        	 sql += " order by 公開日時";
+	        }
 	        // 実行SQL確認
 	        System.out.println(sql);
 
@@ -1542,6 +1544,8 @@ public class DBClass {
 
 		return Adata;
 	}
+
+
 	public int updT(String tid,String txt){
 
 		// 実行結果件数用変数
@@ -2341,6 +2345,52 @@ public class DBClass {
 		}
 
 		return retCount;
+	}
+	public ArrayList<String[]> getsyouhin(String sid){
+
+		ArrayList<String[]> Adata = new ArrayList<String[]>();
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += "*";
+	        sql += " FROM  商品マスタ";
+	        sql += " where  ID='"+sid+"'";
+
+	        // 実行SQL確認
+	        System.out.println(sql);
+
+	        // 問い合わせの実行
+	        ResultSet rset = stmt.executeQuery(sql);
+
+	        while(rset.next()) {
+
+	        	// 取得するフィールド分の配列生成
+	        	String[] strData = new String[7];
+
+	        	strData[0] =rset.getString("商品ID");
+	        	strData[1] =rset.getString("商品名");
+
+
+	        	// リストに追加
+	        	Adata.add(strData);
+
+	        }
+
+	        rset.close();	// ResultSetのクローズ
+	        stmt.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+		return Adata;
 	}
 }
 
