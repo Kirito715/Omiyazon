@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +12,16 @@ import javax.servlet.http.HttpSession;
 import common.DBClass;
 
 /**
- * Servlet implementation class Tinsert
+ * Servlet implementation class Tinsert2
  */
-@WebServlet("/Tinsert")
-public class Tinsert extends HttpServlet {
+@WebServlet("/Tinsert2")
+public class Tinsert2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Tinsert() {
+    public Tinsert2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,25 +33,24 @@ public class Tinsert extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		String n1=request.getParameter("title");
+		String n2=request.getParameter("honbun");
+		String n3=request.getParameter("fdate");
+		String n4=request.getParameter("edate");
+		String n5=request.getParameter("pasu");
 		String[] sid=request.getParameterValues("itemid");
-		ArrayList<String[]> kanren = new ArrayList<String[]>();
+
+
 		DBClass db = new DBClass();
 		db.dbOpen();
+		db.insertT(n1,n2,n3,n4,n5);
 		if(sid!=null) {
-
-		for(int i=0;i<sid.length;i++) {
-			ArrayList<String[]> syouhin = db.getsyouhin(sid[i]);
-			String[] strData = new String[7];
-        	strData[0] =syouhin.get(i)[0];
-        	strData[1] =syouhin.get(i)[1];
-        	kanren.add(strData);
-			}
+		for(int i=0;i<sid.length;i++){
+			db.insertkanren(sid[i]);
 		}
-
+		}
 		db.dbClose();
-		session.setAttribute("kanren", kanren);
-		session.setAttribute("sid", sid);
-		response.sendRedirect("jsp/Tinsert.jsp");
+		response.sendRedirect("KAlltokusyuu");
 	}
 
 	/**
