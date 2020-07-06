@@ -47,11 +47,13 @@ public class kounyu extends HttpServlet {
 			session.setAttribute("cart",ary);
 			response.sendRedirect("jsp/cart.jsp");
 		}
-		//遷移先書き換え
-		//受け取り名書き換え
 		else if(button.equals("2")) {
-			session.setAttribute("cart",uid);
-			response.sendRedirect("jsp/cart.jsp");
+			ArrayList<String[]> ary = db.getuser(uid);
+			ArrayList<String[]> ary2 = db.getcart(uid);
+			session.setAttribute("user",ary);
+			session.setAttribute("cart",ary2);
+			session.setAttribute("uid",uid);
+			response.sendRedirect("jsp/kounyuu.jsp");
 
 			}
 		else if(button.equals("3")) {
