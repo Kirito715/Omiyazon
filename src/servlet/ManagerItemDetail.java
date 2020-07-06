@@ -1,6 +1,7 @@
-package logic;
+package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,16 +13,16 @@ import javax.servlet.http.HttpSession;
 import common.DBClass;
 
 /**
- * Servlet implementation class UserLogin
+ * Servlet implementation class ManagerItemDetail
  */
-@WebServlet("/UserLogin")
-public class UserLogin extends HttpServlet {
+@WebServlet("/ManagerItemDetail")
+public class ManagerItemDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserLogin() {
+    public ManagerItemDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,47 +31,18 @@ public class UserLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
 
-		//画面遷移確認
-		System.out.println("UserLoginの中身");
+		String id = request.getParameter("sid");
 
-		// 入力パラメタ取得
-		String UserMail=request.getParameter("Mail");
-		String UserPass=request.getParameter("Pass");
-
-		//入力パラメーター確認
-		System.out.println(UserMail);
-		System.out.println(UserPass);
-
-		HttpSession  Session = request.getSession();
-		Session.setAttribute("text",UserMail );
-		Session.setAttribute("password",UserPass );
-
-
-		//DBクラス生成
 		DBClass db = new DBClass();
-
-		// DB接続
 		db.dbOpen();
-
-		// ログインチェック
-		if (db.UserLogin(UserMail,UserPass)) {
-
-			Session.setAttribute("userMail", UserMail);
-
-			//マイページ遷移
-			response.sendRedirect("jsp/user/Mypage.jsp");
-
-		} else {
-			System.out.println("エラー");
-			//ログイン画面遷移
-			response.sendRedirect("jsp/user/Login.jsp");
-		}
-
-		// DB切断
+		ArrayList<String>searchResult = db.getMngItemDetail(id);
 		db.dbClose();
+
+		session.setAttribute("mItemDetail", searchResult);
+		response.sendRedirect("jsp/managerItemDetail.jsp");
 	}
 
 	/**

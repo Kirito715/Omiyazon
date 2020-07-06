@@ -14,7 +14,7 @@
 	    <!-- BootstrapのJS読み込み -->
 	    <script src="../js/bootstrap.min.js"></script>
 	  </head>
-  <body class="text-center">
+  <body>
 	<header style="background-color:gray">Header</header>
 	<div class="container-fluid">
 	  <div class="row">

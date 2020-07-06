@@ -63,11 +63,10 @@
 	}
 %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="../../js/jquery.raty.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-<link href="../../css/omiyastyle.css" rel="stylesheet">
+<link href="../css/omiyastyle.css" rel="stylesheet">
 
 <script type="text/javascript">
 $(function(){
@@ -97,7 +96,7 @@ $(function(){
 					  //ajaxでservletにリクエストを送信
 			 $.ajax({
 					type    : "GET",          //GET / POST
-					url     : "../../AjaxServlet",  //送信先のServlet URL（適当に変えて下さい）
+					url     : "../AjaxServlet",  //送信先のServlet URL（適当に変えて下さい）
 					data    : request,        //リクエストJSON
 				    async   : true,           //true:非同期(デフォルト), false:同期
 					success : function(data) {
@@ -122,7 +121,7 @@ $(function(){
 			  //ajaxでservletにリクエストを送信
 			  $.ajax({
 			    type    : "GET",          //GET / POST
-			    url     : "../../AjaxServlet",  //送信先のServlet URL（適当に変えて下さい）
+			    url     : "../AjaxServlet",  //送信先のServlet URL（適当に変えて下さい）
 			    data    : request,        //リクエストJSON
 			    async   : true,           //true:非同期(デフォルト), false:同期
 				success : function(data) {
@@ -167,14 +166,13 @@ $(function(){
 	}
 
 	$('#sort').change(function(){
-		window.location.href = '../../ItemDetail?action='+$('#sort').val();
+		window.location.href = '../ItemDetail?action='+$('#sort').val();
 	});
 
 
 	$('#rebtn').hide();
 	if(<%=bean.getLogin()%>){
-		var nickname = "<%=bean.getNickname()%>";
-		if(nickname!=null){
+		if(<%=bean.getNickname()%>!=null){
 		$('#rebtn').val("レビューを投稿する");
 		$('#rebtn').show();
 	 }
@@ -182,6 +180,7 @@ $(function(){
 
 	});
 
+<<<<<<< HEAD
 $(function () {
 	  $('#rebtn').click(function(score){
 	      $('#modalArea').fadeIn();
@@ -206,46 +205,9 @@ $(function() {
 
 
 
+=======
+>>>>>>> branch 'master' of https://github.com/Kirito715/Omiyazon
 </script>
-
-<style type="text/css">
-
-.modalArea {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.modalBg {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(30,30,30,0.9);
-}
-
-.modalWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-  width: 70%;
-  padding: 10px 30px;
-  background-color: #fff;
-  height:70%;
-  overflow : auto;
-}
-
-.closeModal {
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  cursor: pointer;
-}
-
-</style>
 
 </head>
 <body>
@@ -309,6 +271,7 @@ $(function() {
 <option value="quo">評価順</option>
 </select>
 
+<<<<<<< HEAD
 <input type=button id="rebtn" >
 <section id="modalArea" class="modalArea">
 	<div id="modalBg" class="modalBg"></div>
@@ -347,6 +310,9 @@ $(function() {
 </div>
 </section>
 
+=======
+<input type=button id="rebtn"><br>
+>>>>>>> branch 'master' of https://github.com/Kirito715/Omiyazon
 <br>
 </body>
 </html>

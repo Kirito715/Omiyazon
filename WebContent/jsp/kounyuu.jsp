@@ -5,13 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>住所選択</title>
-		<!-- BootstrapのCSS読み込み -->
-	    <link href="../css/bootstrap.min.css" rel="stylesheet">
-	    <!-- jQuery読み込み -->
-	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	    <!-- BootstrapのJS読み込み -->
-	    <script src="../js/bootstrap.min.js"></script>
+<title>Insert title here</title>
 </head>
 <body>
 <form action="../kounyuu2">
@@ -19,12 +13,8 @@
 %>
 <%ArrayList<String[]> user = (ArrayList<String[]>) session.getAttribute("user");%>
 <%ArrayList<String[]> cart = (ArrayList<String[]>) session.getAttribute("cart");%>
-
 郵便番号
- <table class="table table-striped">
-    <thead>
-      <tr>
-<input type="number"name="num"value="<%=user.get(0)[3]%>"><br></tr></thead></table>
+<input type="number"name="num"value="<%=user.get(0)[3]%>">
 住所選択
 <input type="text"name="zyusyo1"value="<%=user.get(0)[1]%>">
 <input type="text"name="zyusyo2"value="<%=user.get(0)[2]%>"><br>
