@@ -14,7 +14,6 @@ import java.util.ArrayList;
 //import java.util.ArrayList;
 //
 	import bean.DetailBean;
-import bean.MemberBean;
 
 
 public class DBClass {
@@ -343,6 +342,55 @@ public class DBClass {
 		return ary;
 	}
 
+	public ArrayList<String> getMngItemDetail(String id){
+		ArrayList<String> ary = new ArrayList<String>();
+
+		try {
+	        String sql = "";
+	        sql += " SELECT 商品ID,商品名,加盟店名,単価 as 価格,注文上限数,ジャンルID,県ID,削除フラグ,商品概要,画像パス1,画像パス2,画像パス3,画像パス4,画像パス5";
+	        sql += " FROM   商品マスタ";
+	        sql += " WHERE 商品ID = ?";
+
+	        System.out.println(sql);
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        ps.setString(1,id);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	ary.add(rs.getString("商品ID"));
+	        	ary.add(rs.getString("商品名"));
+	        	ary.add(rs.getString("加盟店名"));
+	        	ary.add(rs.getString("価格"));
+	        	ary.add(rs.getString("注文上限数"));
+	        	ary.add(rs.getString("ジャンルID"));
+	        	ary.add(rs.getString("県ID"));
+	        	ary.add(rs.getString("削除フラグ"));
+	        	ary.add(rs.getString("商品概要"));
+	        	ary.add(rs.getString("画像パス1"));
+	        	ary.add(rs.getString("画像パス2"));
+	        	ary.add(rs.getString("画像パス3"));
+	        	ary.add(rs.getString("画像パス4"));
+	        	ary.add(rs.getString("画像パス5"));
+	        }
+
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		for(String a:ary) {
+			System.out.println(a);
+		}
+
+		return ary;
+	}
+
 
 	/**
 	 * 地方データ取得
@@ -378,6 +426,42 @@ public class DBClass {
 		}
 
 		return ary;
+	}
+
+	/**
+	 *
+	 * @param prefId
+	 * @return
+	 */
+	public String getRegion(String prefId) {
+		String str = "";
+
+		try {
+	        String sql = "";
+	        sql += " SELECT 地方ID";
+	        sql += " FROM   県マスタ";
+	        sql += " WHERE 県ID = ?";
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        ps.setString(1,prefId);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	str =rs.getString("地方ID");
+	        }
+
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return str;
 	}
 
 	/**
@@ -417,6 +501,111 @@ public class DBClass {
 		return ary;
 	}
 
+	public String getNewItemId() {
+		int i = 0;
+
+		try {
+			String sql = "";
+	        sql += " SELECT MAX(商品ID) AS 最大ID";
+	        sql += " FROM   商品マスタ ";
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        ResultSet rs = ps.executeQuery();
+
+	        while(rs.next()) {
+	        	i =rs.getInt("最大ID");
+	        }
+	        rs.close();	// ResultSetのクローズ
+	        ps.close();	// Statementのクローズ
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+		i += 1;
+		String str = String.valueOf(i);
+
+		return str;
+	}
+
+	public boolean insertNewItem(String[] str) {
+		boolean bRet = false;
+		int cnt = 0;
+
+		try {
+			String sql = "";
+	        sql += " INSERT INTO 商品マスタ";
+	        sql += " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        for(int i = 1;i<15;i++) {
+	        	ps.setString(i,str[i-1]);
+	        }
+	        ps.setString(15,"0");
+
+	        cnt = ps.executeUpdate();
+	        ps.close();
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		if(cnt >0) {
+			bRet = true;
+		}
+		else {
+			bRet = false;
+		}
+		return bRet;
+	}
+
+	public boolean updateItem(String[] str) {
+		boolean bRet = false;
+		int cnt = 0;
+
+		try {
+			String sql = "";
+	        sql += " UPDATE 商品マスタ";
+	        sql += " SET 加盟店名  =?,";
+	        sql += "     ジャンルID=?,";
+	        sql += "     県ID      =?,";
+	        sql += "     地方ID    =?,";
+	        sql += "     商品名    =?,";
+	        sql += "     単価      =?,";
+	        sql += "     商品概要  =?,";
+	        sql += "     画像パス1 =?,";
+	        sql += "     画像パス2 =?,";
+	        sql += "     画像パス3 =?,";
+	        sql += "     画像パス4 =?,";
+	        sql += "     画像パス5 =?,";
+	        sql += "     注文上限数=?,";
+	        sql += "     削除フラグ=?";
+	        sql += " WHERE  商品ID =?";
+
+	        PreparedStatement ps = objCon.prepareStatement(sql);
+
+	        for(int i = 1;i<15;i++) {
+	        	ps.setString(i,str[i]);
+	        }
+	        ps.setString(15,str[0]);
+
+	        cnt = ps.executeUpdate();
+	        ps.close();
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		if(cnt >0) {
+			bRet = true;
+		}
+		else {
+			bRet = false;
+		}
+		return bRet;
+	}
+
 	private String getFavorite(String itemId,String userId) {
 		String sRet ="0";
 		try {
@@ -450,505 +639,6 @@ public class DBClass {
 	  }
 		return sRet;
 	}
-
-
-	//商品詳細の初期設定
-		public DetailBean getDetailData(DetailBean bean) {
-	//ログイン状態に関わらず行う処理
-			bean = getItemDetail(bean);
-			bean = getReview(bean);
-	//ログイン状態がtrueの場合の処理
-			if(bean.getLogin()) {
-				bean=judgeFavorite(bean);
-				bean=judgeReview(bean);
-				bean=judgeCart(bean);
-			}
-			bean.setOrdable(bean.getOrdable()-getStock(bean.getItemid()));
-
-			return bean;
-		}
-
-		private DetailBean getItemDetail(DetailBean bean) {
-
-			try {
-			        String sql = "";
-			        sql += " SELECT 商品名,加盟店名,単価,商品概要,画像パス1,画像パス2,画像パス3,画像パス4,画像パス5,注文上限数";
-			        sql += " FROM 商品マスタ";
-			        sql += " WHERE 商品ID = ? AND 削除フラグ='0' ";
-
-					// データ取得
-					PreparedStatement ps = objCon.prepareStatement(sql);
-					// プレースホルダにパラメータを設定
-					ps.setInt(1, bean.getItemid());
-					// 実行SQL確認
-					System.out.println(sql);
-
-					// sqlを実行し、結果を取得
-					ResultSet rset = ps.executeQuery();
-					rset.next();
-					bean.setItemname(rset.getString("商品名"));
-					bean.setStorename(rset.getString("加盟店名"));
-					bean.setPrice(rset.getInt("単価"));
-					bean.setOutline(rset.getString("商品概要"));
-					bean.setImage1(rset.getString("画像パス1"));
-					bean.setImage2(rset.getString("画像パス2"));
-					bean.setImage3(rset.getString("画像パス3"));
-					bean.setImage4(rset.getString("画像パス4"));
-					bean.setImage5(rset.getString("画像パス5"));
-					bean.setOrdable(rset.getInt("注文上限数"));
-
-			        rset.close();	// ResultSetのクローズ
-			        ps.close();
-
-				} catch (SQLException e) {
-					// エラー表示
-					System.err.println(e.getClass().getName() + ":" + e.getMessage());
-				}
-			return bean;
-		}
-
-		public DetailBean getReview(DetailBean bean) {
-			ArrayList<String[]> data = new ArrayList<String[]>();
-
-			try {
-
-		        String sql = "";
-		        sql += " SELECT ニックネーム,レビュー,評価";
-		        sql += " FROM 登録者マスタ tm inner join レビューマスタ rm on tm.登録者ID=rm.登録者ID";
-		        sql += " WHERE 商品ID = ?";
-
-				// データ取得
-				PreparedStatement ps = objCon.prepareStatement(sql);
-				// プレースホルダにパラメータを設定
-				ps.setInt(1,bean.getItemid());
-				// 実行SQL確認
-				System.out.println(sql);
-
-				// sqlを実行し、結果を取得
-				ResultSet rset = ps.executeQuery();
-				String[] a=new String[1];
-				a[0]="0";
-				data.add(a);
-		        while(rset.next()) {
-		        	// 取得するフィールド分の配列生成
-		        	String[] strData = new String[3];
-		        	strData[0] =rset.getString("ニックネーム");
-		        	strData[1] =rset.getString("レビュー");
-		        	strData[2] =rset.getString("評価");
-		        	// リストに追加
-		        	data.add(strData);
-
-		        }
-
-		        bean.setReviewList(data);
-
-		        rset.close();	// ResultSetのクローズ
-		        ps.close();
-
-
-			} catch (SQLException e) {
-				// エラー表示
-				System.err.println(e.getClass().getName() + ":" + e.getMessage());
-			}
-
-			return bean;
-		}
-
-		public DetailBean getReview(DetailBean bean,int i) {
-			ArrayList<String[]> data = new ArrayList<String[]>();
-
-			try {
-
-		        String sql = "";
-		        sql += " SELECT ニックネーム,レビュー,評価";
-		        sql += " FROM 登録者マスタ tm inner join レビューマスタ rm on tm.登録者ID=rm.登録者ID";
-		        sql += " WHERE 商品ID = ?";
-		        sql += " ORDER BY 評価 ASC";
-
-				// データ取得
-				PreparedStatement ps = objCon.prepareStatement(sql);
-				// プレースホルダにパラメータを設定
-				ps.setInt(1,bean.getItemid());
-				// 実行SQL確認
-				System.out.println(sql);
-
-				// sqlを実行し、結果を取得
-				ResultSet rset = ps.executeQuery();
-				String[] a=new String[1];
-				a[0]="1";
-				data.add(a);
-			        while(rset.next()) {
-		        	// 取得するフィールド分の配列生成
-		        	String[] strData = new String[3];
-		        	strData[0] =rset.getString("ニックネーム");
-		        	strData[1] =rset.getString("レビュー");
-		        	strData[2] =rset.getString("評価");
-		        	// リストに追加
-		        	data.add(strData);
-		        }
-
-		        bean.setReviewList(data);
-
-		        rset.close();	// ResultSetのクローズ
-		        ps.close();
-
-			} catch (SQLException e) {
-				// エラー表示
-				System.err.println(e.getClass().getName() + ":" + e.getMessage());
-			}
-
-			return bean;
-		}
-
-		private DetailBean judgeFavorite(DetailBean bean) {
-
-			try {
-
-	        String sql = "";
-	        sql += " SELECT count(*) AS 判定";
-	        sql += " FROM お気に入りマスタ";
-	        sql += " WHERE 登録者ID = ? AND 商品ID = ? ";
-
-			// データ取得
-			PreparedStatement ps = objCon.prepareStatement(sql);
-			// プレースホルダにパラメータを設定
-			ps.setInt(1,bean.getUserid());
-			ps.setInt(2,bean.getItemid());
-			// 実行SQL確認
-			System.out.println(sql);
-
-			// sqlを実行し、結果を取得
-			ResultSet rset = ps.executeQuery();
-			rset.next();
-			if(rset.getInt("判定")>0) {
-				bean.setFavorite(true);
-			}else {
-				bean.setFavorite(false);
-			}
-	        rset.close();	// ResultSetのクローズ
-	        ps.close();
-
-		} catch (SQLException e) {
-			// エラー表示
-			System.err.println(e.getClass().getName() + ":" + e.getMessage());
-		  }
-			return bean;
-		}
-
-
-
-		private DetailBean judgeReview(DetailBean bean ) {
-
-			int i=0;
-
-			try {
-
-	        String sql = "";
-	        sql += " SELECT count(*) as 判定";
-	        sql += " FROM レビューマスタ";
-	        sql += " WHERE 登録者ID = ? AND 商品ID = ?";
-
-			// データ取得
-			PreparedStatement ps = objCon.prepareStatement(sql);
-			// プレースホルダにパラメータを設定
-			ps.setInt(1,bean.getUserid());
-			ps.setInt(2,bean.getItemid());
-			// 実行SQL確認
-			System.out.println(sql);
-
-			// sqlを実行し、結果を取得
-			ResultSet rset = ps.executeQuery();
-			rset.next();
-			i=rset.getInt("判定");
-	        rset.close();	// ResultSetのクローズ
-	        ps.close();
-
-		} catch (SQLException e) {
-			// エラー表示
-			System.err.println(e.getClass().getName() + ":" + e.getMessage());
-		  }
-			if(i==0) {
-				bean = getNickName(bean);
-			}
-			return bean;
-		}
-
-	private DetailBean getNickName(DetailBean bean) {
-
-			try {
-
-	        String sql = "";
-	        sql += " SELECT ニックネーム";
-	        sql += " FROM 伝票マスタ dm INNER JOIN 売上明細マスタ umm on dm.伝票ID=umm.伝票ID inner join 登録者マスタ tm on dm.登録者ID=dm.登録者ID";
-	        sql += " WHERE tm.登録者ID = ? AND 商品ID = ? AND 注文状態 = '2'";
-
-			// データ取得
-			PreparedStatement ps = objCon.prepareStatement(sql);
-			// プレースホルダにパラメータを設定
-			ps.setInt(1,bean.getUserid());
-			ps.setInt(2,bean.getItemid());
-			// 実行SQL確認
-			System.out.println(sql);
-
-			// sqlを実行し、結果を取得
-			ResultSet rset = ps.executeQuery();
-			rset.next();
-			bean.setNickname(rset.getString("ニックネーム"));
-	        rset.close();	// ResultSetのクローズ
-	        ps.close();
-
-		} catch (SQLException e) {
-			// エラー表示
-			System.err.println(e.getClass().getName() + ":" + e.getMessage());
-		  }
-
-			return bean;
-		}
-
-
-
-		public int getStock(int itemid) {
-
-			int iStock=0;
-			try {
-
-	        String sql = "";
-	        sql += " SELECT SUM(数量) AS 未発送注文個数";
-	        sql += " FROM 伝票マスタ dm INNER JOIN 売上明細マスタ umm on dm.伝票ID=umm.伝票ID";
-	        sql += " WHERE 注文状態 = '0' AND 商品ID = ? ";
-	        sql += " GROUP BY 商品ID";
-
-			// データ取得
-			PreparedStatement ps = objCon.prepareStatement(sql);
-			// プレースホルダにパラメータを設定
-			ps.setInt(1, itemid);
-			// 実行SQL確認
-			System.out.println(sql);
-
-			// sqlを実行し、結果を取得
-			ResultSet rset = ps.executeQuery();
-			rset.next();
-			iStock=rset.getInt("未発送注文個数");
-
-	        rset.close();	// ResultSetのクローズ
-	        ps.close();
-		} catch (SQLException e) {
-			// エラー表示
-			System.err.println(e.getClass().getName() + ":" + e.getMessage());
-		  }
-			return iStock;
-		}
-
-		private DetailBean judgeCart(DetailBean bean) {
-
-			try {
-
-
-	        String sql = "";
-	        sql += " SELECT 個数";
-	        sql += " FROM カートマスタ";
-	        sql += " WHERE 登録者ID = ? AND 商品ID = ?";
-
-			// データ取得
-			PreparedStatement ps = objCon.prepareStatement(sql);
-			// プレースホルダにパラメータを設定
-			ps.setInt(1,bean.getUserid());
-			ps.setInt(2,bean.getItemid());
-			// 実行SQL確認
-			System.out.println(sql);
-
-			// sqlを実行し、結果を取得
-			ResultSet rset = ps.executeQuery();
-			rset.next();
-			bean.setCart(rset.getInt("個数"));
-	        rset.close();	// ResultSetのクローズ
-	        ps.close();
-
-		} catch (SQLException e) {
-			// エラー表示
-			System.err.println(e.getClass().getName() + ":" + e.getMessage());
-		  }
-
-			return bean;
-		}
-
-		public void createFavorite(int itemid ,int userid) {
-
-			try {
-
-			String sql = "";
-	        sql += " INSERT INTO お気に入りマスタ";
-	        sql += " VALUES( ? , ? )";
-
-			// データ取得
-			PreparedStatement ps = objCon.prepareStatement(sql);
-			// プレースホルダにパラメータを設定
-			ps.setInt(1, userid);
-			ps.setInt(2, itemid);
-			// 実行SQL確認
-			System.out.println(sql);
-
-			// sqlを実行し、結果を取得
-			ps.executeUpdate();
-			ps.close();
-
-		} catch (SQLException e) {
-			// エラー表示
-			System.err.println(e.getClass().getName() + ":" + e.getMessage());
-		  }
-			return;
-		}
-
-		public void deleteFavorite(int itemid ,int userid) {
-
-			try {
-
-	        String sql = "";
-	        sql += " DELETE FROM お気に入りマスタ";
-	        sql += " WHERE 登録者ID = ? AND  商品ID=? ";
-
-			// データ取得
-			PreparedStatement ps = objCon.prepareStatement(sql);
-			// プレースホルダにパラメータを設定
-			ps.setInt(1, userid);
-			ps.setInt(2, itemid);
-			// 実行SQL確認
-			System.out.println(sql);
-
-			// sqlを実行し、結果を取得
-			ps.executeUpdate();
-			ps.close();
-
-		} catch (SQLException e) {
-			// エラー表示
-			System.err.println(e.getClass().getName() + ":" + e.getMessage());
-		  }
-			return;
-		}
-
-		public void insertUserData(MemberBean mb) {
-
-			String s = "0";
-			if(mb.getMonth().length()==1) {
-				mb.setMonth(s+mb.getMonth());
-			}
-			if(mb.getDay().length()==1) {
-				mb.setDay(s+mb.getDay());
-			}
-
-			try {
-
-				String sql = "";
-				sql += " INSERT INTO 登録者マスタ(登録者ID,ニックネーム,性別,生年月日,メールアドレス,パスワード,氏名,フリガナ,郵便番号,住所1,住所2)";
-				sql += " VALUES  ( (SELECT MAX(登録者ID)+1 FROM 登録者マスタ) , ? , ? , ? , ? , ? , ? , ? , ? , ? ,? )";
-
-				PreparedStatement ps = objCon.prepareStatement(sql);
-
-				ps.setString(1,mb.getNickname());
-				ps.setString(2,mb.getGender());
-				ps.setString(3,mb.getYear()+mb.getMonth()+mb.getDay());
-				ps.setString(4,mb.getEmail());
-				ps.setString(5,mb.getPass());
-				ps.setString(6,mb.getName());
-				ps.setString(7,mb.getFurigana());
-				ps.setString(8,mb.getPcode()+mb.getPcode2());
-				ps.setString(9,mb.getAdd());
-				ps.setString(10,mb.getAdd2());
-
-				// 実行SQL確認
-				System.out.println(sql);
-				ps.executeUpdate();
-
-				ps.close();
-
-			} catch (SQLException e) {
-				// エラー表示
-				System.err.println(e.getClass().getName() + ":" + e.getMessage());
-			}
-			return;
-
-		}
-
-		public MemberBean getUserData(MemberBean mb) {
-
-			try {
-				String sql = "";
-				sql += " SELECT * ,YEAR(生年月日) AS 年 ,MONTH(生年月日) AS 月 ,DAY(生年月日) AS 日" ;
-				sql += " FROM 登録者マスタ";
-				sql += " WHERE 登録者ID = ?";
-				PreparedStatement ps = objCon.prepareStatement(sql);
-				ps.setInt(1,mb.getUserId());
-				// 実行SQL確認
-				System.out.println(sql);
-				ResultSet rset = ps.executeQuery();
-				rset.next();
-				mb.setNickname(rset.getString("ニックネーム"));
-				mb.setPass(rset.getString("パスワード"));
-				mb.setGender(rset.getString("性別"));
-				mb.setYear(rset.getString("年"));
-				mb.setMonth(rset.getString("月"));
-				mb.setDay(rset.getString("日"));
-				mb.setName(rset.getString("氏名"));
-				mb.setFurigana(rset.getString("フリガナ"));
-				mb.setEmail(rset.getString("メールアドレス"));
-				mb.setPcode(rset.getString("郵便番号"));
-				mb.setAdd(rset.getString("住所1"));
-				mb.setAdd2(rset.getString("住所2"));
-				rset.close();	// ResultSetのクローズ
-				ps.close();
-
-			} catch (SQLException e) {
-				// エラー表示
-				System.err.println(e.getClass().getName() + ":" + e.getMessage());
-			}
-			return mb;
-
-		}
-
-		public void updateUserData(MemberBean mb) {
-
-			String s = "0";
-			if(mb.getMonth().length()==1) {
-				mb.setMonth(s+mb.getMonth());
-			}
-			if(mb.getDay().length()==1) {
-				mb.setDay(s+mb.getDay());
-			}
-
-			try {
-
-				String sql = "";
-				sql += " UPDATE 登録者マスタ";
-				sql += " SET ニックネーム = ?,性別 = ?,生年月日 = ?,メールアドレス = ?,パスワード = ?,氏名 = ?,フリガナ = ?,郵便番号 = ?,住所1 = ?,住所2 = ?";
-				sql += " WHERE 登録者ID = ?";
-
-				PreparedStatement ps = objCon.prepareStatement(sql);
-
-				ps.setString(1,mb.getNickname());
-				ps.setString(2,mb.getGender());
-				ps.setString(3,mb.getYear()+mb.getMonth()+mb.getDay());
-				ps.setString(4,mb.getEmail());
-				ps.setString(5,mb.getPass());
-				ps.setString(6,mb.getName());
-				ps.setString(7,mb.getFurigana());
-				ps.setString(8,mb.getPcode()+mb.getPcode2());
-				ps.setString(9,mb.getAdd());
-				ps.setString(10,mb.getAdd2());
-				ps.setInt(11, mb.getUserId());
-
-				// 実行SQL確認
-				System.out.println(sql);
-				ps.executeUpdate();
-
-				ps.close();
-
-			} catch (SQLException e) {
-				// エラー表示
-				System.err.println(e.getClass().getName() + ":" + e.getMessage());
-			}
-			return;
-
-		}
 
 	/**
 	 * 評価平均値を取得
@@ -1016,7 +706,360 @@ public class DBClass {
 
 
 
+//商品詳細の初期設定
+	public DetailBean getDetailData(DetailBean bean) {
+//ログイン状態に関わらず行う処理
+		bean = getItemDetail(bean);
+		bean = getReview(bean);
+//ログイン状態がtrueの場合の処理
+		if(bean.getLogin()) {
+			bean=judgeFavorite(bean);
+			bean=judgeReview(bean);
+			bean=judgeCart(bean);
+		}
 
+		bean.setOrdable(bean.getOrdable()-getStock(bean.getItemid()));
+		return bean;
+	}
+
+	private DetailBean getItemDetail(DetailBean bean) {
+		 Statement stmt;
+
+			try {
+
+				stmt = objCon.createStatement();
+
+		        String sql = "";
+		        sql += " SELECT 商品名,加盟店名,単価,商品概要,画像パス1,画像パス2,画像パス3,画像パス4,画像パス5,注文上限数";
+		        sql += " FROM 商品マスタ";
+		        sql += " WHERE 商品ID = ? AND 削除フラグ='0' ";
+
+				// データ取得
+				PreparedStatement ps = objCon.prepareStatement(sql);
+				// プレースホルダにパラメータを設定
+				ps.setInt(1, bean.getItemid());
+				// 実行SQL確認
+				System.out.println(sql);
+
+				// sqlを実行し、結果を取得
+				ResultSet rset = ps.executeQuery();
+				rset.next();
+				bean.setItemname(rset.getString("商品名"));
+				bean.setStorename(rset.getString("加盟店名"));
+				bean.setPrice(rset.getInt("単価"));
+				bean.setOutline(rset.getString("商品概要"));
+				bean.setImage1(rset.getString("画像パス1"));
+				bean.setImage2(rset.getString("画像パス2"));
+				bean.setImage3(rset.getString("画像パス3"));
+				bean.setImage4(rset.getString("画像パス4"));
+				bean.setImage5(rset.getString("画像パス5"));
+				bean.setOrdable(rset.getInt("注文上限数"));
+
+		        rset.close();	// ResultSetのクローズ
+		        stmt.close();	// Statementのクローズ
+
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+		return bean;
+	}
+
+	public DetailBean getReview(DetailBean bean) {
+		ArrayList<String[]> data = new ArrayList<String[]>();
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += " SELECT ニックネーム,レビュー,評価";
+	        sql += " FROM 登録者マスタ tm inner join レビューマスタ rm on tm.登録者ID=rm.登録者ID";
+	        sql += " WHERE 商品ID = ?";
+
+			// データ取得
+			PreparedStatement ps = objCon.prepareStatement(sql);
+			// プレースホルダにパラメータを設定
+			ps.setInt(1,bean.getItemid());
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// sqlを実行し、結果を取得
+			ResultSet rset = ps.executeQuery();
+			String[] a=new String[1];
+			a[0]="0";
+			data.add(a);
+	        while(rset.next()) {
+	        	// 取得するフィールド分の配列生成
+	        	String[] strData = new String[3];
+	        	strData[0] =rset.getString("ニックネーム");
+	        	strData[1] =rset.getString("レビュー");
+	        	strData[2] =rset.getString("評価");
+	        	// リストに追加
+	        	data.add(strData);
+
+	        }
+
+	        bean.setReviewList(data);
+
+	        rset.close();	// ResultSetのクローズ
+	        stmt.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return bean;
+	}
+
+	public DetailBean getReview(DetailBean bean,int i) {
+		ArrayList<String[]> data = new ArrayList<String[]>();
+
+		//Statementを生成
+	    Statement stmt;
+
+		try {
+
+			stmt = objCon.createStatement();
+
+	        String sql = "";
+	        sql += " SELECT ニックネーム,レビュー,評価";
+	        sql += " FROM 登録者マスタ tm inner join レビューマスタ rm on tm.登録者ID=rm.登録者ID";
+	        sql += " WHERE 商品ID = ?";
+	        sql += " ORDER BY 評価 ASC";
+
+			// データ取得
+			PreparedStatement ps = objCon.prepareStatement(sql);
+			// プレースホルダにパラメータを設定
+			ps.setInt(1,bean.getItemid());
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// sqlを実行し、結果を取得
+			ResultSet rset = ps.executeQuery();
+			String[] a=new String[1];
+			a[0]="1";
+			data.add(a);
+		        while(rset.next()) {
+	        	// 取得するフィールド分の配列生成
+	        	String[] strData = new String[3];
+	        	strData[0] =rset.getString("ニックネーム");
+	        	strData[1] =rset.getString("レビュー");
+	        	strData[2] =rset.getString("評価");
+	        	// リストに追加
+	        	data.add(strData);
+
+	        }
+
+	        bean.setReviewList(data);
+
+	        rset.close();	// ResultSetのクローズ
+	        stmt.close();	// Statementのクローズ
+
+
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		}
+
+		return bean;
+	}
+
+	private DetailBean judgeFavorite(DetailBean bean) {
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " SELECT count(*) AS 判定";
+        sql += " FROM お気に入りマスタ";
+        sql += " WHERE 登録者ID = ? AND 商品ID = ? ";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1,bean.getUserid());
+		ps.setInt(2,bean.getItemid());
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ResultSet rset = ps.executeQuery();
+		rset.next();
+		if(rset.getInt("判定")>0) {
+			bean.setFavorite(true);
+		}else {
+			bean.setFavorite(false);
+		}
+        rset.close();	// ResultSetのクローズ
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return bean;
+	}
+
+
+
+	private DetailBean judgeReview(DetailBean bean) {
+
+		Statement stmt;
+		int i=0;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " SELECT count(*) as 判定";
+        sql += " FROM レビューマスタ";
+        sql += " WHERE 登録者ID = ? AND 商品ID = ?";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1,bean.getUserid());
+		ps.setInt(2,bean.getItemid());
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ResultSet rset = ps.executeQuery();
+		rset.next();
+		i=rset.getInt("判定");
+        rset.close();	// ResultSetのクローズ
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		if(i==0) {
+			bean = getNickName(bean);
+		}
+		return bean;
+	}
+
+private DetailBean getNickName(DetailBean bean) {
+
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " SELECT ニックネーム";
+        sql += " FROM 伝票マスタ dm INNER JOIN 売上明細マスタ umm on dm.伝票ID=umm.伝票ID inner join 登録者マスタ tm on dm.登録者ID=dm.登録者ID";
+        sql += " WHERE tm.登録者ID = ? AND 商品ID = ? AND 注文状態 = '2'";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1,bean.getUserid());
+		ps.setInt(2,bean.getItemid());
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ResultSet rset = ps.executeQuery();
+		rset.next();
+		bean.setNickname(rset.getString("ニックネーム"));
+        rset.close();	// ResultSetのクローズ
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+
+		return bean;
+	}
+
+
+
+	public int getStock(int itemid) {
+
+		int iStock=0;
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " SELECT SUM(数量) AS 未発送注文個数";
+        sql += " FROM 伝票マスタ dm INNER JOIN 売上明細マスタ umm on dm.伝票ID=umm.伝票ID";
+        sql += " WHERE 注文状態 = '0' AND 商品ID = ? ";
+        sql += " GROUP BY 商品ID";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1, itemid);
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ResultSet rset = ps.executeQuery();
+		rset.next();
+		iStock=rset.getInt("未発送注文個数");
+
+        rset.close();	// ResultSetのクローズ
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return iStock;
+	}
+
+	private DetailBean judgeCart(DetailBean bean) {
+
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " SELECT 個数";
+        sql += " FROM カートマスタ";
+        sql += " WHERE 登録者ID = ? AND 商品ID = ?";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1,bean.getUserid());
+		ps.setInt(2,bean.getItemid());
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ResultSet rset = ps.executeQuery();
+		rset.next();
+		bean.setCart(rset.getInt("個数"));
+        rset.close();	// ResultSetのクローズ
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+
+		return bean;
+	}
 
 
 	//パスワード再取得
@@ -1355,7 +1398,69 @@ public class DBClass {
 
 		return data;
 	}
+	public void createFavorite(int itemid ,int userid) {
 
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " INSERT INTO お気に入りマスタ";
+        sql += " VALUES( ? , ? )";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1, userid);
+		ps.setInt(2, itemid);
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ps.executeUpdate();
+
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return;
+	}
+
+	public void deleteFavorite(int itemid ,int userid) {
+
+		Statement stmt;
+
+		try {
+
+		stmt = objCon.createStatement();
+
+        String sql = "";
+        sql += " DELETE FROM お気に入りマスタ";
+        sql += " WHERE 登録者ID = ? AND  商品ID=? ";
+
+		// データ取得
+		PreparedStatement ps = objCon.prepareStatement(sql);
+		// プレースホルダにパラメータを設定
+		ps.setInt(1, userid);
+		ps.setInt(2, itemid);
+		// 実行SQL確認
+		System.out.println(sql);
+
+		// sqlを実行し、結果を取得
+		ps.executeUpdate();
+
+        stmt.close();	// Statementのクローズ
+
+	} catch (SQLException e) {
+		// エラー表示
+		System.err.println(e.getClass().getName() + ":" + e.getMessage());
+	  }
+		return;
+	}
 	public ArrayList<String[]> getTAll(){
 
 		ArrayList<String[]> Adata = new ArrayList<String[]>();
@@ -1501,16 +1606,14 @@ public class DBClass {
 			stmt = objCon.createStatement();
 
 	        String sql = "";
-	        sql += " SELECT 特集ID,CAST(タイトル as nvarchar)as タイトル,公開フラグ,CONVERT(date, 公開日時) as 公開日時";
+	        sql += " SELECT distinct a.特集ID,CAST(タイトル as nvarchar)as タイトル,公開フラグ,CONVERT(date, 公開日時) as 公開日時";
 	        sql +=",終了日時";
-	        sql += " FROM  特集マスタ";
+	        sql += " FROM  特集マスタ as a inner join 関連商品マスタ as b on a.特集ID=b.特集ID";
+	        sql += " inner join 商品マスタ as c on b.商品ID=c.商品ID";
 	        sql +=" where タイトル like '%"+txt+"%'";
-	        if(combo.equals("1")) {
-	        	 sql += " order by 公開日時 desc";
-	        }
-	        if(combo.equals("2")) {
-	        	 sql += " order by 公開日時";
-	        }
+	        sql +=" or 商品名 like '%"+txt+"%'";
+	        if(combo.equals("1")) sql += " order by 公開日時 desc";
+	        else sql += " order by 公開日時";
 	        // 実行SQL確認
 	        System.out.println(sql);
 
@@ -1544,8 +1647,6 @@ public class DBClass {
 
 		return Adata;
 	}
-
-
 	public int updT(String tid,String txt){
 
 		// 実行結果件数用変数
@@ -2345,52 +2446,6 @@ public class DBClass {
 		}
 
 		return retCount;
-	}
-	public ArrayList<String[]> getsyouhin(String sid){
-
-		ArrayList<String[]> Adata = new ArrayList<String[]>();
-
-		//Statementを生成
-	    Statement stmt;
-
-		try {
-
-			stmt = objCon.createStatement();
-
-	        String sql = "";
-	        sql += "*";
-	        sql += " FROM  商品マスタ";
-	        sql += " where  ID='"+sid+"'";
-
-	        // 実行SQL確認
-	        System.out.println(sql);
-
-	        // 問い合わせの実行
-	        ResultSet rset = stmt.executeQuery(sql);
-
-	        while(rset.next()) {
-
-	        	// 取得するフィールド分の配列生成
-	        	String[] strData = new String[7];
-
-	        	strData[0] =rset.getString("商品ID");
-	        	strData[1] =rset.getString("商品名");
-
-
-	        	// リストに追加
-	        	Adata.add(strData);
-
-	        }
-
-	        rset.close();	// ResultSetのクローズ
-	        stmt.close();	// Statementのクローズ
-
-
-		} catch (SQLException e) {
-			// エラー表示
-			System.err.println(e.getClass().getName() + ":" + e.getMessage());
-		}
-		return Adata;
 	}
 }
 

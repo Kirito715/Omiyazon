@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,16 +13,16 @@ import javax.servlet.http.HttpSession;
 import common.DBClass;
 
 /**
- * Servlet implementation class Tinsert2
+ * Servlet implementation class ManagerItemSearch
  */
-@WebServlet("/Tinsert2")
-public class Tinsert2 extends HttpServlet {
+@WebServlet("/ManagerItemSearch")
+public class ManagerItemSearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Tinsert2() {
+    public ManagerItemSearch() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,27 +31,33 @@ public class Tinsert2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		String n1=request.getParameter("title");
-		String n2=request.getParameter("honbun");
-		String n3=request.getParameter("fdate");
-		String n4=request.getParameter("edate");
-		String n5=request.getParameter("pasu");
-		String[] sid=request.getParameterValues("itemid");
+
+		String text = request.getParameter("itemName");
+		if(text == null) {
+			text = "";
+		}
+		String regionId = request.getParameter("selectRegion");
+		String prefId = request.getParameter("selectPref");
+		String genre = request.getParameter("selectGenre");
+		String itemState = request.getParameter("itemState");
+
+		System.out.println(itemState);
 
 
 		DBClass db = new DBClass();
 		db.dbOpen();
-		db.insertT(n1,n2,n3,n4,n5);
-		if(sid!=null) {
-		for(int i=0;i<sid.length;i++){
-			db.insertkanren(sid[i]);
-		}
-		}
+		ArrayList<String[]>searchResult = db.getMngItemList(text,regionId,prefId,genre,itemState);
 		db.dbClose();
-		response.sendRedirect("KAlltokusyuu");
+
+
+		String[] searchCondition = {text,regionId,prefId,genre,itemState};
+
+		session.setAttribute("mSearchResult", searchResult);
+		session.setAttribute("mSearchCondition", searchCondition);
+
+		response.sendRedirect("jsp/managerTop.jsp");
 	}
 
 	/**

@@ -146,7 +146,7 @@ $(function() {
 </div>
 <hr>
 
-<form id="checkcnt">
+<form id="checkcnt" action="../Tinsert">
 <div class="container" style="width:100%; height:420px; overflow-y:auto;">
 	<table class="table table-sm table-hover">
 	<thead class="thead-dark">
@@ -180,7 +180,7 @@ $(function() {
 			<td><%=a[4] %></td>
 			<td><%=a[5] %></td>
 			<td><%=a[6] %></td>
-		<td><button type="button" class="btn btn-outline-primary" onclick="move('<%= a[0]%>')">変更</button></td>
+		<td><button type="button" class="btn btn-outline-primary" onclick="move('<%= a[0]%>')">詳細</button></td>
 		</tr>
 <%
 		cnt++;
@@ -202,9 +202,18 @@ $(function() {
 </div>
 </div>
 </form>
-<form action="../../ManagerItemDetail" name="frm">
+<form action="../ManagerItemDetail" name="frm">
 	<input type="hidden" name="sid" id="sid">
 </form>
 
+
+<script type="text/javascript">
+
+function move(id){
+	$("#sid").val(id);	//jQuery
+	document.frm.submit();
+}
+
+</script>
 </body>
 </html>

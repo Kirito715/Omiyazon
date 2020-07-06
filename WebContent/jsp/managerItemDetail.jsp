@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>管理者システム</title>
 <%
+	ArrayList<String> ary = (ArrayList<String>)session.getAttribute("mItemDetail");
 	ArrayList<String[]> pref = (ArrayList<String[]>)session.getAttribute("mPrefList");
 
 	if(pref == null){
@@ -24,6 +25,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- BootstrapのJS読み込み -->
 	<script src="../js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	function select_checked() {
+		$("#selectGenre").val("<%=ary.get(5)%>");
+		$("#selectPref").val("<%=ary.get(6)%>");
+		$(".itemState[value=<%=ary.get(7)%>]").attr("checked","checked");
+
+	}
+</script>
 
 <style type="text/css">
 /* モーダルCSS */
@@ -63,9 +73,7 @@
 }
 
 </style>
-
-</head>
-<body>
+<body onLoad="select_checked()">
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Omiyazon.Manage</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,30 +93,31 @@
 </nav>
 
 <div class="container">
-<p class="text-center display-4">新商品追加</p>
-	<form action="../ManagerNewItemInsert" name="frmInsert" id="frmInsert">
+<p class="text-center display-4">商品詳細</p>
+	<form action="../ManagerItemUpdate" name="frmUpdate" id="frmUpdate">
+		<input type="hidden" name="id" value="<%=ary.get(0) %>" readonly>
 		<div class="form-group row">
 			<label for="inputName" class="col-sm-2 col-form-label">商品名</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="name" name="name" placeholder="商品名を入力" required>
+				<input type="text" class="form-control" id="name" name="name" placeholder="商品名を入力" value="<%=ary.get(1) %>" required>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="inputName" class="col-sm-2 col-form-label">加盟店名</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="sname" name="sname" placeholder="加盟店名を入力" required>
+				<input type="text" class="form-control" id="sname" name="sname" placeholder="加盟店名を入力" value="<%=ary.get(2) %>" required>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="inputName" class="col-sm-2 col-form-label">価格</label>
 			<div class="col-sm-10">
-				<input type="number" class="form-control" id="price" name="price" placeholder="価格を入力" required>
+				<input type="number" class="form-control" id="price" name="price" placeholder="価格を入力" value="<%=ary.get(3) %>" required>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="inputName" class="col-sm-2 col-form-label">注文上限</label>
 			<div class="col-sm-10">
-				<input type="number" class="form-control" id="num" name="num" placeholder="注文上限を入力" required>
+				<input type="number" class="form-control" id="num" name="num" placeholder="注文上限を入力" value="<%=ary.get(4) %>" required>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -138,40 +147,50 @@
 				</select>
 			</div>
 		</div>
+		<div class="form-group">
+			<div class="custom-control custom-radio">
+				<input type="radio" id="Radio1" name="itemState" class="custom-control-input itemState" value="0" checked="checked">
+				<label class="custom-control-label" for="Radio1">販売中</label>
+			</div>
+			<div class="custom-control custom-radio">
+				<input type="radio" id="Radio2" name="itemState" class="custom-control-input itemState" value="1">
+				<label class="custom-control-label" for="Radio2">販売停止</label>
+			</div>
+		</div>
 		<div class="form-group row">
 			<label for="inputSummary" class="col-sm-2 col-form-label">商品概要</label>
 			 <div class="col-sm-10">
-			      <textarea style="width:100%; height:110px;" class="form-control" id="summary" name="summary" placeholder="商品概要を入力" required></textarea>
+			      <textarea style="width:100%; height:110px;" class="form-control" id="summary" name="summary" placeholder="商品概要を入力" required><%=ary.get(8) %></textarea>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="inputPicture1" class="col-sm-2 col-form-label">画像1</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="pic1" name="pic1"  placeholder="画像パスを入力" required>
+				<input type="text" class="form-control" id="pic1" name="pic1"  placeholder="画像パスを入力" value="<%=ary.get(9) %>" required>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="inputpicture2" class="col-sm-2 col-form-label">画像2</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="pic2" name="pic2"  placeholder="画像パスを入力" >
+				<input type="text" class="form-control" id="pic2" name="pic2"  placeholder="画像パスを入力" value="<%=ary.get(10) %>" >
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="inputpicture3" class="col-sm-2 col-form-label">画像3</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="pic3" name="pic3"  placeholder="画像パスを入力" >
+				<input type="text" class="form-control" id="pic3" name="pic3"  placeholder="画像パスを入力" value="<%=ary.get(11) %>" >
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="inputpicture4" class="col-sm-2 col-form-label">画像4</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="pic4" name="pic4"  placeholder="画像パスを入力" >
+				<input type="text" class="form-control" id="pic4" name="pic4"  placeholder="画像パスを入力" value="<%=ary.get(12) %>" >
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="inputpicture5" class="col-sm-2 col-form-label">画像5</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="pic5" name="pic5"  placeholder="画像パスを入力" >
+				<input type="text" class="form-control" id="pic5" name="pic5"  placeholder="画像パスを入力" value="<%=ary.get(13) %>" >
 			</div>
 		</div>
 		<hr>
@@ -180,7 +199,7 @@
 				<a type="button" class="btn btn-warning btn-block" href="managerTop.jsp">戻る</a>
 			</div>
 			<div class="col">
-				<button type="button" class="btn btn-primary btn-block" onclick="moveup()">追加</button>
+				<button type="button" class="btn btn-primary btn-block" onclick="moveup()">更新</button>
 			</div>
 		</div>
 	</form>
@@ -222,6 +241,11 @@
 		<div class="p-1 flex-fill w-100" id="modalPref"></div>
 	</div>
 	<hr>
+	<div class="d-flex">
+		<div class="p-1 flex-fill w-100">販売状態:</div>
+		<div class="p-1 flex-fill w-100" id="modalState"></div>
+	</div>
+	<hr>
 	<div class="d-flex flex-column align-items-stretch">
 		<div class="p-1">商品概要：</div>
 		<div class="p-1" id="modalSummary"></div>
@@ -237,7 +261,7 @@
 		<div class="p-1">画像5：</div>
 		<div class="p-1"><img style="max-width:300px; max-height:300px;" id="modalPic5" src=""></div>
 	</div>
-      <button type="button" class="btn btn-primary btn-block" id="goInsert">追加</button>
+      <button type="button" class="btn btn-primary btn-block" id="goUpdate">更新</button>
     </div>
     <div id="closeModal" class="closeModal">
       ×
@@ -245,6 +269,7 @@
   </div>
 </section>
 <!-- モーダルエリアここまで -->
+
 <script type="text/javascript">
 $(function () {
 	  $('#openModal').click(function(){
@@ -254,13 +279,14 @@ $(function () {
 	    $('#modalArea').fadeOut();
 	  });
 
-	  $('#goInsert').click(function(){
-		  $('#frmInsert').submit();
-		  alert("データを追加しました");
+	  $('#goUpdate').click(function(){
+		  $('#frmUpdate').submit();
+		  alert("データを変更しました");
 	  })
 	});
 
 function moveup(){
+
 	if (! $('form')[0].reportValidity()) {
 	 	return false;
 	  }
@@ -271,6 +297,12 @@ function moveup(){
 		$('#modalNum').text($('#num').val());
 		$('#modalGenre').text($('#selectGenre option:selected').text());
 		$('#modalPref').text($('#selectPref option:selected').text());
+		if($('input:radio[name="itemState"]:checked').val() == '0'){
+			$('#modalState').text("販売中");
+		}
+		else if($('input:radio[name="itemState"]:checked').val() == '1'){
+			$('#modalState').text("販売停止");
+		}
 		$('#modalSummary').text($('#summary').val());
 		$('#modalPic1').attr('src',$('#pic1').val());
 		$('#modalPic2').attr('src',$('#pic2').val());

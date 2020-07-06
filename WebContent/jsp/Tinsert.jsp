@@ -12,10 +12,8 @@
 <%Date a = new Date();
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 String date = dateFormat.format(a); %>
-<form action="../Tinsert2">
-<%String[] sid = (String[]) session.getAttribute("sid");%>
+<form action="../Tinsert">
 タイトル<br>
-
 <input type="text"name="title"><br>
 <input type="text"name="honbun"><br>
 公開開始
@@ -25,13 +23,10 @@ String date = dateFormat.format(a); %>
 画像パス
 <input type="text"name="pasu"><br>
 関連商品
-<%if(sid!=null){%>
-	<%for(int i=0;i<sid.length;i++){ %>
-		<%=sid[i] %>
-	<%} %><br>
-	<%}%>
+<%for(int i=0;i<3;i++){ %>
+<%=i%>
+<%} %><br>
 <input type="submit"value="作成する">
-<input type="hidden"value="">
 </form>
 </body>
 </html>

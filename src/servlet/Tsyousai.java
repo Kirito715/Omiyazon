@@ -36,7 +36,6 @@ public class Tsyousai extends HttpServlet {
 		HttpSession session = request.getSession();
 		DBClass db = new DBClass();
 		String tid=request.getParameter("tid");
-		System.out.println(tid);
 		db.dbOpen();
 		ArrayList<String[]> ary = db.getTsyousai(tid);
 		ArrayList<String[]> ary2= db.getTkanren(tid);

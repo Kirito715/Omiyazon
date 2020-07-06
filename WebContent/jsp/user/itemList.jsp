@@ -11,20 +11,9 @@
 	//ログイン情報
 	String userId = (String)session.getAttribute("userId");
 
-	//if(userId == null){
-	//	userId = "1";
-	//	session.setAttribute("userId",userId);
-	//}
-
-	//カート
-	String cartNum = "0";
-	{
-	DBClass db = new DBClass();
-	db.dbOpen();
-
-	cartNum = db.getCartNum(userId);
-
-	db.dbClose();
+	if(userId == null){
+		userId = "1";
+		session.setAttribute("userId",userId);
 	}
 %>
 <%
@@ -60,7 +49,18 @@
 		searchResult = new ArrayList<String[]>();
 	}
 %>
+<%
+	//カート
+	String cartNum = "0";
+	{
+	DBClass db = new DBClass();
+	db.dbOpen();
 
+	cartNum = db.getCartNum(userId);
+
+	db.dbClose();
+	}
+%>
 <!-- BootstrapのCSS読み込み -->
 <link href="../../css/bootstrap.min.css" rel="stylesheet">
 <!-- jQuery読み込み -->
@@ -91,10 +91,6 @@
 		$(".genre[value=<%=searchCondition[10]%>]").attr("checked","checked");
   }
 
-	function goDetail(id){
-		$("#itemid").val(id);
-		document.frm3.submit();
-	}
 </script>
 <style>
 .DivLink {
@@ -132,7 +128,7 @@
 
 <%--ヘッダー --%>
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
-<a class="navbar-brand text-white" href="../../TopPage">Omiyazon</a>
+<a class="navbar-brand text-white" href="#">Omiyazon</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
@@ -144,7 +140,7 @@
 
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link text-white" href="../../TAlltokusyuu">特集一覧</a>
+				<a class="nav-link text-white" href="#">特集一覧</a>
 			</li>
 		</ul>
 
@@ -155,9 +151,9 @@
 			<img alt="カート" src="../../img/cart.png"  width=40 height=35 >
 			<span class="text-warning" style="position:relative; left:-29px; top:-8px; font-size: 20px; font-weight: bold"><%=cartNum %></span>
 			</a>
-			<a class="btn btn-warning text-right" href="Mypage.jsp" role="button">マイページ</a>
+			<a class="btn btn-warning text-right" href="#" role="button">マイページ</a>
 		<%}else{%>
-			<a class="btn btn-warning text-right" href="Login.jsp" role="button">ログイン</a>
+			<a class="btn btn-warning text-right" href="#" role="button">ログイン</a>
 		<%} %>
 	</div>
 </nav>
@@ -247,15 +243,13 @@
 		</span>
 	<%} %>
 <%} %>
-	<a href="#<%=a[0] %>"; onclick="goDetail('<%=a[0]%>');return false;"></a>
+<a href="#<%=a[0] %>"></a>
 </div>
 <hr>
 <%} %>
 </div>
 </div>
 </div>
-<form action="../../ItemDetail" name="frm3" id="frm3">
-	<input type="hidden" name="itemid" id="itemid">
-</form>
+
 </body>
 </html>
