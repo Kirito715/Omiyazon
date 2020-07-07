@@ -51,7 +51,10 @@ public class Mypage2 extends HttpServlet {
 			}
 		//お気に入り一覧
 		else if(button.equals("3")) {
-			response.sendRedirect("");
+			ArrayList<String[]> c = db.getbook(uid);
+			session.setAttribute("mybook",c);
+
+			response.sendRedirect("jsp/book.jsp");
 		}
 		//ログアウト
 		else if(button.equals("4")) {
