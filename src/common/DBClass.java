@@ -608,6 +608,44 @@ public class DBClass {
 		return bRet;
 	}
 
+	public boolean mngLogin(String id,String pass) {
+		boolean bReturn = false;
+
+		try {
+			String sql = "";
+
+			sql += " SELECT *";
+			sql += " FROM   管理者マスタ ";
+			sql += " WHERE  管理者ID LIKE ?";
+			sql += " AND    パスワード LIKE ?";
+
+			// データ取得
+			PreparedStatement ps = objCon.prepareStatement(sql);
+
+			// プレースホルダにパラメータを設定
+			ps.setString(1, id);
+			ps.setString(2, pass);
+
+			// 問い合わせの実行
+			ResultSet rset = ps.executeQuery();
+			if (rset.next() == true) {
+				bReturn = true;
+			}
+
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// 解放
+			ps.close();
+
+		} catch (SQLException e) {
+			System.out.println("エラー");
+			return bReturn = false;
+		}
+
+		return bReturn;
+	}
+
 	private String getFavorite(String itemId,String userId) {
 		String sRet ="0";
 		try {

@@ -21,13 +21,13 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#">注文管理</a>
+        <a class="nav-link" href="../denpyou">注文管理</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">特集管理</a>
+        <a class="nav-link" href="../KTAlltokusyuu">特集管理</a>
       </li>
     </ul>
-      	<a class="btn btn-outline-warning text-right" href="#" role="button">ログアウト</a>
+      	<a class="btn btn-outline-warning text-right" href="../ManagerLogout" role="button">ログアウト</a>
   </div>
 </nav>
 </body>
