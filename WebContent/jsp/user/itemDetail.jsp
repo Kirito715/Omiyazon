@@ -218,6 +218,16 @@ $(function(){
     });
 
 
+	<% for(int i=bean.getReviewList().size()-1; 1 <= i; i--) {%>
+
+		$('#userRev<%= i %>').raty( {
+			 score : <%=bean.getReviewList().get(i)[2]%>,		//スコア初期値
+		     readOnly: true,   //true : 閲覧者によるスコアの変更不可  false:変更可能
+		     path:'../../ratyimage' //サーバ上のRaty画像のパス
+		    });
+
+	<%}%>
+
 });
 
 
@@ -316,7 +326,7 @@ $(function(){
 <%	if(bean.getReviewList()!=null) {
 	for(int i=bean.getReviewList().size()-1; 1 <= i; i--) {%>
 <span>ユーザ名:<%=bean.getReviewList().get(i)[0]%></span><br>
-<span>☆<%=bean.getReviewList().get(i)[2]%></span><br>
+<span id="userRev<%= i %>"></span><br>
 <span>レビュー:<%=bean.getReviewList().get(i)[1]%></span><br>
 <%
 	}
