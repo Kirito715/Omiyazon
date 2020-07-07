@@ -56,9 +56,7 @@
 	{
 	DBClass db = new DBClass();
 	db.dbOpen();
-
 	cartNum = db.getCartNum(userId);
-
 	db.dbClose();
 	}
 %>
@@ -143,6 +141,11 @@ $(function(){
 	$('#sort').addClass('hide');
 	if(!(irev==1)){
 			$('#sort').removeClass('hide');
+			$('#avgstar').raty( {
+				 score : <%=bean.getAvgqua()%>,		//スコア初期値
+			     readOnly: true,   //true : 閲覧者によるスコアの変更不可  false:変更可能
+			     path:'../../ratyimage' //サーバ上のRaty画像のパス
+			    });
 			$('#avgqua').text("☆<%=bean.getAvgqua()%>");
 		}
 
@@ -187,10 +190,10 @@ $(function(){
 	$('#rebtn').hide();
 	if(<%=bean.getLogin()%>){
 		var nickname = "<%=bean.getNickname()%>";
-		if(nickname!=null){
-		$('#rebtn').val("レビューを投稿する");
-		$('#rebtn').show();
-	 }
+		if(nickname.equal("")){
+			$('#rebtn').val("レビューを投稿する");
+			$('#rebtn').show();
+	 	}
 	}
 
 
@@ -294,6 +297,7 @@ $(function(){
 </nav>
 <br>
 <span id="itemname"></span>
+<span  class="col-md-6 mb-3" id="star"></span>
 <span id="avgqua"></span>
 
 <span id="favorite" class="LikesIcon">
@@ -346,7 +350,7 @@ $(function(){
   				</div>
   			</div>
 			<div class="col-md-6 mb-3">
-				<textarea  name=review  cols="50" rows="8" placeholder="レビュー" ></textarea>
+				<textarea  name=review  cols="50" rows="8" placeholder="レビュー" maxlength="500" ></textarea>
 			</div>
 
 			<input type=submit class="btn btn-outline-primary" value="送信">

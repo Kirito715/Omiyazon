@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class DetailBean {
 	Boolean login;
-	Boolean review;
 	int userid;
 	int itemid;
 	String itemname;
@@ -23,14 +22,6 @@ public class DetailBean {
 	Boolean favorite;
 	ArrayList<String[]> reviewList;
 
-
-
-	public Boolean getReview() {
-		return review;
-	}
-	public void setReview(Boolean review) {
-		this.review = review;
-	}
 	public ArrayList<String[]> getReviewList() {
 		return reviewList;
 	}

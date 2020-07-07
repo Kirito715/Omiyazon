@@ -69,6 +69,7 @@ public class ItemDetail extends HttpServlet {
 			DBClass db=new DBClass();
 			db.dbOpen();
 			db.addCart(bean);
+			bean = db.judgeCart(bean);
 			db.dbClose();
 		}
 		else{
@@ -100,7 +101,13 @@ public class ItemDetail extends HttpServlet {
 		DBClass db=new DBClass();
 		db.dbOpen();
 		db.insertReview(review,star,bean);
+		bean = db.getDetailData(bean);
 		db.dbClose();
+		//平均値処理
+		if(bean.getReviewList().size()>1) {
+			bean=getAverage(bean);
+		}
+		session.setAttribute("DetaillBean",bean);
 		response.sendRedirect("jsp/user/itemDetail.jsp");
 	}
 
