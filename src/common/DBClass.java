@@ -2585,7 +2585,7 @@ public class DBClass {
 	        String sql = "";
 	        sql += " select *";
 	        sql += " FROM  商品マスタ";
-	        sql += " where  ID='"+sid+"'";
+	        sql += " where  商品ID='"+sid+"'";
 
 	        // 実行SQL確認
 	        System.out.println(sql);
