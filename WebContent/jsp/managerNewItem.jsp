@@ -66,23 +66,7 @@
 
 </head>
 <body>
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Omiyazon.Manage</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">注文管理</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">特集管理</a>
-      </li>
-    </ul>
-      	<a class="btn btn-outline-warning text-right" href="#" role="button">ログアウト</a>
-  </div>
-</nav>
+<%@include file="managerHeader.jsp" %>
 
 <div class="container">
 <p class="text-center display-4">新商品追加</p>

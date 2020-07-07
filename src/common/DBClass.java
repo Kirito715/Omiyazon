@@ -286,7 +286,7 @@ public class DBClass {
 	        	 sql += " AND gm.ジャンルID = ?";
 	        }
 	        sql += " AND 削除フラグ= ?";
-	        sql += " ORDER BY 商品ID DESC";
+	        sql += " ORDER BY 商品ID ASC";
 
 
 	        System.out.println(sql);

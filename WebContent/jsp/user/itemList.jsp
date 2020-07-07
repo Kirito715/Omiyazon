@@ -9,12 +9,7 @@
 <title>Insert title here</title>
 <%
 	//ログイン情報
-	String userId = (String)session.getAttribute("userId");
-
-	if(userId == null){
-		userId = "1";
-		session.setAttribute("userId",userId);
-	}
+//	String userId = (String)session.getAttribute("userId");
 %>
 <%
 	ArrayList<String[]> region = (ArrayList<String[]>)session.getAttribute("regionList");
@@ -51,12 +46,12 @@
 %>
 <%
 	//カート
-	String cartNum = "0";
+//	String cartNum = "0";
 	{
 	DBClass db = new DBClass();
 	db.dbOpen();
 
-	cartNum = db.getCartNum(userId);
+//	cartNum = db.getCartNum(userId);
 
 	db.dbClose();
 	}
@@ -127,36 +122,8 @@
 <body onLoad="select_checked()">
 
 <%--ヘッダー --%>
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
-<a class="navbar-brand text-white" href="#">Omiyazon</a>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-<span class="navbar-toggler-icon"></span>
-</button>
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<form class="form-inline " id="frm1" name="frm1" action="../../HeaderItemSearch">
-			<input class="form-control" type="text" placeholder="検索" aria-label="Search" name="search" id="search" value="<%=searchCondition[0] %>">
-			<button class="btn btn-success" type="submit">検索</button>
-		</form>
+<%@include file="../header.jsp" %>
 
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item">
-				<a class="nav-link text-white" href="#">特集一覧</a>
-			</li>
-		</ul>
-
-		<%
-			if(userId!=null){
-		%>
-			<a class="nav-link hover" href="#" role="button">
-			<img alt="カート" src="../../img/cart.png"  width=40 height=35 >
-			<span class="text-warning" style="position:relative; left:-29px; top:-8px; font-size: 20px; font-weight: bold"><%=cartNum %></span>
-			</a>
-			<a class="btn btn-warning text-right" href="#" role="button">マイページ</a>
-		<%}else{%>
-			<a class="btn btn-warning text-right" href="#" role="button">ログイン</a>
-		<%} %>
-	</div>
-</nav>
 <div class="container-fluid">
 <div class="row">
 <div class="col-sm-4">
