@@ -26,7 +26,7 @@
 </head>
 
 <body class="text-center">
-	<form class="form-signin" action="../../UserLogin">
+	<form class="form-signin" action="../ItemSearch">
 		<h2 class="h3 mb-3 font-weight-normal">お買い上げありがとう</h2>
 			<h2 class="h3 mb-3 font-weight-normal">ございます。</h2>
 			<h3 class="h3 mb-3 font-weight-normal">引き続きお買い物をお楽しみください。</h3>
