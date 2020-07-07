@@ -36,7 +36,7 @@ public class NewMember extends HttpServlet {
 		String action = request.getParameter("action");
 
 		if(action==null) {
-			Path="jsp/newMemberInput.jsp";
+			Path="jsp/user/newMemberInput.jsp";
 			MemberBean mb = new MemberBean();
 			mb.setJudge(false);
 			mb.setJudge2(false);
@@ -49,10 +49,10 @@ public class NewMember extends HttpServlet {
 			InsertUserData iud = new InsertUserData();
 			iud.insert(mb);
 			session.removeAttribute("beanData");
-			Path="jsp/newMemberComplete.jsp";
+			Path="jsp/user/newMemberComplete.jsp";
 		}
 		else if(action.equals("back")) {
-			Path="jsp/newMemberInput.jsp";
+			Path="jsp/user/newMemberInput.jsp";
 		}
 
 		response.sendRedirect(Path);
