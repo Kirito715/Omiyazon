@@ -179,8 +179,9 @@ $(function(){
 	}
 
 	});
+});
 
-<<<<<<< HEAD
+
 $(function () {
 	  $('#rebtn').click(function(score){
 	      $('#modalArea').fadeIn();
@@ -205,6 +206,8 @@ $(function() {
 
 
 
+=======
+>>>>>>> b933b51 a
 </script>
 
 </head>
@@ -268,8 +271,6 @@ $(function() {
 <option value="new">最新順</option>
 <option value="quo">評価順</option>
 </select>
-
-<<<<<<< HEAD
 <input type=button id="rebtn" >
 <section id="modalArea" class="modalArea">
 	<div id="modalBg" class="modalBg"></div>
@@ -308,9 +309,10 @@ $(function() {
 </div>
 </section>
 
-=======
 <input type=button id="rebtn"><br>
->>>>>>> branch 'master' of https://github.com/Kirito715/Omiyazon
+
+<input type=button id="rebtn"><br>
+
 <br>
 </body>
 </html>
