@@ -67,7 +67,7 @@ public class NewMember extends HttpServlet {
 		MemberBean mb = setBean(request);
 		HttpSession session = request.getSession();
 		session.setAttribute("beanData",mb);
-		response.sendRedirect("jsp/newMemberConfirmation.jsp");
+		response.sendRedirect("jsp/user/newMemberConfirmation.jsp");
 	}
 
 	private MemberBean setBean( HttpServletRequest request) {

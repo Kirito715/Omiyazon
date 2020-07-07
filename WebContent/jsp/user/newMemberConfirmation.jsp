@@ -13,7 +13,7 @@
 <link rel="icon" href="">
 
 <title>登録内容確認</title>
-
+<link rel="stylesheet" href="../css/slide.css" type="text/css">
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -27,16 +27,6 @@
 
 <style type="text/css">
 <!--
-body {
-	background: #373B44; /* fallback for old browsers */
-	background: #780206; /* fallback for old browsers */
-	background: -webkit-linear-gradient(#061161, #780206);
-	/* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(#061161, #780206);
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-	url (../../image/main_6.jpg);
-	background-size: cover;
-}
 
 .form {
 	color: fffacd;
@@ -50,7 +40,7 @@ body {
 -->
 </style>
 </head>
-
+<div class="body">
 <body class="bg-light">
 
 	<% MemberBean bean = (MemberBean)session.getAttribute("beanData");
@@ -151,7 +141,7 @@ body {
 					<hr class="mb-3">
 
 					<div class=>
-						<a href="../NewMember?action=back"
+						<a href="../user/NewMember?action=back"
 							class="btn btn-outline-warning btn-lg float-left" role="button">内容変更</a>
 						<a href="../NewMember?action=done"
 					 class="btn btn-primary btn-lg ml-12 float-right" role="button">登録する</a>
@@ -162,8 +152,9 @@ body {
 		</div>
 
 		<footer class="my-5 pt-5 text-muted text-center text-small">
-			<p class="mb-1">&copy; D will Company 2020</p>
+			<p class="mb-1">&copy; Omiyazon</p>
 		</footer>
+	</div>
 	</div>
 
 	<!-- Bootstrap core JavaScript
