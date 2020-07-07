@@ -12,7 +12,7 @@
 <link rel="icon" href="">
 
 <title>会員登録完了</title>
-
+<link rel="stylesheet" href="../css/slide.css" type="text/css">
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -26,16 +26,6 @@
 
 <style type="text/css">
 <!--
-body {
-	background: #373B44; /* fallback for old browsers */
-	background: #780206; /* fallback for old browsers */
-	background: -webkit-linear-gradient(#061161, #780206);
-	/* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(#061161, #780206);
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-	url (../../image/main_6.jpg);
-	background-size: cover;
-}
 
 .form {
 	color: fffacd;
@@ -52,6 +42,7 @@ body {
 </head>
 
 <body class="bg-light">
+<div class="body">
 	<div class="container jumbotron">
 		<div class="row">
 			<div class="col-auto">
@@ -63,39 +54,33 @@ body {
 		<div class="row ">
 			<div class="col-auto">
 				<h4 class="p-3">
-					登録完了しました！<br>OnLineBarをどうぞお楽しみください！
+					登録完了しました！<br>Omiyazonをどうぞお楽しみください！
 				</h4>
 			</div>
+		</div>
+		<div class="row">
 			<div class="col-auto p-3">
-				<h4>何から始めるか迷っているアナタはこちら！</h4>
-				<a href="../topPage/topPage.jsp"
+				<a href="../TopPage.jsp"
 					class="btn btn-outline-primary btn-lg float-left" role="button">トップページへ</a>
 			</div>
 
-			<div class="col-auto p-3">
-				<h4>新しい出会いを求めているアタナはこちら！</h4>
-				<a href="../../EventList"
-					class="btn btn-outline-danger btn-lg float-left" role="button">イベント一覧へ</a>
-			</div>
 
 			<div class="col-auto p-3">
-				<h4>お酒を求め続けるアナタにはこちら！</h4>
-				<a href="../../ItemSeachSet"
-					class="btn btn-outline-success btn-lg float-left" role="button">通販トップへ</a>
+
+				<a href="../../ItemSearch"
+					class="btn btn-outline-success btn-lg float-left" role="button">商品一覧</a>
 			</div>
 
-			<div class="col-auto p-3">
-				<h4>自己紹介や準備は大切！マイページを編集したいアナタにはこちら！</h4>
-				<a href="../MyPage/myPage.jsp"
-					class="btn btn-outline-info btn-lg float-left" role="button">マイページへ</a>
 			</div>
 
 
 		</div>
+
 		<footer class="my-5 pt-5 text-muted text-center text-small">
-			<p class="mb-1">&copy; D will Company 2020</p>
+			<p class="mb-1">&copy; Omiyazon</p>
 		</footer>
 	</div>
+
 
 
 
@@ -139,5 +124,6 @@ body {
 					}, false);
 		})();
 	</script>
+
 </body>
 </html>
