@@ -180,25 +180,28 @@ $(function(){
 	 }
 	}
 
-	});
 
-$(function () {
+
 	  $('#rebtn').click(function(){
 	      $('#modalArea').fadeIn();
 	  });
 	  $('#closeModal , #modalBg').click(function(){
 	    $('#modalArea').fadeOut();
 	  });
-});
 
-$(function() {
-    $('#star').raty( {
+
+
+	$('#star').raty( {
+	 score : 5,
      readOnly: false,   //閲覧者によるスコアの変更不可
-     score: function() {
+     targetScore: '#target',
+     click: function(score) {
         return $(this).attr('data-score');
      },
      path:'../../ratyimage' //サーバ上のRaty画像のパス
-});
+    });
+
+
 });
 
 
@@ -326,6 +329,7 @@ $(function() {
 					<label for="rev">評価 </label>
 				</div>
   				<div  class="col-md-6 mb-3" id="star">
+  				<input type="hidden" id="target" name="star">
   				</div>
   			</div>
 			<div class="col-md-6 mb-3">
