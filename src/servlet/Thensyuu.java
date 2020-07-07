@@ -36,10 +36,12 @@ public class Thensyuu extends HttpServlet {
 		HttpSession session = request.getSession();
 		DBClass db = new DBClass();
 		String tid=request.getParameter("tid");
+		ArrayList<String[]> kanren = new ArrayList<String[]>();
 		db.dbOpen();
 		ArrayList<String[]> ary = db.getTsyousai(tid);
 		db.dbClose();
-		session.setAttribute("Thensyuu",ary);
+		session.setAttribute("Tsyousai",ary);
+		session.setAttribute("Tkanren",kanren);
 		session.setAttribute("tid",tid);
 		System.out.println(tid);
 		response.sendRedirect("jsp/Thensyuu2.jsp");

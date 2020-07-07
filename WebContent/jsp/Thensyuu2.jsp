@@ -1,6 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="Tsyousai.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +11,7 @@
 <body>
 <form action="../Tupdate">
 <%String tid=(String)session.getAttribute("tid");%>
-<%ArrayList<String[]> Thensyuu = (ArrayList<String[]>) session.getAttribute("Thensyuu");%>
-<%=tid %>
-<%=Thensyuu.get(0)[1] %> <%=Thensyuu.get(0)[4] %><br>
-<%=Thensyuu.get(0)[2] %><br>
+<%ArrayList<String[]> Thensyuu = (ArrayList<String[]>) session.getAttribute("Tsyousai");%>
 追記する
 <input type="text"name="txt"><br>
 <%if(Thensyuu.get(0)[3].equals("0")){%>
