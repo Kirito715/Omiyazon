@@ -14,6 +14,8 @@
 
 <title>新規会員登録</title>
 
+<link rel="stylesheet" href="../css/slide.css" type="text/css">
+
 <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
@@ -28,16 +30,7 @@
 
 <style type="text/css">
 <!--
-body {
-	background: #373B44; /* fallback for old browsers */
-	background: #780206; /* fallback for old browsers */
-	background: -webkit-linear-gradient(#061161, #780206);
-	/* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(#061161, #780206);
-	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-	url (../../image/main_6.jpg);
-	background-size: cover;
-}
+
 
 .form {
 	color: fffacd;
@@ -54,6 +47,7 @@ body {
 </head>
 
 <body class="bg-light">
+<div class="body">
 	<div class="container jumbotron">
 		<div class="py-6 col-md-6 order-md-6">
 			<h2>新規会員登録</h2>
@@ -62,6 +56,7 @@ body {
 		<div class="row">
 			<div class="col-md-8 order-md-1">
 				<h4 class="mb-3">お客様情報を入力してください</h4>
+
 				<form class="needs-validation" novalidate
 					action="../NewMember" method="post">
 
@@ -243,7 +238,7 @@ body {
 					<hr class="mb-3">
 
 					<div class=>
-						<a href="../topPage/topPage.jsp"
+						<a href="../../TopPage"
 							class="btn btn-outline-warning btn-lg float-left" role="button">トップページへ</a>
 						<button class="btn btn-primary btn-lg ml-12 float-right"type="submit">確認画面へ</button>
 					</div>
@@ -253,10 +248,10 @@ body {
 		</div>
 
 		<footer class="my-5 pt-5 text-muted text-center text-small">
-			<p class="mb-1">&copy; D will Company 2020</p>
+			<p class="mb-1">&copy; Omiyazon</p>
 		</footer>
 	</div>
-
+	</div>
 	<!-- Bootstrap core JavaScript
 ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->

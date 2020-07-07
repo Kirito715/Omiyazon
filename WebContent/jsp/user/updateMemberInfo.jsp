@@ -240,7 +240,7 @@
 					<hr class="mb-3">
 
 					<div class=>
-						<a href="../topPage/topPage.jsp"
+						<a href="../../TopPage"
 							class="btn btn-outline-warning btn-lg float-left" role="button">マイページへ</a>
 						<button class="btn btn-primary btn-lg ml-12 float-right" type="submit">登録を修正する</button>
 					</div>
