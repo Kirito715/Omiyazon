@@ -968,7 +968,7 @@ public class DBClass {
 			return iStock;
 		}
 
-		private DetailBean judgeCart(DetailBean bean) {
+		public DetailBean judgeCart(DetailBean bean) {
 
 			try {
 
