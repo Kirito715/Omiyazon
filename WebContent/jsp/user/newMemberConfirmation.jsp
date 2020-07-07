@@ -1,3 +1,4 @@
+<%@page import="bean.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -11,7 +12,7 @@
 <meta name="author" content="">
 <link rel="icon" href="">
 
-<title>会員登録完了</title>
+<title>登録内容確認</title>
 
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet"
@@ -42,62 +43,128 @@ body {
 }
 
 .jumbotron {
-	background-image: url("../../image/105.jpg");
-	background-size: cover;
-	background-position: center 60%;
+  background-image: url("../../image/105.jpg");
+  background-size: cover;
+  background-position: center 60%;
 }
 -->
 </style>
-
 </head>
 
 <body class="bg-light">
+
+	<% MemberBean bean = (MemberBean)session.getAttribute("beanData");
+		String sNN = bean.getNickname();
+		String sName = bean.getName();
+		String sHurihuri = bean.getFurigana();
+		String sEmail = bean.getEmail();
+		String sYaer = bean.getYear();
+		String sMonth =  bean.getMonth();
+		String sDay =  bean.getDay();
+		String sGengder =  bean.getGender();
+		String sPos_1 =  bean.getPcode();
+		String sPos_2 =  bean.getPcode2();
+		String sAddress_1 =  bean.getAdd();
+		String sAddress_2 =  bean.getAdd2();
+		String sPass =  bean.getPass();
+	%>
+
 	<div class="container jumbotron">
+		<div class="py-6 col-md-6 order-md-6">
+			<h2>入力内容確認</h2>
+		</div>
+
 		<div class="row">
-			<div class="col-auto">
-				<div class="col-2"></div>
-				<h1>登録完了！</h1>
+			<div class="col-md-8 order-md-1">
+				<h4 class="mb-3">内容に間違いがないかご確認ください</h4>
+				<form class="needs-validation" novalidate
+					action="../NewMember?action=done" method="get">
+
+					<div class="mb-3">
+						<label for="NN">ニックネーム</label>
+						<h4><%=sNN%></h4>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="Name">氏名</label>
+							<h4><%=sName%></h4>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="Hurihuri">フリガナ</label>
+							<h4><%=sHurihuri%></h4>
+						</div>
+					</div>
+
+				   <div class="mb-3">
+						<label for="email">メールアドレス</label>
+						<h4><%=sEmail%></h4>
+					</div>
+
+					<div class="mb-3">
+						<label for="pass">パスワード</label>
+						<h4><%=sPass%></h4>
+					</div>
+
+
+					<div>
+						<div>
+							<label for="birth">生年月日</label>
+						</div>
+					</div>
+
+					<div>
+						<h4><%=sYaer%>年<%=sMonth%>月<%=sDay%>日
+						</h4>
+					</div>
+
+					<div>
+						<label for="CheckPass">性別</label>
+					</div>
+
+					<div>
+						<h4><%=sGengder%></h4>
+					</div>
+
+					<div>
+						<div>
+							<label for="pos_1">郵便番号</label>
+						</div>
+					</div>
+
+					<div>
+						<h4>
+							〒<%=sPos_1%>-<%=sPos_2%></h4>
+					</div>
+
+					<div>
+						<label>住所</label>
+						<h4><%=sAddress_1%></h4>
+					</div>
+
+					<div>
+					<%if(sAddress_2 != null){ %>
+						<h4><%=sAddress_2%></h4>
+					<%} %>
+					</div>
+
+					<hr class="mb-3">
+
+					<div class=>
+						<a href="../NewMember?action=back"
+							class="btn btn-outline-warning btn-lg float-left" role="button">内容変更</a>
+						<a href="../NewMember?action=done"
+					 class="btn btn-primary btn-lg ml-12 float-right" role="button">登録する</a>
+					</div>
+				</form>
+
 			</div>
 		</div>
-		<hr class="mb-3">
-		<div class="row ">
-			<div class="col-auto">
-				<h4 class="p-3">
-					登録完了しました！<br>OnLineBarをどうぞお楽しみください！
-				</h4>
-			</div>
-			<div class="col-auto p-3">
-				<h4>何から始めるか迷っているアナタはこちら！</h4>
-				<a href="../topPage/topPage.jsp"
-					class="btn btn-outline-primary btn-lg float-left" role="button">トップページへ</a>
-			</div>
 
-			<div class="col-auto p-3">
-				<h4>新しい出会いを求めているアタナはこちら！</h4>
-				<a href="../../EventList"
-					class="btn btn-outline-danger btn-lg float-left" role="button">イベント一覧へ</a>
-			</div>
-
-			<div class="col-auto p-3">
-				<h4>お酒を求め続けるアナタにはこちら！</h4>
-				<a href="../../ItemSeachSet"
-					class="btn btn-outline-success btn-lg float-left" role="button">通販トップへ</a>
-			</div>
-
-			<div class="col-auto p-3">
-				<h4>自己紹介や準備は大切！マイページを編集したいアナタにはこちら！</h4>
-				<a href="../MyPage/myPage.jsp"
-					class="btn btn-outline-info btn-lg float-left" role="button">マイページへ</a>
-			</div>
-
-
-		</div>
 		<footer class="my-5 pt-5 text-muted text-center text-small">
 			<p class="mb-1">&copy; D will Company 2020</p>
 		</footer>
 	</div>
-
-
 
 	<!-- Bootstrap core JavaScript
 ================================================== -->

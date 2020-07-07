@@ -13,6 +13,8 @@ function actionA(){
 </script>
 </head>
 <body>
+<%@include file="header.jsp" %>
+
 <form id='form' name='form'>
 <%String uid=(String)session.getAttribute("uid");%>
 <%ArrayList<String[]> user = (ArrayList<String[]>) session.getAttribute("myuser");%>

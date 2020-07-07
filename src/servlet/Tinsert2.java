@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +12,16 @@ import javax.servlet.http.HttpSession;
 import common.DBClass;
 
 /**
- * Servlet implementation class Tsyousai
+ * Servlet implementation class Tinsert2
  */
-@WebServlet("/Tsyousai")
-public class Tsyousai extends HttpServlet {
+@WebServlet("/Tinsert2")
+public class Tinsert2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Tsyousai() {
+    public Tinsert2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,18 +33,24 @@ public class Tsyousai extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		DBClass db = new DBClass();
-		String tid=request.getParameter("tid");
-		System.out.println(tid);
-		db.dbOpen();
-		ArrayList<String[]> ary = db.getTsyousai(tid);
-		ArrayList<String[]> ary2= db.getTkanren(tid);
-		db.dbClose();
-		session.setAttribute("Tsyousai",ary);
-		session.setAttribute("Tkanren",ary2);
-		session.setAttribute("tid",tid);
+		String n1=request.getParameter("title");
+		String n2=request.getParameter("honbun");
+		String n3=request.getParameter("fdate");
+		String n4=request.getParameter("edate");
+		String n5=request.getParameter("pasu");
+		String[] sid=request.getParameterValues("itemid");
 
-		response.sendRedirect("jsp/Tsyousai.jsp");
+
+		DBClass db = new DBClass();
+		db.dbOpen();
+		db.insertT(n1,n2,n3,n4,n5);
+		if(sid!=null) {
+		for(int i=0;i<sid.length;i++){
+			db.insertkanren(sid[i]);
+		}
+		}
+		db.dbClose();
+		response.sendRedirect("KAlltokusyuu");
 	}
 
 	/**
