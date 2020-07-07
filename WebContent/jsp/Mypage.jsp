@@ -13,6 +13,7 @@ function actionA(){
 </script>
 </head>
 <body>
+<%@include file="header.jsp" %>
 <form id='form' name='form'>
 <div class="container">
 <table class="table">
