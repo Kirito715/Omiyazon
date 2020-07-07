@@ -1,21 +1,19 @@
 <%@page import="common.DBClass"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
+
 <meta charset="UTF-8">
  <!-- BootstrapのCSS読み込み -->
-	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../css/bootstrap.min.css" rel="stylesheet">
 	<!-- jQuery読み込み -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- BootstrapのJS読み込み -->
-	<script src="../js/bootstrap.min.js"></script>
+	<script src="../../js/bootstrap.min.js"></script>
  　　<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-	   <script type="text/javascript" src="../js/jquery.japan-map.min.js"></script>
- 　　  <link rel="stylesheet" href="../css/slick-theme.css" type="text/css">
- 　　  <link rel="stylesheet" href="../css/slick.css" type="text/css">
- 　　  <script src="../js/slick.js" type="text/javascript"></script>
+	   <script type="text/javascript" src="../../js/jquery.japan-map.min.js"></script>
+ 　　  <link rel="stylesheet" href="../../css/slick-theme.css" type="text/css">
+ 　　  <link rel="stylesheet" href="../../css/slick.css" type="text/css">
+ 　　  <script src="../../js/slick.js" type="text/javascript"></script>
 <%
 			//ログイン情報
 			String userId = (String)session.getAttribute("userId");
@@ -37,8 +35,7 @@
 			db.dbClose();
 			}
 		%>
-</head>
-<body>
+
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark" style="margin-top:-25px;">
 <a class="navbar-brand text-white" href="../../TopPage">Omiyazon</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,5 +66,3 @@
 		<%} %>
 	</div>
 </nav>
-</body>
-</html>
