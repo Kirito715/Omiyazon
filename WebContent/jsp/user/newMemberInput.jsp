@@ -58,7 +58,7 @@
 				<h4 class="mb-3">お客様情報を入力してください</h4>
 
 				<form class="needs-validation" novalidate
-					action="../NewMember" method="post">
+					action="../../NewMember" method="post">
 
 					<div class="mb-3">
 						<label for="nickName">ニックネーム</label> <input type="text" name="nickName"
@@ -82,14 +82,14 @@
 
 					<div class="mb-3">
 						<label for="email">メールアドレス</label> <input type="email" name="email"
-							maxlength="10" class="form-control" id="Email" placeholder=""  required>
+							maxlength="100" class="form-control" id="Email" placeholder=""  required>
 						<div class="invalid-feedback">アドレスエラー</div>
 					</div>
 
 
 					<div class="mb-3">
 						<label for="pass">パスワード</label> <input type="password" name="pass"
-							maxlength="10" class="form-control" id="pass" placeholder="" required>
+							maxlength="16" class="form-control" id="pass" placeholder="" required>
 						<div class="invalid-feedback">パスワードエラー</div>
 					</div>
 

@@ -151,7 +151,7 @@ body {
 					<hr class="mb-3">
 
 					<div class=>
-						<a href="../NewMember?action=back"
+						<a href="../user/NewMember?action=back"
 							class="btn btn-outline-warning btn-lg float-left" role="button">内容変更</a>
 						<a href="../NewMember?action=done"
 					 class="btn btn-primary btn-lg ml-12 float-right" role="button">登録する</a>
