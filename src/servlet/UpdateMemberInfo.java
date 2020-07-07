@@ -35,12 +35,14 @@ public class UpdateMemberInfo extends HttpServlet {
 		String Path = null;
 		String action = request.getParameter("action");
 
+		HttpSession session = request.getSession();
+
 		if(action==null) {
-			Path="jsp/updateMemberInfo.jsp";
+			Path="jsp/user/updateMemberInfo.jsp";
 			MemberBean bean = new MemberBean();
 
-			bean.setUserId(1);
-			//bean.setUserId(Integer.parseInt(request.getParameter("userId")));
+			bean.setUserId(Integer.parseInt((String)session.getAttribute("userId")));
+
 			DBClass db = new DBClass();
 			db.dbOpen();
 			bean=db.getUserData(bean);
@@ -57,21 +59,21 @@ public class UpdateMemberInfo extends HttpServlet {
 				bean.setDay(s+bean.getDay());
 			}
 
-			HttpSession session = request.getSession();
+
 			session.setAttribute("beanData",bean);
 		}
 		else if(action.equals("done")) {
-			HttpSession session=request.getSession();
+
 			MemberBean bean = (MemberBean)session.getAttribute("beanData");
 			DBClass db = new DBClass();
 			db.dbOpen();
 			db.updateUserData(bean);
 			db.dbClose();
 			session.removeAttribute("beanData");
-			Path="jsp/updateMemberComplete.jsp";
+			Path="jsp/user/updateMemberComplete.jsp";
 		}
 		else if(action.equals("back")) {
-			Path="jsp/updateMemberInfo.jsp";
+			Path="jsp/user/updateMemberInfo.jsp";
 		}
 		response.sendRedirect(Path);
 	}

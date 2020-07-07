@@ -41,7 +41,7 @@ public class Mypage2 extends HttpServlet {
 		db.dbOpen();
 		//個人情報更新
 		if(button.equals("1")) {
-			response.sendRedirect("");
+			response.sendRedirect("UpdateMemberInfo");
 		}
 		//購入履歴一覧
 		else if(button.equals("2")) {
