@@ -190,7 +190,7 @@ $(function(){
 	$('#rebtn').hide();
 	if(<%=bean.getLogin()%>){
 		var nickname = "<%=bean.getNickname()%>";
-		if(nickname.equal("")){
+		if(nickname==''){
 			$('#rebtn').val("レビューを投稿する");
 			$('#rebtn').show();
 	 	}
@@ -224,8 +224,14 @@ $(function(){
 
 </script>
 
-<style type="text/css">
 
+
+</head>
+<body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
+<a class="navbar-brand text-white" href="../../TopPage">Omiyazon</a>
+
+<style type="text/css">
 .modalArea {
   display: none;
   position: fixed;
@@ -262,11 +268,6 @@ $(function(){
 }
 
 </style>
-
-</head>
-<body>
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
-<a class="navbar-brand text-white" href="../../TopPage">Omiyazon</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
@@ -297,7 +298,7 @@ $(function(){
 </nav>
 <br>
 <span id="itemname"></span>
-<span  class="col-md-6 mb-3" id="star"></span>
+<span  class="col-md-6 mb-3" id="avgstar"></span>
 <span id="avgqua"></span>
 
 <span id="favorite" class="LikesIcon">

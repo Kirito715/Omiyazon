@@ -7,7 +7,7 @@
 <Jquery>
 $(function() {
 	$('#star').raty( {
-	 score : 3.5,		//スコア初期値
+	 score : 3.5,		//スコア初期値,<%=? %>で代入可
      readOnly: true,   //true : 閲覧者によるスコアの変更不可  false:変更可能
      path:'../../ratyimage' //サーバ上のRaty画像のパス
     });
