@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <%
 	//ログイン情報
-//	String userId = (String)session.getAttribute("userId");
+	//String userId = (String)session.getAttribute("userId");
 %>
 <%
 	ArrayList<String[]> region = (ArrayList<String[]>)session.getAttribute("regionList");
@@ -86,6 +86,10 @@
 		$(".genre[value=<%=searchCondition[10]%>]").attr("checked","checked");
   }
 
+  function goDetail(id){
+		$("#itemid").val(id);
+		document.frm3.submit();
+	}
 </script>
 <style>
 .DivLink {
@@ -210,13 +214,15 @@
 		</span>
 	<%} %>
 <%} %>
-<a href="#<%=a[0] %>"></a>
+	<a href="#<%=a[0] %>"; onclick="goDetail('<%=a[0]%>');return false;"></a>
 </div>
 <hr>
 <%} %>
 </div>
 </div>
 </div>
-
+<form action="../../ItemDetail" name="frm3" id="frm3">
+	<input type="hidden" name="itemid" id="itemid">
+</form>
 </body>
 </html>
