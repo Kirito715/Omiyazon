@@ -36,31 +36,42 @@ public class ItemDetail extends HttpServlet {
 		HttpSession session = request.getSession();
 		DetailBean bean = new DetailBean();
 
+
+		//actionがnullのとき初期設定
 		if(action==null) {
-		int itemid= Integer.parseInt(request.getParameter("itemid"));
-		String uid = request.getParameter("userid");
-		if(uid != null) {
-			int userid= Integer.parseInt(request.getParameter("userid"));
-			bean.setUserid(userid);
-			bean.setLogin(true);
-		}
-		else {
-			bean.setLogin(false);
-		}
-		bean.setItemid(itemid);
+			int itemid= Integer.parseInt(request.getParameter("itemid"));
+			bean.setItemid(itemid);
+			String uid = request.getParameter("userid");
+
+			if(uid != null) {
+				int iuid= Integer.parseInt(uid);
+				bean.setUserid(iuid);
+				bean.setLogin(true);
+			}
+			else {
+				bean.setLogin(false);
+			}
+
 		DBClass db=new DBClass();
 		db.dbOpen();
 		bean = db.getDetailData(bean);
 		db.dbClose();
-		double sum=0;
+		//平均値処理
 		if(bean.getReviewList().size()>1) {
-			for(int i=1;i<bean.getReviewList().size();i++) {
-				sum +=  Integer.parseInt(bean.getReviewList().get(i)[2]);
-			}
-			bean.setAvgqua(sum/(bean.getReviewList().size()-1));
+			bean=getAverage(bean);
 		}
 		session.setAttribute("DetaillBean",bean);
-		}else{
+		}//ここまで初期設定
+		 //カートの追加
+		else if(action.equals("cart")) {
+			bean = (DetailBean)session.getAttribute("DetaillBean");
+			System.out.println("カートに追加");
+			DBClass db=new DBClass();
+			db.dbOpen();
+			db.addCart(bean);
+			db.dbClose();
+		}
+		else{
 			bean = (DetailBean)session.getAttribute("DetaillBean");
 			DBClass db=new DBClass();
 			db.dbOpen();
@@ -81,8 +92,25 @@ public class ItemDetail extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		DetailBean bean = (DetailBean)session.getAttribute("DetaillBean");
+		String review = request.getParameter("review");
+		int star = Integer.parseInt(request.getParameter("star"));
+		DBClass db=new DBClass();
+		db.dbOpen();
+		db.insertReview(review,star,bean);
+		db.dbClose();
+		response.sendRedirect("jsp/user/itemDetail.jsp");
+	}
+
+	private DetailBean getAverage(DetailBean bean) {
+		double sum=0;
+		for(int i=1;i<bean.getReviewList().size();i++) {
+			sum +=  Integer.parseInt(bean.getReviewList().get(i)[2]);
+		}
+		bean.setAvgqua(sum/(bean.getReviewList().size()-1));
+		return bean;
 	}
 
 }

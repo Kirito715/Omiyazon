@@ -1055,6 +1055,57 @@ public class DBClass {
 			return;
 		}
 
+		public void addCart(DetailBean bean) {
+
+			try {
+
+				String sql = "";
+				sql += " INSERT INTO カートマスタ(登録者ID,商品ID,個数)";
+				sql += " VALUES  (?,?,1)";
+
+				PreparedStatement ps = objCon.prepareStatement(sql);
+				ps.setInt(1,bean.getUserid());
+				ps.setInt(2,bean.getItemid());
+				// 実行SQL確認
+				System.out.println(sql);
+				ps.executeUpdate();
+
+				ps.close();
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return;
+		}
+
+		public void insertReview(String text,int star,DetailBean bean) {
+
+			try {
+
+				String sql = "";
+				sql += " INSERT INTO レビューマスタ(登録者ID,商品ID,評価,レビュー,削除フラグ)";
+				sql += " VALUES  (?,?,?,?,0)";
+
+				PreparedStatement ps = objCon.prepareStatement(sql);
+				ps.setInt(1,bean.getUserid());
+				ps.setInt(2,bean.getItemid());
+				ps.setInt(3,star);
+				ps.setString(4,text);
+				// 実行SQL確認
+				System.out.println(sql);
+				ps.executeUpdate();
+				ps.close();
+
+			} catch (SQLException e) {
+				// エラー表示
+				System.err.println(e.getClass().getName() + ":" + e.getMessage());
+			}
+
+			return;
+		}
+
 		public void insertUserData(MemberBean mb) {
 
 			String s = "0";
@@ -1324,6 +1375,9 @@ public class DBClass {
 
 			return id;
 		}
+
+
+
 		//ユーザーログイン
 				public boolean UserLogin(String mail, String pass) {
 

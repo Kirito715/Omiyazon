@@ -151,13 +151,26 @@ $(function(){
 
 	if(<%=bean.getOrdable()%><=0){
 		$('#cart').val("在庫がありません");
+		$('#cart').prop('disabled',true);
 	}else if(!(<%=bean.getLogin()%>)){
 		$('#cart').val("ログイン");
 	}else if(<%=bean.getCart()%>>0){
 		$('#cart').val("カートに追加済み");
+		$('#cart').prop('disabled',true);
 	}else{
 		$('#cart').val("カートに追加");
 	}
+
+	 $('#cart').on('click', function(){
+	    var cart = $('#cart').val()
+		 if(cart=='ログイン'){
+			 window.location.href = 'Login.jsp';
+		 }else{
+		 	 window.location.href = '../../ItemDetail?action=cart';
+		 }
+	 });
+
+
 	$('#outline').text("<%=bean.getOutline()%>");
 
 
@@ -283,7 +296,6 @@ $(function(){
 <span id="itemname"></span>
 <span id="avgqua"></span>
 
-
 <span id="favorite" class="LikesIcon">
 <i class="far fa-heart LikesIcon-fa-heart"></i>
 </span>
@@ -292,7 +304,8 @@ $(function(){
 <img id=itemimage style="width:200; height:200; object-fit: cover;"><br>
 <span id="price"></span><br>
 <span id="storename"></span><br>
-<input type=button id="cart"><br>
+<input class="btn btn-outline-primary" type=button id="cart"><br>
+
 <span id="outline"></span><br><br>
 
 <%	if(bean.getReviewList()!=null) {
@@ -318,7 +331,7 @@ $(function(){
 		<FORM METHOD="POST" action="../../ItemDetail">
     		<div class="row">
 				<div class="col-md-6 mb-3">
-   					<label for="nickName">ニックネーム : </label>
+   					<label for="nickName">ニックネーム</label>
    				</div>
     			<div class="col-md-6 mb-3">
     				<label><%=bean.getNickname()%></label>
