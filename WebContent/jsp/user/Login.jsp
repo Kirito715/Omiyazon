@@ -33,7 +33,7 @@
 		<label for="inputPassword" class="sr-only">Password</label>
 		<input type="password" id="Password" class="form-control" placeholder="Password" required name="Pass"> <br>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button><br>
-		<a href="../../NewMember">新規登録</a>
+		<a href="../../NewMember">新規登録</a><br><br>
 		<a href='repass.jsp'>パスワードを忘れた方はこちら</a><br>
 		<p class="mt-5 mb-3 text-muted">&copy; Omiyazon</p>
 
