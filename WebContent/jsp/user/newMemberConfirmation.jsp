@@ -68,7 +68,7 @@
 			<div class="col-md-8 order-md-1">
 				<h4 class="mb-3">内容に間違いがないかご確認ください</h4>
 				<form class="needs-validation" novalidate
-					action="../NewMember?action=done" method="get">
+					action="../../NewMember?action=done" method="get">
 
 					<div class="mb-3">
 						<label for="NN">ニックネーム</label>
@@ -141,9 +141,9 @@
 					<hr class="mb-3">
 
 					<div class=>
-						<a href="../user/NewMember?action=back"
+						<a href="../../NewMember?action=back"
 							class="btn btn-outline-warning btn-lg float-left" role="button">内容変更</a>
-						<a href="../NewMember?action=done"
+						<a href="../../NewMember?action=done"
 					 class="btn btn-primary btn-lg ml-12 float-right" role="button">登録する</a>
 					</div>
 				</form>
