@@ -1250,6 +1250,41 @@ public class DBClass {
 			return bReturn;
 		}
 
+		public String getUserId(String mail, String pass) {
+			String id = "";
+			try {
+				String sql = "";
+
+				sql += " SELECT 登録者ID";
+				sql += " FROM   登録者マスタ ";
+				sql += " WHERE  メールアドレス LIKE ?";
+				sql += " AND    パスワード LIKE ?";
+
+				// データ取得
+				PreparedStatement ps = objCon.prepareStatement(sql);
+
+				// プレースホルダにパラメータを設定
+				ps.setString(1, mail);
+				ps.setString(2, pass);
+
+				// 問い合わせの実行
+				ResultSet rset = ps.executeQuery();
+				while (rset.next()) {
+					id = rset.getString("登録者ID");
+				}
+
+				// 実行SQL確認
+				System.out.println(sql);
+
+				// 解放
+				ps.close();
+				rset.close();
+			} catch (SQLException e) {
+				System.out.println("エラー");
+			}
+
+			return id;
+		}
 		//ユーザーログイン
 				public boolean UserLogin(String mail, String pass) {
 

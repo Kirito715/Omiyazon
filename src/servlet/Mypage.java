@@ -35,8 +35,7 @@ public class Mypage extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		DBClass db = new DBClass();
-		String uid=request.getParameter("userid");
-		uid="1";
+		String uid=(String)session.getAttribute("userId");
 		db.dbOpen();
 		ArrayList<String[]> a = db.getuser(uid);
 		ArrayList<String[]> b = db.getrecode(uid);
