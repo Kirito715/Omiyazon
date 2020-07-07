@@ -122,7 +122,7 @@
 <body onLoad="select_checked()">
 
 <%--ヘッダー --%>
-<%@include file="../header.jsp" %>
+<%@include file="header.jsp" %>
 
 <div class="container-fluid">
 <div class="row">
