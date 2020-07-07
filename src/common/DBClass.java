@@ -2583,7 +2583,7 @@ public class DBClass {
 			stmt = objCon.createStatement();
 
 	        String sql = "";
-	        sql += "*";
+	        sql += " select *";
 	        sql += " FROM  商品マスタ";
 	        sql += " where  ID='"+sid+"'";
 
