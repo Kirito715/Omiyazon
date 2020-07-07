@@ -35,6 +35,7 @@ public class Mypage2 extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		String uid=request.getParameter("uid");
+		String sid=request.getParameter("sid");
 		String button=request.getParameter("button");
 		DBClass db = new DBClass();
 		db.dbOpen();
@@ -50,6 +51,16 @@ public class Mypage2 extends HttpServlet {
 			}
 		//お気に入り一覧
 		else if(button.equals("3")) {
+			response.sendRedirect("");
+		}
+		//ログアウト
+		else if(button.equals("4")) {
+
+			response.sendRedirect("");
+		}
+		//商品詳細へ
+		else if(button.equals("5")) {
+
 			response.sendRedirect("");
 		}
 		db.dbClose();
