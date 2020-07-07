@@ -63,6 +63,7 @@
 <!-- BootstrapのJS読み込み -->
 <script src="../../js/bootstrap.min.js"></script>
 
+
 <script>
   $(function () {
     $("#submit_button").click(function () {
