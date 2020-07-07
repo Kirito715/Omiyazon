@@ -1,14 +1,22 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="header.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>購入確認</title>
+	<!-- BootstrapのCSS読み込み -->
+	    <link href="../css/bootstrap.min.css" rel="stylesheet">
+	    <!-- jQuery読み込み -->
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	    <!-- BootstrapのJS読み込み -->
+	    <script src="../js/bootstrap.min.js"></script>
 </head>
-<body>
-<form action="../kounyuu2">
+<body class="text-center">
+<form action="Complete.jsp">
 <%String uid=(String)session.getAttribute("uid");
 %>
 <%ArrayList<String[]> user = (ArrayList<String[]>) session.getAttribute("user");%>

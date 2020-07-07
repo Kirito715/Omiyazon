@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>特集一覧</title>
 <script type="text/javascript">
 function actionA(){
 	 document.getElementById('form').action="../Tsyousai";
