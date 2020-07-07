@@ -26,7 +26,7 @@
 </head>
 
 <body class="text-center">
-	<form class="form-signin" action="../../Mypage">
+	<form class="form-signin" action="../../UserLogin">
 		<h1 class="h3 mb-3 font-weight-normal">Login</h1>
 		<label for="password" class="sr-only">password</label>
 		<input type="text" id="Mail" class="form-control" placeholder="mail" required autofocus name="Mail">
