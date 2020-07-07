@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>特集一覧</title>
+<link rel="stylesheet" href="../css/slide.css" type="text/css">
 <script type="text/javascript">
 function actionA(){
 	 document.getElementById('form').action="../Tsyousai";
@@ -26,12 +27,16 @@ function actionC(){
 	    <script src="../js/bootstrap.min.js"></script>
 </head>
 <body class="text-center">
+<%@include file="header.jsp" %>
+<div class="body">
+<br><br>
 <%String pa=(String)session.getAttribute("page");
 int pa2= Integer.parseInt(pa);
 %>
 <%ArrayList<String[]> tokusyuu = (ArrayList<String[]>) session.getAttribute("tokusyuu");%>
 <%int count=0,end=15,start=pa2*end,size=tokusyuu.size(),b=size/end;
 %>
+<div align="left">
 <form id='form' name='form'>
 <select name="combo">
 <option value="1">新着順</option>
@@ -39,6 +44,7 @@ int pa2= Integer.parseInt(pa);
 </select>
 <input type="text"name="txt">
 <button class="button  btn-primary"value=""name="tid"onclick=" actionB();">検索</button><br>
+</div>
  <table class="table table-striped">
     <thead>
       <tr>
@@ -69,5 +75,6 @@ count++;
 	<%
  }%>
   <input type="hidden"name="seni"value="3">
+  </div>
 </body>
 </html>
