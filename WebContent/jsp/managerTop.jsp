@@ -197,7 +197,7 @@ $(function() {
 	<div class="checkret" style="position:relative; top:5px; font-size: 20px;"></div>
 </div>
 <div class="col-sm-2">
-	<button class="btn btn-primary" type="button" id="submit_button">特集作成へ</button>
+	<input class="btn btn-primary" type="submit" value="特集作成へ">
 </div>
 </div>
 </div>

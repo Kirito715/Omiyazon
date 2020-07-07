@@ -286,6 +286,7 @@ public class DBClass {
 	        	 sql += " AND gm.ジャンルID = ?";
 	        }
 	        sql += " AND 削除フラグ= ?";
+	        sql += " ORDER BY 商品ID DESC";
 
 
 	        System.out.println(sql);
@@ -2571,9 +2572,9 @@ public class DBClass {
 
 		return retCount;
 	}
-	public ArrayList<String[]> getsyouhin(String sid){
+	public ArrayList<String> getsyouhin(String sid){
 
-		ArrayList<String[]> Adata = new ArrayList<String[]>();
+		ArrayList<String> Adata = new ArrayList<String>();
 
 		//Statementを生成
 	    Statement stmt;
@@ -2596,14 +2597,14 @@ public class DBClass {
 	        while(rset.next()) {
 
 	        	// 取得するフィールド分の配列生成
-	        	String[] strData = new String[7];
 
-	        	strData[0] =rset.getString("商品ID");
-	        	strData[1] =rset.getString("商品名");
+
+	        	Adata.add(rset.getString("商品ID"));
+	        	Adata.add(rset.getString("商品名"));
 
 
 	        	// リストに追加
-	        	Adata.add(strData);
+
 
 	        }
 
