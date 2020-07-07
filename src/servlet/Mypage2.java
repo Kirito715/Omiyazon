@@ -58,8 +58,8 @@ public class Mypage2 extends HttpServlet {
 		}
 		//ログアウト
 		else if(button.equals("4")) {
-
-			response.sendRedirect("");
+			session.invalidate();
+			response.sendRedirect("Toppage");
 		}
 		//商品詳細へ
 		else if(button.equals("5")) {
