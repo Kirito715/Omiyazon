@@ -13,6 +13,7 @@ function actionA(){
 }
 </script>
 <title>購入履歴</title>
+<link rel="stylesheet" href="../css/slide.css" type="text/css">
  <!-- BootstrapのCSS読み込み -->
 	    <link href="../css/bootstrap.min.css" rel="stylesheet">
 	    <!-- jQuery読み込み -->
@@ -20,6 +21,8 @@ function actionA(){
 	    <!-- BootstrapのJS読み込み -->
 	    <script src="../js/bootstrap.min.js"></script>
 </head>
+<%@include file="header.jsp" %>
+<div class="body">
 <body class="text-center">
 <div class="container-fluid">
 <form id='form' name='form'>
@@ -45,6 +48,7 @@ else%><td>発送済みです</td><%; %>
 
 </table>
 </form>
+</div>
 </div>
 </body>
 </html>
