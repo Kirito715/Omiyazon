@@ -142,15 +142,16 @@ $(function(){
 	$('#sort').addClass('hide');
 	if(!(irev==1)){
 			$('#sort').removeClass('hide');
+			$('#avgquo').text('<%=bean.getReviewList().size()-1%>人の評価 <%=String.format("%.1f",bean.getAvgqua())%>');
 			$('#avgstar').raty( {
-				 score : <%=bean.getAvgqua()%>,		//スコア初期値
+				 score : <%=String.format("%.1f",bean.getAvgqua())%>,		//スコア初期値
 			     readOnly: true,   //true : 閲覧者によるスコアの変更不可  false:変更可能
 			     path:'../../ratyimage' //サーバ上のRaty画像のパス
 			    });
 		}
 
-	$('#price').text("\<%=bean.getPrice()%>");
-	$('#storename').text("出品 : <%=bean.getStorename()%>");
+	$('#price').text("価格：<%=bean.getPrice()%>円");
+	$('#storename').text("出品：<%=bean.getStorename()%>");
 
 	if(<%=bean.getOrdable()%><=0){
 		$('#cart').val("在庫がありません");
@@ -308,22 +309,39 @@ $(function(){
 		<%} %>
 	</div>
 </nav>
-<div class="body">
-<br>
-<span id="itemname"></span>
-<span  class="col-md-6 mb-3" id="avgstar"></span>
 
-<span id="favorite" class="LikesIcon">
-<i class="far fa-heart LikesIcon-fa-heart"></i>
-</span>
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+  <img class="d-flex align-self-center mr-3" id="itemimage" alt="Generic placeholder image" style="width:200px; height:200px; object-fit: cover;">
+</div>
+<div class="col-md-6">
+  <div class="media-body">
+      	<span id="favorite" class="LikesIcon">
+			<i class="far fa-heart LikesIcon-fa-heart"></i>
+		</span>
+    <h5 class="mt-0" id="itemname"></h5>
+	 <p id="outline"></p>
 
-<br>
-<img id=itemimage style="width:200px; height:200px; object-fit: cover;"><br>
-<span id="price"></span><br>
-<span id="storename"></span><br>
+
+	 <span id=avgquo></span>
+	 <span  id="avgstar"></span>
+
+   </div>
+</div>
+<div class="col-md-3">
+<p id="price"></p>
+<p id="storename"></p>
 <input class="btn btn-outline-primary" type=button id="cart"><br>
+</div>
+</div>
 
-<span id="outline"></span><br><br>
+
+
+
+
+
+<br>
 
 <select id="sort">
 <option value="new">最新順</option>
@@ -378,7 +396,8 @@ $(function(){
 	</div>
 </div>
 </section>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
-<br>
+
 </body>
 </html>
