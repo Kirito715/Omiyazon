@@ -50,7 +50,7 @@ public class Tinsert2 extends HttpServlet {
 		}
 		}
 		db.dbClose();
-		response.sendRedirect("KAlltokusyuu");
+		response.sendRedirect("KTAlltokusyuu");
 	}
 
 	/**
