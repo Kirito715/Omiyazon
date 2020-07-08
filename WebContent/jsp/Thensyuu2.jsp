@@ -20,7 +20,6 @@
 <body>
 <%@include file="managerHeader.jsp" %>
 <%@include file="Tsyousai2.jsp" %>
-<div class="row">
 <form action="../Tupdate">
 <%String tid=(String)session.getAttribute("tid");%>
 <%ArrayList<String[]> Thensyuu = (ArrayList<String[]>) session.getAttribute("Tsyousai");%>
@@ -38,7 +37,6 @@ else if(Thensyuu.get(0)[3].equals("1")){%>
 <input type="hidden"name="tid"value="<%=tid%>">
 <input type="hidden"name="txt2"value="<%=Thensyuu.get(0)[2]%>">
 </form>
-</div>
 <footer><p class="mt-5 mb-3 text-muted" align="center">&copy; Omiyazon</p></footer>
 </body>
 </html>
