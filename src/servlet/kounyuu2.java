@@ -50,6 +50,7 @@ public class kounyuu2 extends HttpServlet {
 		for(int i=0;i<ary.size();i++) {
 			db.inserturiage(ary.get(i)[0],ary.get(i)[2] ,ary.get(i)[5]);
 		}
+		db.deleteAllcart(uid);
 		db.dbClose();
 			response.sendRedirect("jsp/kounyuu3.jsp");
 		}
