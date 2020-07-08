@@ -60,7 +60,7 @@
 			<div class="col-md-8 order-md-1">
 				<h4 class="mb-3">お客様情報を入力してください</h4>
 				<form class="needs-validation" novalidate
-					action="../UpdateMemberInfo" method="post">
+					action="../../UpdateMemberInfo" method="post">
 
 					<div class="mb-3">
 						<label for="nickName">ニックネーム</label> <input type="text" name="nickName"

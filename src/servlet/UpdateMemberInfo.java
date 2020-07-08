@@ -103,7 +103,7 @@ public class UpdateMemberInfo extends HttpServlet {
 			mb.setAdd2(request.getParameter("add2"));
 		}
 		session.setAttribute("beanData",mb);
-		response.sendRedirect("jsp/updateMemberConfirmation.jsp");
+		response.sendRedirect("jsp/user/updateMemberConfirmation.jsp");
 	}
 
 }
