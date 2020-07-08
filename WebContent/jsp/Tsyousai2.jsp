@@ -147,9 +147,11 @@ function nextPage(id){
 		<font size="42"><%=Tsyousai.get(0)[1]%></font><br>
           <p align="right"><%=Tsyousai.get(0)[4]%></p><br>
 <%=Tsyousai.get(0)[2]%><br><br><br>
+<%if(Tkanren!=null){%>
 関連商品<br><br>
 		<div class="container">
     	<div class='multiple-items'>
+
     	<%	for(int i=0;i<Tkanren.size();i++){%>
     		<div class="item">
     		<a href="../ItemDetail?itemid=<%=Tkanren.get(i)[0]%>"><img src="<%=Tkanren.get(i)[3]%>" class="center"></a>
@@ -161,7 +163,7 @@ function nextPage(id){
     		<%} %>
     	</div>
     	</div>
-
+<%} %>
 
 </div>
 
