@@ -52,7 +52,7 @@ public class kounyuu2 extends HttpServlet {
 		}
 		db.deleteAllcart(uid);
 		db.dbClose();
-			response.sendRedirect("jsp/kounyuu3.jsp");
+			response.sendRedirect("jsp/Complete.jsp");
 		}
 
 	/**
