@@ -72,7 +72,7 @@ public class ManagerItemUpdate extends HttpServlet {
 		}
 
 		db.dbClose();
-		response.sendRedirect("managerTop");
+		response.sendRedirect("ManagerTop");
 	}
 
 	/**

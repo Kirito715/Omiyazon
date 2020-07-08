@@ -20,6 +20,7 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body >
+<%@include file="managerHeader.jsp" %>
 <%Date a = new Date();
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 String date = dateFormat.format(a); %>

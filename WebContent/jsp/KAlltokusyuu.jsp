@@ -29,6 +29,7 @@ function actionC(){
 	    <script src="../js/bootstrap.min.js"></script>
 </head>
 <body class="text-center">
+<%@include file="managerHeader.jsp" %>
 <%String pa=(String)session.getAttribute("page");
 int pa2= Integer.parseInt(pa);
 %>

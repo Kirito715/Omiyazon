@@ -16,6 +16,7 @@
 	    <script src="../js/bootstrap.min.js"></script>
 </head>
 <body>
+<%@include file="managerHeader.jsp" %>
 	<div class="container">
   <table class="table table-striped">
     <thead>

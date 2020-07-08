@@ -19,6 +19,7 @@
 	    <script src="../js/bootstrap.min.js"></script>
 </head>
 <body>
+<%@include file="managerHeader.jsp" %>
 <div class="row">
 <form action="../Tupdate">
 <%String tid=(String)session.getAttribute("tid");%>

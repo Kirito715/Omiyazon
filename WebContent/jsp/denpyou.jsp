@@ -29,6 +29,7 @@ function actionD(){
 </script>
 </head>
  <body class="text-center">
+ <%@include file="managerHeader.jsp" %>
 <%String txt=(String)session.getAttribute("txt");
 String pa=(String)session.getAttribute("page");
 int pa2= Integer.parseInt(pa);

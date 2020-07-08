@@ -131,7 +131,7 @@
 
 <div class="container-fluid">
 <div class="row">
-<div class="col-sm-4">
+<div class="col-sm-3">
 
 <form action="../../ItemSearch" id="frm2" name="frm2">
 <br>
