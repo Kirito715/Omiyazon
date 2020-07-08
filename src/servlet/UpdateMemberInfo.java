@@ -58,23 +58,9 @@ public class UpdateMemberInfo extends HttpServlet {
 			if(bean.getDay().length()==1) {
 				bean.setDay(s+bean.getDay());
 			}
-
-
 			session.setAttribute("beanData",bean);
 		}
-		else if(action.equals("done")) {
 
-			MemberBean bean = (MemberBean)session.getAttribute("beanData");
-			DBClass db = new DBClass();
-			db.dbOpen();
-			db.updateUserData(bean);
-			db.dbClose();
-			session.removeAttribute("beanData");
-			Path="jsp/user/updateMemberComplete.jsp";
-		}
-		else if(action.equals("back")) {
-			Path="jsp/user/updateMemberInfo.jsp";
-		}
 		response.sendRedirect(Path);
 	}
 
@@ -102,8 +88,14 @@ public class UpdateMemberInfo extends HttpServlet {
 		if(request.getParameter("add2").length() != 0){
 			mb.setAdd2(request.getParameter("add2"));
 		}
-		session.setAttribute("beanData",mb);
-		response.sendRedirect("jsp/user/updateMemberConfirmation.jsp");
+
+		MemberBean bean = (MemberBean)session.getAttribute("beanData");
+		DBClass db = new DBClass();
+		db.dbOpen();
+		db.updateUserData(bean);
+		db.dbClose();
+		session.removeAttribute("beanData");
+		response.sendRedirect("jsp/user/updateMemberComplete.jsp");
 	}
 
 }
