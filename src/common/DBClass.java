@@ -898,7 +898,10 @@ public class DBClass {
 		  }
 			if(i==0) {
 				bean = getNickName(bean);
+			}else {
+				bean.setNickname(null);
 			}
+
 			return bean;
 		}
 
