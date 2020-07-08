@@ -44,7 +44,7 @@ int pa2= Integer.parseInt(pa);
 
 <button class="btn btn-primary"value=""name="tid"onclick=" actionB();">検索</button><br>
  <input type="hidden"name="seni"value="1">
-</form>
+
 
 <br>
 
@@ -80,5 +80,6 @@ count++;
 <button class="btn btn-primary"value="<%=p%>"name="no"onclick=" actionC();"><%=p+1%></button>
 	<%
  }%>
+ </form>
 </body>
 </html>
