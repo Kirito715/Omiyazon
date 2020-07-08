@@ -135,7 +135,12 @@ public class DBClass {
 	        	strData[4] =rs.getString("単価");
 	        	strData[5] =rs.getString("画像パス1");
 	        	//評価
-	        	strData[6] =getItemVal(strData[0]);
+	        	if(getItemVal(strData[0]).equals("0")) {
+	        		strData[6] = "評価はありません";
+	        	}
+	        	else {
+	        		strData[6] =getItemVal(strData[0]);
+	        	}
 
 	        	//在庫
 	        	if(rs.getInt("注文上限数") > getStock(rs.getInt("商品ID"))){
