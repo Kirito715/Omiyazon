@@ -71,7 +71,7 @@ public class ManagerNewItemInsert extends HttpServlet {
 		}
 
 		db.dbClose();
-		response.sendRedirect("managerTop");
+		response.sendRedirect("ManagerTop");
 
 	}
 
