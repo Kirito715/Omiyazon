@@ -42,6 +42,7 @@ public class Mypage extends HttpServlet {
 		ArrayList<String> region = new ArrayList<String>();
 		//日本地図の色設定
 				if(uid != null) {
+					userId=Integer.parseInt(uid);
 					region =db.getComplete(userId);
 				}
 				else {
