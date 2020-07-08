@@ -65,6 +65,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/slide.css" type="text/css">
 <link href="../../css/omiyastyle.css" rel="stylesheet">
 
 <script type="text/javascript">
@@ -146,11 +147,10 @@ $(function(){
 			     readOnly: true,   //true : 閲覧者によるスコアの変更不可  false:変更可能
 			     path:'../../ratyimage' //サーバ上のRaty画像のパス
 			    });
-			$('#avgqua').text("☆<%=bean.getAvgqua()%>");
 		}
 
-	$('#price').text("<%=bean.getPrice()%>");
-	$('#storename').text("<%=bean.getStorename()%>");
+	$('#price').text("\<%=bean.getPrice()%>");
+	$('#storename').text("出品 : <%=bean.getStorename()%>");
 
 	if(<%=bean.getOrdable()%><=0){
 		$('#cart').val("在庫がありません");
@@ -190,7 +190,7 @@ $(function(){
 	$('#rebtn').hide();
 	if(<%=bean.getLogin()%>){
 		var nickname = "<%=bean.getNickname()%>";
-		if(nickname==''){
+		if(!(nickname=="null")){
 			$('#rebtn').val("レビューを投稿する");
 			$('#rebtn').show();
 	 	}
@@ -237,7 +237,7 @@ $(function(){
 
 
 </head>
-<body>
+<body >
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
 <a class="navbar-brand text-white" href="../../TopPage">Omiyazon</a>
 
@@ -277,6 +277,8 @@ $(function(){
   cursor: pointer;
 }
 
+
+
 </style>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
@@ -306,23 +308,27 @@ $(function(){
 		<%} %>
 	</div>
 </nav>
+<div class="body">
 <br>
 <span id="itemname"></span>
 <span  class="col-md-6 mb-3" id="avgstar"></span>
-<span id="avgqua"></span>
 
 <span id="favorite" class="LikesIcon">
 <i class="far fa-heart LikesIcon-fa-heart"></i>
 </span>
 
 <br>
-<img id=itemimage style="width:200; height:200; object-fit: cover;"><br>
+<img id=itemimage style="width:200px; height:200px; object-fit: cover;"><br>
 <span id="price"></span><br>
 <span id="storename"></span><br>
 <input class="btn btn-outline-primary" type=button id="cart"><br>
 
 <span id="outline"></span><br><br>
 
+<select id="sort">
+<option value="new">最新順</option>
+<option value="quo">評価順</option>
+</select>
 <%	if(bean.getReviewList()!=null) {
 	for(int i=bean.getReviewList().size()-1; 1 <= i; i--) {%>
 <span>ユーザ名:<%=bean.getReviewList().get(i)[0]%></span><br>
@@ -332,12 +338,9 @@ $(function(){
 	}
 }
 %>
-<select id="sort">
-<option value="new">最新順</option>
-<option value="quo">評価順</option>
-</select>
 
-<input type=button id="rebtn" >
+
+<input type=button id="rebtn" class="btn btn-outline-primary">
 <section id="modalArea" class="modalArea">
 	<div id="modalBg" class="modalBg"></div>
 		<div class="modalWrapper">
@@ -361,7 +364,7 @@ $(function(){
   				</div>
   			</div>
 			<div class="col-md-6 mb-3">
-				<textarea  name=review  cols="50" rows="8" placeholder="レビュー" maxlength="500" ></textarea>
+				<textarea  name=review  cols="50" rows="8" placeholder="レビュー" maxlength="500" required></textarea>
 			</div>
 
 			<input type=submit class="btn btn-outline-primary" value="送信">
@@ -371,10 +374,11 @@ $(function(){
 		<div id="closeModal" class="closeModal">
 			×
 		</div>
+
 	</div>
 </div>
 </section>
-
+</div>
 <br>
 </body>
 </html>
