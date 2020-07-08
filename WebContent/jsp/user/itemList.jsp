@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>商品一覧</title>
 <%
 	//ログイン情報
 	//String userId = (String)session.getAttribute("userId");
