@@ -35,11 +35,37 @@ public class Mypage extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		DBClass db = new DBClass();
+		String[][] color =new String[10][2];
 		String uid=(String)session.getAttribute("userId");
+		int userId = 0;
 		db.dbOpen();
+		ArrayList<String> region = new ArrayList<String>();
+		//日本地図の色設定
+				if(uid != null) {
+					region =db.getComplete(userId);
+				}
+				else {
+					region = null;
+				}
+				//初期カラー
+				for(int i=0; i < 10 ; i++) {
+					color[i][0]="#BDBDBD";
+					color[i][1]="#E6E6E6";
+				}
+				//地方カラー
+				if(region!=null) {
+				for(int i=0;i<region.size();i++) {
+					color[Integer.parseInt(region.get(i))-1][0]="#93ff93";
+					color[Integer.parseInt(region.get(i))-1][1]="#d8ffb2";
+				 }
+				}
 		ArrayList<String[]> a = db.getuser(uid);
 		ArrayList<String[]> b = db.getrecode(uid);
 		ArrayList<String[]> c = db.getbook(uid);
+
+
+		session.setAttribute("color", color);
+
 		db.dbClose();
 		session.setAttribute("myuser",a);
 		session.setAttribute("myrecode",b);
