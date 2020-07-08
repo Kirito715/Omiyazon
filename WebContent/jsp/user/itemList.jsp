@@ -215,7 +215,7 @@
 		</span>
 	<%} %>
 <%} %>
-	<a href="#<%=a[0] %>"; onclick="goDetail('<%=a[0]%>');return false;"></a>
+	<a href="#<%=a[0] %>" onclick="goDetail('<%=a[0]%>');return false;"></a>
 </div>
 <hr>
 <%} %>

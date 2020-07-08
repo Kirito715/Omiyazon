@@ -141,9 +141,9 @@ $(function() {
 			<th style="position: sticky; top: 0;">価格</th>
 			<th style="position: sticky; top: 0;">ジャンル</th>
 			<th style="position: sticky; top: 0;">注文</th>
-			<th style="position: sticky; top: 0;">加盟店名</th>
-			<th style="position: sticky; top: 0;">都道府県名</th>
-			<th style="position: sticky; top: 0;">地方名</th>
+			<th style="position: sticky; top: 0;">加盟店</th>
+			<th style="position: sticky; top: 0;">県名</th>
+			<th style="position: sticky; top: 0;">地方</th>
 			<th style="position: sticky; top: 0;"></th>
 		</tr>
 	</thead>
