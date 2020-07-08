@@ -41,7 +41,7 @@ public class ItemDetail extends HttpServlet {
 		if(action==null) {
 			int itemid= Integer.parseInt(request.getParameter("itemid"));
 			bean.setItemid(itemid);
-			String uid = request.getParameter("userid");
+			String uid = (String)session.getAttribute("userId");
 
 			if(uid != null) {
 				int iuid= Integer.parseInt(uid);

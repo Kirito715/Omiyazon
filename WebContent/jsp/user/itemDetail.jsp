@@ -298,11 +298,11 @@ $(function(){
 		<%
 			if(userId!=null){
 		%>
-			<a class="nav-link hover" href="#" role="button">
+			<a class="nav-link hover" href="../../cart" role="button">
 			<img alt="カート" src="../../img/cart.png"  width=40 height=35 >
 			<span class="text-warning" style="position:relative; left:-29px; top:-8px; font-size: 20px; font-weight: bold"><%=cartNum %></span>
 			</a>
-			<a class="btn btn-warning text-right" href="Mypage.jsp" role="button">マイページ</a>
+			<a class="btn btn-warning text-right" href="../Mypage.jsp" role="button">マイページ</a>
 		<%}else{%>
 			<a class="btn btn-warning text-right" href="Login.jsp" role="button">ログイン</a>
 		<%} %>
