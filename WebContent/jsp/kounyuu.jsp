@@ -19,7 +19,7 @@
 <body class="text-center">
 <br>
 <div class="body">
-<form action="Complete.jsp">
+<form action="../kounyuu2">
 <%String uid=(String)session.getAttribute("uid");
 %>
 <%ArrayList<String[]> user = (ArrayList<String[]>) session.getAttribute("user");%>
