@@ -64,7 +64,7 @@ public class Mypage2 extends HttpServlet {
 		//商品詳細へ
 		else if(button.equals("5")) {
 
-			response.sendRedirect("");
+			response.sendRedirect("ItemDetail");
 		}
 		db.dbClose();
 
