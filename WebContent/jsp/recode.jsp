@@ -39,9 +39,10 @@ function actionB(){
 <%ArrayList<String[]> recode = (ArrayList<String[]>) session.getAttribute("myrecode");%>
 <%for(int i=0;i<recode.size();i++){%>
 <tbody><tr><td><%=recode.get(i)[3]%></td>
-<td><%=recode.get(i)[1]%></td>
+<td><%=recode.get(i)[1]%>
 <input type="hidden"name="sid"value="<%=recode.get(i)[0]%>">
 <input type="hidden"name="did"value="<%=recode.get(i)[6]%>">
+</td>
 <%if(recode.get(i)[4].equals("0")){%>
 <td><button class="button img-a"value="1"name="button"onclick=" actionA();">発送の中止</button></td>
 <%}
