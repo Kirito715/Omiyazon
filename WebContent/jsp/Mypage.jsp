@@ -129,6 +129,17 @@ $(function(){
 <br>
 <br>
 <div id="map" align="center"></div>
+<br>
+<h4 class="text-center">全国地方スタンプラリーとは</h4>
+<div class=row>
+<div class="col-2"></div>
+<div class="col-8">
+<br>
+<p class="text-center">商品を購入することで、商品を購入した地方の色が染まります</p>
+<p class="text-center">すべての地方を制覇すると特典が・・・？</p>
+</div>
+<div class="col-2"></div>
+</div>
 </div>
 </body>
 </html>
