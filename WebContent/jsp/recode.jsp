@@ -11,6 +11,10 @@
 function actionA(){
 	 document.getElementById('form').action="../recode2";
 }
+function actionB(){
+	 document.getElementById('form').action="../ItemDetail";
+}
+
 </script>
 <title>購入履歴</title>
 <link rel="stylesheet" href="../css/slide.css" type="text/css">
@@ -38,11 +42,11 @@ function actionA(){
 <input type="hidden"name="sid"value="<%=recode.get(i)[0]%>">
 <input type="hidden"name="did"value="<%=recode.get(i)[5]%>">
 <%if(recode.get(i)[4].equals("0")){%>
-<td><button class="button img-a"value="1"name="Rbutton"onclick=" actionA();">発送の中止</button></td>
+<td><button class="button img-a"value="1"name="button"onclick=" actionA();">発送の中止</button></td>
 <%}
 else%><td>発送済みです</td><%; %>
 
-<td><button class="button img-a"value="2"name="Rbutton"onclick=" actionA();">カートに入れる</button></td>
+<td><button class="button img-a"value="<%=recode.get(i)[0]%>"name="itemid"onclick=" actionB();">詳細へ</button></td>
 </tr></tbody>
 <%}%>
 
