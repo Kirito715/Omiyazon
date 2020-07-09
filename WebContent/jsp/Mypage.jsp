@@ -69,12 +69,14 @@ $(function(){
 <br>
 <div class="row">
 <div class="col-10">
-<h4><%=user.get(0)[0]%>さんのアカウント</h4>
+<h4><%=user.get(0)[4]%>さんのアカウント</h4>
 </div>
 
 <div class="col-2">
 <button class="btn btn-secondary"value="4"name="button"onclick=" actionA();">ログアウト</button>
 <input type="hidden"name="uid"value="<%=uid%>">
+
+
 
 </div>
 </div>
@@ -84,10 +86,9 @@ $(function(){
     <h4 class="card-title">個人情報</h4>
     <p class="card-text">
     	<%=user.get(0)[0]%><br>
+    	<%=user.get(0)[3].substring(0,3)%>-<%=user.get(0)[3].substring(3)%><br>
      	<%=user.get(0)[1]%>
 		<%=user.get(0)[2]%><br>
-		<%=user.get(0)[3]%><br>
-
     </p>
     <button class="btn btn-primary"value="1"name="button" onclick=" actionA();">登録情報の変更へ</button>
   </div>
@@ -98,11 +99,11 @@ $(function(){
     <h4 class="card-title">購入履歴</h4>
     <p class="card-text">
      	<%for(int i=0;i<recode.size();i++){%>
-		<br><%=recode.get(i)[1]%>
-		<%if(i==2) break;
+			<%=recode.get(i)[1]%><br>
+			<%if(i==2) break;
 		}%>
-		<br>
 		<button class="btn btn-primary"value="2"name="button"onclick=" actionA();">購入履歴一覧へ</button><br>
+     </p>
      </div>
 </div>
 
@@ -116,15 +117,15 @@ $(function(){
 		<br>
 		<%if(i==2) break;%>
 		<%}%>
-		<br>
 		<button class="btn btn-primary"value="3"name="button"onclick=" actionA();">お気に入り一覧へ</button><br>
+	 </p>
 	 </div>
 </div>
 </form>
 
 <br>
 <br>
-<h3 class="text-center">都道府県スタンプラリー</h3>
+<h3 class="text-center">全国地方スタンプラリー</h3>
 <br>
 <br>
 <div id="map" align="center"></div>

@@ -64,7 +64,6 @@ public class Mypage extends HttpServlet {
 		ArrayList<String[]> b = db.getrecode(uid);
 		ArrayList<String[]> c = db.getbook(uid);
 
-
 		session.setAttribute("color", color);
 
 		db.dbClose();
