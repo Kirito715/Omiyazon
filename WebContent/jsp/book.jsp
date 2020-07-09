@@ -17,7 +17,7 @@ function actionA(){
 <%ArrayList<String[]> book = (ArrayList<String[]>) session.getAttribute("mybook");%>
 <%for(int i=0;i<book.size();i++){%>
 
-<%=book.get(i)[1]%><%=book.get(i)[2]%>
+<%=book.get(i)[1]%>
 <button class="button img-a"value="5"name="button"onclick=" actionA();">詳細</button><br>
 <input type="hidden"name="sid"value="<%=book.get(i)[0]%>">
 <br>
