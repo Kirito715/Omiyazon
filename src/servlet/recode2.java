@@ -37,21 +37,21 @@ public class recode2 extends HttpServlet {
 		String uid=request.getParameter("uid");
 		String sid=request.getParameter("sid");
 		String did=request.getParameter("did");
-		String button=request.getParameter("button");
+//		String button=request.getParameter("button");
 		DBClass db = new DBClass();
 		session.setAttribute("sid", sid);
 		session.setAttribute("uid", uid);
 		db.dbOpen();
-		if(button.equals("1")) {
+//		if(button.equals("1")) {
 		db.deleterecode(sid,did);
 		ArrayList<String[]> ary = db.getrecode(uid);
 		session.setAttribute("myrecode", ary);
 		response.sendRedirect("jsp/recode.jsp");
-		}
-		else if(button.equals("2")) {
-
-
-		}
+//		}
+//		else if(button.equals("2")) {
+//
+//
+//		}
 		db.dbClose();
 	}
 
