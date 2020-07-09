@@ -51,6 +51,14 @@
 $(function() {
     $('input:checkbox').change(function() {
         var cnt = $('#checkcnt input:checkbox:checked').length;
+
+        if(cnt > 0){
+        	$("#goBtn").prop('disabled', false);
+        }
+        else{
+        	$("#goBtn").prop('disabled', true);
+        }
+
         $('div.checkret').text(cnt + '件選択中');
     }).trigger('change');
 });
@@ -62,11 +70,13 @@ $(function() {
 <!-------------------------------------------------------------------------------------------------------------------->
 <!------------------------------------------------------- ここから --------------------------------------------------->
 <!-------------------------------------------------------------------------------------------------------------------->
+
 <div class="container">
+<div class="row"><br></div>
 	<form class="form-horizontal" action="../ManagerItemSearch">
-		<div class="form-group">
-			<label class="control-label col-xs-2">地方</label>
-			<div class="col-xs-5">
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">地方</label>
+			<div class="col-sm-10">
 				<select class="custom-select" name="selectRegion" id="selectRegion">
 					<option value="0">指定なし</option>
 					<%
@@ -77,9 +87,9 @@ $(function() {
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="control-label col-xs-2">都道府県</label>
-			<div class="col-xs-5">
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">都道府県</label>
+			<div class="col-sm-10">
 				<select class="custom-select" name="selectPref" id="selectPref">
 					<option value="0">指定なし</option>
 					<%
@@ -90,9 +100,9 @@ $(function() {
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="control-label col-xs-2">ジャンル</label>
-			<div class="col-xs-5">
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">ジャンル</label>
+			<div class="col-sm-10">
 				<select class="custom-select" name="selectGenre" id="selectGenre">
 					<option value="0">指定なし</option>
 					<option value="1">加工食品</option>
@@ -106,9 +116,9 @@ $(function() {
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="control-label col-xs-2">商品名</label>
-			<div class="col-xs-5">
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">商品名</label>
+			<div class="col-sm-10">
 				<input type="text" name="itemName" id="itemName" class="form-control">
 			</div>
 		</div>
@@ -131,7 +141,7 @@ $(function() {
 <hr>
 
 <form id="checkcnt" action="../Tinsert">
-<div class="container" style="width:100%; height:420px; overflow-y:auto;">
+<div class="container" style="width:100%; max-height:500px; overflow-y:auto;">
 	<table class="table table-sm table-hover">
 	<thead class="thead-dark">
 		<tr>
@@ -174,14 +184,14 @@ $(function() {
 	</tbody>
 </table>
 </div>
-<div class="container">
+<div class="container" style="padding: 10px;">
 <div class="row">
 <div class="col-8"></div>
 <div class="col-sm-2">
 	<div class="checkret" style="position:relative; top:5px; font-size: 20px;"></div>
 </div>
 <div class="col-sm-2">
-	<input class="btn btn-primary" type="submit" value="特集作成へ">
+	<input class="btn btn-primary" type="submit" id="goBtn" value="特集作成へ" disabled>
 </div>
 </div>
 </div>
