@@ -178,9 +178,6 @@ $(function(){
 	 });
 
 
-	$('#outline').text("<%=bean.getOutline()%>");
-
-
 	var re0="<%=bean.getReviewList().get(0)[0]%>";
 	if(re0==("1")){
 		$('#sort').val("quo");
@@ -330,7 +327,7 @@ $(function(){
 						class="far fa-heart LikesIcon-fa-heart"></i>
 					</span>
 					<h5 class="mt-0" id="itemname"></h5>
-					<p id="outline"></p>
+					<p id="outline"><%=bean.getOutline()%></p>
 					<span id=avgquo></span> <span id="avgstar"></span><br>
 					<input type=button id="rebtn" class="btn btn-outline-primary">
 
