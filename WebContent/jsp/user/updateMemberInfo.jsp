@@ -52,11 +52,12 @@
 
 	<div class="body">
 	<div class="container jumbotron">
-		<div class="py-6 col-md-6 order-md-6">
-			<h2>登録情報修正</h2>
+		<div class="py-6 col-md-12 order-md-12">
+			<h2 style="text-align:center">登録情報修正</h2>
 		</div>
 
 		<div class="row">
+		<div class="col-md-2"></div>
 			<div class="col-md-8 order-md-1">
 				<h4 class="mb-3">お客様情報を入力してください</h4>
 				<form class="needs-validation" novalidate
@@ -240,7 +241,7 @@
 					<hr class="mb-3">
 
 					<div class=>
-						<a href="../../TopPage"
+						<a href="../../Mypage"
 							class="btn btn-outline-warning btn-lg float-left" role="button">マイページへ</a>
 						<button class="btn btn-primary btn-lg ml-12 float-right" type="submit">登録を修正する</button>
 					</div>

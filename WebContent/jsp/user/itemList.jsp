@@ -151,7 +151,7 @@
 </button>
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<form class="form-inline " id="frm1" name="frm1" action="../../HeaderItemSearch">
-			<input class="form-control" type="text" placeholder="検索" aria-label="Search" name="search" id="search">
+			<input class="form-control" type="text" placeholder="検索" aria-label="Search" name="search" id="search" >
 			<button class="btn btn-success" type="submit">検索</button>
 		</form>
 
@@ -248,7 +248,7 @@
 	<%=a[2] %><br>
 	<%=a[3] %><br>
 	<%=a[4] %>円<br>
-	<%=a[6] %><span style="position:relative; left:5px; top:-2px;"id="star<%=j %>"></span><br>
+	<span style="position:relative; left:-5px; top:-2px;"id="star<%=j %>"></span><%=a[6] %><br>
 	<%=a[7] %>
 
 <%if(userId!=null){ %>
