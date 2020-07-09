@@ -8,7 +8,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript">
-	function actionA(s,d) {
+	function actionA(u,s,d) {
+		document.getElementById('uid').value = u ;
 		document.getElementById('sid').value = s ;
 		document.getElementById('did').value = d ;
 		document.cancelForm.submit();
@@ -69,7 +70,7 @@
 							%>
 
 							<td><button class="button img-a" value="1" name="button"
-									onclick=" actionA('<%=recode.get(i)[0]%>','<%=recode.get(i)[6]%>');">発送の中止</button></td>
+									onclick=" actionA('<%=uid %>','<%=recode.get(i)[0]%>','<%=recode.get(i)[6]%>');">発送の中止</button></td>
 							<%
 								} else
 							%><td>発送済みです</td>
@@ -92,6 +93,7 @@
 		</div>
 </div>
 <form action="../recode2" name="cancelForm">
+	<input type="hidden" id="uid" name="uid">
 	<input type="hidden" id="sid" name="sid">
 	<input type="hidden" id="did" name="did">
 </form>
