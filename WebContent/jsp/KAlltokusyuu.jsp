@@ -65,7 +65,9 @@ int pa2= Integer.parseInt(pa);
         <th scope="row"><%=i+1 %></th>
           <td><%=tokusyuu.get(i)[1]%></td>
           <td> <%=tokusyuu.get(i)[4]%></td>
-          <%String a="";if(tokusyuu.get(i)[3].equals("0"))a="公開";else a="非公開"; %>
+          <%String a="";
+          if(tokusyuu.get(i)[3].equals("0"))a="公開";
+          else a="非公開"; %>
           <td> <%=a%></td>
           <td><button class="btn btn-primary"value="<%=tokusyuu.get(i)[0]%>"name="tid"onclick=" actionA();">詳細</button></td>
       </tr>

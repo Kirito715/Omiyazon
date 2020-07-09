@@ -54,7 +54,8 @@ int pa2= Integer.parseInt(pa);
         <th></th>
       </tr>
     </thead>
-<%for(int i=start;i<size;i++){ %>
+<%for(int i=start;i<size;i++){
+if(tokusyuu.get(i)[3].equals("1"))continue;%>
 	<tr>
 		<td><%=tokusyuu.get(i)[1]%></td>
 		<td><%=tokusyuu.get(i)[4]%></td>
