@@ -46,7 +46,7 @@ public class recode2 extends HttpServlet {
 		db.deleterecode(sid,did);
 		ArrayList<String[]> ary = db.getrecode(uid);
 		session.setAttribute("myrecode", ary);
-		response.sendRedirect("jsp/recode2.jsp");
+		response.sendRedirect("jsp/recode.jsp");
 		}
 		else if(button.equals("2")) {
 

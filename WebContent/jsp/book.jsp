@@ -25,15 +25,14 @@ function actionA(){
 <br>
 <br>
 <form id='form' name='form'>
+<table class="table table-striped">
 <%ArrayList<String[]> book = (ArrayList<String[]>) session.getAttribute("mybook");%>
 <%for(int i=0;i<book.size();i++){%>
-<table class="table table-striped" align="center">
 <tr>
-<td><%=book.get(i)[1]%></td>
-<td><button class="button  btn-primary"value="5"name="button"onclick=" actionA();">詳細</button><br></td>
-<input type="hidden"name="itemid"value="<%=book.get(i)[0]%>">
+<td align="center"><%=book.get(i)[1]%></td>
+</div>
+<td align="left"><button class="button  btn-primary"value="<%=book.get(i)[0]%>"name="itemid"onclick=" actionA();">詳細</button><br></td>
 </tr>
-<br>
 <%}%>
 </table>
 </form>
