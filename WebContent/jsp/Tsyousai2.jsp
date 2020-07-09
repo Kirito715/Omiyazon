@@ -136,7 +136,7 @@ function nextPage(id){
 </head>
 <body>
 
-<br><br>
+
 <div class="body">
 <%ArrayList<String[]> Tsyousai = (ArrayList<String[]>) session.getAttribute("Tsyousai");%>
 <%ArrayList<String[]> Tkanren = (ArrayList<String[]>) session.getAttribute("Tkanren");%>

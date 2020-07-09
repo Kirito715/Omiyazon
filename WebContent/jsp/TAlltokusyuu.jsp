@@ -44,6 +44,7 @@ int pa2= Integer.parseInt(pa);
 </select>
 <input type="text"name="txt">
 <button class="button  btn-primary"value=""name="tid"onclick=" actionB();">検索</button><br>
+<input type="hidden"name="seni"value="3">
 </div>
  <table class="table table-striped">
     <thead>
