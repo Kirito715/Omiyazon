@@ -9,7 +9,7 @@
 <title>商品一覧</title>
 <%
 	//ログイン情報
-	//String userId = (String)session.getAttribute("userId");
+	String userId = (String)session.getAttribute("userId");
 %>
 <%
 	ArrayList<String[]> region = (ArrayList<String[]>)session.getAttribute("regionList");
@@ -46,32 +46,49 @@
 %>
 <%
 	//カート
-//	String cartNum = "0";
+	String cartNum = "0";
 	{
 	DBClass db = new DBClass();
 	db.dbOpen();
 
-//	cartNum = db.getCartNum(userId);
+	cartNum = db.getCartNum(userId);
 
 	db.dbClose();
 	}
 %>
-<!-- BootstrapのCSS読み込み -->
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
 <!-- jQuery読み込み -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- BootstrapのCSS読み込み -->
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
 <!-- BootstrapのJS読み込み -->
 <script src="../../js/bootstrap.min.js"></script>
 
+<script src="../../js/jquery.raty.js"></script>
 
-<script>
+<script type="text/javascript">
   $(function () {
     $("#submit_button").click(function () {
-      //var data = $(this).closest('form').serialize();
-      //alert(data);
+        //var data = $(this).closest('form').serialize();
+        //alert(data);
     $("#searchtext").val($('#search').val());
     $('#frm2').submit();
     });
+
+    var ary = new Array();
+
+    <% for(int i=0; i<searchResult.size(); i++){%>
+
+    ary.push('<%=searchResult.get(i)[6] %>');
+
+    <% }%>
+
+    for(var i=0; i<ary.length; i++){
+      $('#star'+i).raty( {
+			 score : ary[i],		//スコア初期値
+		     readOnly: true,   //true : 閲覧者によるスコアの変更不可  false:変更可能
+		     path:'../../ratyimage' //サーバ上のRaty画像のパス
+		    });
+    }
   });
 
   function select_checked() {
@@ -127,8 +144,37 @@
 <body onLoad="select_checked()">
 
 <%--ヘッダー --%>
-<%@include file="header.jsp" %>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark" style="margin-top:-25px;">
+<a class="navbar-brand text-white" href="../../TopPage">Omiyazon</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<form class="form-inline " id="frm1" name="frm1" action="../../HeaderItemSearch">
+			<input class="form-control" type="text" placeholder="検索" aria-label="Search" name="search" id="search">
+			<button class="btn btn-success" type="submit">検索</button>
+		</form>
 
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link text-white" href="../../TAlltokusyuu">特集一覧</a>
+			</li>
+		</ul>
+
+		<%
+			if(userId!=null){
+		%>
+			<a class="nav-link hover" href="../../cart" role="button">
+			<img alt="カート" src="../../img/cart.png"  width=40 height=35 >
+			<span class="text-warning" style="position:relative; left:-29px; top:-8px; font-size: 20px; font-weight: bold"><%=cartNum %></span>
+			</a>
+			<a class="btn btn-warning text-right" href="../Mypage.jsp" role="button">マイページ</a>
+		<%}else{%>
+			<a class="btn btn-warning text-right" href="../user/Login.jsp" role="button">ログイン</a>
+		<%} %>
+	</div>
+</nav>
+<br>
 <div class="container-fluid">
 <div class="row">
 <div class="col-sm-3">
@@ -192,6 +238,7 @@
 </div>
 <div class="col-sm-8">
 <%
+	int j = 0;
 	for(String[] a: searchResult){
 %>
 <div class="DivLink">
@@ -201,7 +248,7 @@
 	<%=a[2] %><br>
 	<%=a[3] %><br>
 	<%=a[4] %>円<br>
-	<%=a[6] %><br>
+	<%=a[6] %><span style="position:relative; left:5px; top:-2px;"id="star<%=j %>"></span><br>
 	<%=a[7] %>
 
 <%if(userId!=null){ %>
@@ -218,7 +265,7 @@
 	<a href="#<%=a[0] %>" onclick="goDetail('<%=a[0]%>');return false;"></a>
 </div>
 <hr>
-<%} %>
+<% j++;} %>
 </div>
 </div>
 </div>
