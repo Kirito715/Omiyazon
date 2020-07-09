@@ -5,9 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript">
+
 function actionA(){
 	 document.getElementById('form').action="../recode2";
 }
@@ -49,7 +50,6 @@ else%><td>発送済みです</td><%; %>
 <td><button class="button img-a"value="<%=recode.get(i)[0]%>"name="itemid"onclick=" actionB();">詳細へ</button></td>
 </tr></tbody>
 <%}%>
-
 </table>
 </form>
 </div>
