@@ -323,9 +323,10 @@ $(function(){
 			</div>
 			<div class="col-md-6">
 				<div class="media-body">
-					<span id="favorite" class="LikesIcon"> <i
-						class="far fa-heart LikesIcon-fa-heart"></i>
-					</span>
+					<div id="favorite" class="LikesIcon">
+					<i style="cursor: hand; cursor:pointer;"
+					class="far fa-heart LikesIcon-fa-heart"></i>
+					</div>
 					<h5 class="mt-0" id="itemname"></h5>
 					<p id="outline"><%=bean.getOutline()%></p>
 					<span id=avgquo></span> <span id="avgstar"></span><br>
