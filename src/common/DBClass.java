@@ -1475,7 +1475,6 @@ public class DBClass {
 				String sql = "";
 				sql += " SELECT 特集ID,画像パス";
 				sql += " FROM  特集マスタ ";
-				sql += " where 公開フラグ=0";
 
 				PreparedStatement ps = objCon.prepareStatement(sql);
 				System.out.println(sql);
@@ -1486,11 +1485,10 @@ public class DBClass {
 				while (rset.next()) {
 
 					// 取得するフィールド分の配列生成
-					String[] strData = new String[3];
+					String[] strData = new String[2];
 
 					strData[0] = rset.getString("特集ID");
 					strData[1] = rset.getString("画像パス");
-					strData[2] = rset.getString("公開フラグ");
 					// リストに追加
 					data.add(strData);
 
