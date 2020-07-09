@@ -1475,6 +1475,7 @@ public class DBClass {
 				String sql = "";
 				sql += " SELECT 特集ID,画像パス";
 				sql += " FROM  特集マスタ ";
+				sql += " where 公開フラグ=0";
 
 				PreparedStatement ps = objCon.prepareStatement(sql);
 				System.out.println(sql);
