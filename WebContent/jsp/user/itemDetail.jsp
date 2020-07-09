@@ -68,7 +68,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="../../css/slide.css" type="text/css">
+
 <link href="../../css/omiyastyle.css" rel="stylesheet">
 
 <script type="text/javascript">
@@ -316,7 +316,7 @@ $(function(){
 			%>
 		</div>
 	</nav>
-
+<br>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
@@ -348,7 +348,7 @@ $(function(){
 		<br>
 
 
-
+<hr>
 <div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
