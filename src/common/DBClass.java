@@ -2498,6 +2498,7 @@ public class DBClass {
 	        	strData[1] =rset.getString("住所1");
 	        	strData[2] =rset.getString("住所2");
 	        	strData[3] =rset.getString("郵便番号");
+	        	strData[4] =rset.getString("ニックネーム");
 
 	        	// リストに追加
 	        	Adata.add(strData);
