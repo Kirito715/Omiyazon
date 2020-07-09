@@ -2,7 +2,7 @@
 <%@page import="common.DBClass"%>
 <%@page import="bean.DetailBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <%
 	//ログイン情報
-	String userId = (String)session.getAttribute("userId");
+	String userId = (String) session.getAttribute("userId");
 
 	//if(userId == null){
 	//	userId = "1";
@@ -18,35 +18,36 @@
 	//}
 %>
 <%
-	ArrayList<String[]> region = (ArrayList<String[]>)session.getAttribute("regionList");
-	ArrayList<String[]> pref = (ArrayList<String[]>)session.getAttribute("prefList");
-	String[] searchCondition = (String[])session.getAttribute("searchCondition");
+	ArrayList<String[]> region = (ArrayList<String[]>) session.getAttribute("regionList");
+	ArrayList<String[]> pref = (ArrayList<String[]>) session.getAttribute("prefList");
+	String[] searchCondition = (String[]) session.getAttribute("searchCondition");
 
-	if(region == null){
+	if (region == null) {
 		DBClass db = new DBClass();
 		db.dbOpen();
 		region = db.getRegion();
 		db.dbClose();
-		session.setAttribute("regionList",region);
+		session.setAttribute("regionList", region);
 	}
-	if(pref == null){
+	if (pref == null) {
 		DBClass db = new DBClass();
 		db.dbOpen();
 		pref = db.getPref();
 		db.dbClose();
-		session.setAttribute("prefList",pref);
+		session.setAttribute("prefList", pref);
 	}
-	if(searchCondition == null){
+	if (searchCondition == null) {
 		searchCondition = new String[11];
-		searchCondition[0] ="";
-		for(int i = 1;i<11;i++){
-			searchCondition[i] ="0";
+		searchCondition[0] = "";
+		for (int i = 1; i < 11; i++) {
+			searchCondition[i] = "0";
 		}
 	}
 %>
-<%	//検索結果
-	ArrayList<String[]>searchResult = (ArrayList<String[]>)session.getAttribute("searchResult");
-	if(searchResult == null){
+<%
+	//検索結果
+	ArrayList<String[]> searchResult = (ArrayList<String[]>) session.getAttribute("searchResult");
+	if (searchResult == null) {
 		searchResult = new ArrayList<String[]>();
 	}
 %>
@@ -54,23 +55,25 @@
 	//カート
 	String cartNum = "0";
 	{
-	DBClass db = new DBClass();
-	db.dbOpen();
-	cartNum = db.getCartNum(userId);
-	db.dbClose();
+		DBClass db = new DBClass();
+		db.dbOpen();
+		cartNum = db.getCartNum(userId);
+		db.dbClose();
 	}
 %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="../../js/jquery.raty.js"></script>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+	rel="stylesheet">
 <link rel="stylesheet" href="../../css/slide.css" type="text/css">
 <link href="../../css/omiyastyle.css" rel="stylesheet">
 
 <script type="text/javascript">
 $(function(){
-	<% DetailBean bean = (DetailBean)session.getAttribute("DetaillBean");%>
+	<%DetailBean bean = (DetailBean) session.getAttribute("DetaillBean");%>
 
 	$('#itemname').text("<%=bean.getItemname()%>");
 	$('#favorite').hide();
@@ -142,9 +145,9 @@ $(function(){
 	$('#sort').addClass('hide');
 	if(!(irev==1)){
 			$('#sort').removeClass('hide');
-			$('#avgquo').text('<%=bean.getReviewList().size()-1%>人の評価 <%=String.format("%.1f",bean.getAvgqua())%>');
+			$('#avgquo').text('<%=bean.getReviewList().size() - 1%>人の評価 <%=String.format("%.1f", bean.getAvgqua())%>');
 			$('#avgstar').raty( {
-				 score : <%=String.format("%.1f",bean.getAvgqua())%>,		//スコア初期値
+				 score : <%=String.format("%.1f", bean.getAvgqua())%>,		//スコア初期値
 			     readOnly: true,   //true : 閲覧者によるスコアの変更不可  false:変更可能
 			     path:'../../ratyimage' //サーバ上のRaty画像のパス
 			    });
@@ -219,185 +222,201 @@ $(function(){
     });
 
 
-	<% for(int i=bean.getReviewList().size()-1; 1 <= i; i--) {%>
+	<%for (int i = bean.getReviewList().size() - 1; 1 <= i; i--) {%>
 
-		$('#userRev<%= i %>').raty( {
-			 score : <%=bean.getReviewList().get(i)[2]%>,		//スコア初期値
-		     readOnly: true,   //true : 閲覧者によるスコアの変更不可  false:変更可能
-		     path:'../../ratyimage' //サーバ上のRaty画像のパス
-		    });
-
-	<%}%>
-
+		$('#userRev<%=i%>').raty({
+			score :<%=bean.getReviewList().get(i)[2]%>, //スコア初期値
+			readOnly : true, //true : 閲覧者によるスコアの変更不可  false:変更可能
+			path : '../../ratyimage' //サーバ上のRaty画像のパス
+		});
+<%}%>
 });
-
 
 
 </script>
 
-
-
-</head>
-<body >
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
-<a class="navbar-brand text-white" href="../../TopPage">Omiyazon</a>
-
 <style type="text/css">
 .modalArea {
-  display: none;
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+	display: none;
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .modalBg {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(30,30,30,0.9);
+	width: 100%;
+	height: 100%;
+	background-color: rgba(30, 30, 30, 0.9);
 }
 
 .modalWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-  width: 70%;
-  padding: 10px 30px;
-  background-color: #fff;
-  height:70%;
-  overflow : auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 40%;
+	padding: 10px 30px;
+	background-color: #fff;
+	height: 60%;
+	overflow: auto;
 }
 
 .closeModal {
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  cursor: pointer;
+	position: absolute;
+	top: 0.5rem;
+	right: 1rem;
+	cursor: pointer;
 }
-
-
-
 </style>
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-<span class="navbar-toggler-icon"></span>
-</button>
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<form class="form-inline " id="frm1" name="frm1" action="../../HeaderItemSearch">
-			<input class="form-control" type="text" placeholder="検索" aria-label="Search" name="search" id="search" value="<%=searchCondition[0] %>">
-			<button class="btn btn-success" type="submit">検索</button>
-		</form>
 
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item">
-				<a class="nav-link text-white" href="../../TAlltokusyuu">特集一覧</a>
-			</li>
-		</ul>
+</head>
+<body>
+	<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-dark">
+		<a class="navbar-brand text-white" href="../../TopPage">Omiyazon</a>
 
-		<%
-			if(userId!=null){
-		%>
-			<a class="nav-link hover" href="../../cart" role="button">
-			<img alt="カート" src="../../img/cart.png"  width=40 height=35 >
-			<span class="text-warning" style="position:relative; left:-29px; top:-8px; font-size: 20px; font-weight: bold"><%=cartNum %></span>
-			</a>
-			<a class="btn btn-warning text-right" href="../Mypage.jsp" role="button">マイページ</a>
-		<%}else{%>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<form class="form-inline " id="frm1" name="frm1"
+				action="../../HeaderItemSearch">
+				<input class="form-control" type="text" placeholder="検索"
+					aria-label="Search" name="search" id="search"
+					value="<%=searchCondition[0]%>">
+				<button class="btn btn-success" type="submit">検索</button>
+			</form>
+
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link text-white"
+					href="../../TAlltokusyuu">特集一覧</a></li>
+			</ul>
+
+			<%
+				if (userId != null) {
+			%>
+			<a class="nav-link hover" href="../../cart" role="button"> <img
+				alt="カート" src="../../img/cart.png" width=40 height=35> <span
+				class="text-warning"
+				style="position: relative; left: -29px; top: -8px; font-size: 20px; font-weight: bold"><%=cartNum%></span>
+			</a> <a class="btn btn-warning text-right" href="../Mypage.jsp"
+				role="button">マイページ</a>
+			<%
+				} else {
+			%>
 			<a class="btn btn-warning text-right" href="Login.jsp" role="button">ログイン</a>
-		<%} %>
-	</div>
-</nav>
+			<%
+				}
+			%>
+		</div>
+	</nav>
 
-<div class="container">
-<div class="row">
-<div class="col-md-3">
-  <img class="d-flex align-self-center mr-3" id="itemimage" alt="Generic placeholder image" style="width:200px; height:200px; object-fit: cover;">
-</div>
-<div class="col-md-6">
-  <div class="media-body">
-      	<span id="favorite" class="LikesIcon">
-			<i class="far fa-heart LikesIcon-fa-heart"></i>
-		</span>
-    <h5 class="mt-0" id="itemname"></h5>
-	 <p id="outline"></p>
-
-
-	 <span id=avgquo></span>
-	 <span  id="avgstar"></span>
-
-   </div>
-</div>
-<div class="col-md-3">
-<p id="price"></p>
-<p id="storename"></p>
-<input class="btn btn-outline-primary" type=button id="cart"><br>
-</div>
-</div>
-
-
-
-
-
-
-<br>
-
-<select id="sort">
-<option value="new">最新順</option>
-<option value="quo">評価順</option>
-</select>
-<%	if(bean.getReviewList()!=null) {
-	for(int i=bean.getReviewList().size()-1; 1 <= i; i--) {%>
-<span>ユーザ名:<%=bean.getReviewList().get(i)[0]%></span><br>
-<span id="userRev<%= i %>"></span><br>
-<span>レビュー:<%=bean.getReviewList().get(i)[1]%></span><br>
-<%
-	}
-}
-%>
-
-
-<input type=button id="rebtn" class="btn btn-outline-primary">
-<section id="modalArea" class="modalArea">
-	<div id="modalBg" class="modalBg"></div>
-		<div class="modalWrapper">
-		<div class="modalContents">
-    		<!-- ここに中身を書く -->
-		<FORM METHOD="POST" action="../../ItemDetail">
-    		<div class="row">
-				<div class="col-md-6 mb-3">
-   					<label for="nickName">ニックネーム</label>
-   				</div>
-    			<div class="col-md-6 mb-3">
-    				<label><%=bean.getNickname()%></label>
-  				</div>
-  			</div>
-			<div class="row">
-				<div class="col-md-6 mb-3">
-					<label for="rev">評価 </label>
-				</div>
-  				<div  class="col-md-6 mb-3" id="star">
-  				<input type="hidden" id="target" name="star">
-  				</div>
-  			</div>
-			<div class="col-md-6 mb-3">
-				<textarea  name=review  cols="50" rows="8" placeholder="レビュー" maxlength="500" required></textarea>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				<img class="d-flex align-self-center mr-3" id="itemimage"
+					alt="Generic placeholder image"
+					style="width: 200px; height: 200px; object-fit: cover;">
 			</div>
+			<div class="col-md-6">
+				<div class="media-body">
+					<span id="favorite" class="LikesIcon"> <i
+						class="far fa-heart LikesIcon-fa-heart"></i>
+					</span>
+					<h5 class="mt-0" id="itemname"></h5>
+					<p id="outline"></p>
+					<span id=avgquo></span> <span id="avgstar"></span><br>
+					<input type=button id="rebtn" class="btn btn-outline-primary">
 
-			<input type=submit class="btn btn-outline-primary" value="送信">
-
-			</FORM>
-
-		<div id="closeModal" class="closeModal">
-			×
+				</div>
+			</div>
+			<div class="col-md-3">
+				<p id="price"></p>
+				<p id="storename"></p>
+				<input class="btn btn-outline-primary" type=button id="cart"><br>
+			</div>
 		</div>
 
-	</div>
-</div>
-</section>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<br>
+
+		<br>
+
+
+
+<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6">
+			<h5>購入者のレビュー</h5>
+		<%if (bean.getReviewList().size()>1) { %>
+			<select id="sort">
+				<option value="new">最新順</option>
+				<option value="quo">評価順</option>
+			</select><br>
+
+		<%	for (int i = bean.getReviewList().size() - 1; 1 <= i; i--) {%>
+		<br><span>【ユーザ】<%=bean.getReviewList().get(i)[0]%></span><br>
+
+		【レビュー】<span id="userRev<%=i%>"></span><br>
+		<span><%=bean.getReviewList().get(i)[1]%></span><br>
+		<%}%>
+		</div>
+		<div class="col-3"></div>
+	<%}else{%>
+		<p>レビューはありません</p>
+	<%}%>
 </div>
 
+</div>
+	<section id="modalArea" class="modalArea">
+		<div id="modalBg" class="modalBg"></div>
+		<div class="modalWrapper">
+			<div class="modalContents">
+				<!-- ここに中身を書く -->
+				<FORM METHOD="POST" action="../../ItemDetail">
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="nickName">【ユーザーネーム】</label>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label><%=bean.getNickname()%></label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="rev">【 評価 】 </label>
+						</div>
+						<div class="col-md-6 mb-3" id="star">
+							<input type="hidden" id="target" name="star">
+						</div>
+					</div>
+					<div class="col-md-6 mb-3">
+						<textarea name=review cols="50" rows="8" placeholder="レビュー"
+							maxlength="500" required></textarea>
+					</div>
+					<div class="row">
+					<div class="col-6"></div>
+					<div class="col-3">
+					<input id="closeModal" class="btn btn-secondary" type="button"value="キャンセル">
+					</div>
+					<div class="col-3">
+					<input type=submit class="btn btn-primary" value="送信">
+					</div>
+					</div>
+
+				</FORM>
+
+				<div id="closeModal" class="closeModal">×</div>
+
+			</div>
+		</div>
+	</section>
+	<br>
+	<br>
 </body>
 </html>
