@@ -1485,10 +1485,11 @@ public class DBClass {
 				while (rset.next()) {
 
 					// 取得するフィールド分の配列生成
-					String[] strData = new String[2];
+					String[] strData = new String[3];
 
 					strData[0] = rset.getString("特集ID");
 					strData[1] = rset.getString("画像パス");
+					strData[2] = rset.getString("公開フラグ");
 					// リストに追加
 					data.add(strData);
 
