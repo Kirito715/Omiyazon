@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Omiyazon～お土産専門通販サイト～</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script type="text/javascript">
 function actionA(){
 	 document.getElementById('form').action="../Mypage2";
@@ -56,39 +57,77 @@ $(function(){
 </head>
 <body>
 <%@include file="header.jsp" %>
-<form id='form' name='form'>
 <div class="container">
-<table class="table">
+<form id='form' name='form'>
+
 <%String uid=(String)session.getAttribute("uid");%>
 <%ArrayList<String[]> user = (ArrayList<String[]>) session.getAttribute("myuser");%>
 <%ArrayList<String[]> recode = (ArrayList<String[]>) session.getAttribute("myrecode");%>
 <%ArrayList<String[]> book = (ArrayList<String[]>) session.getAttribute("mybook");%>
-<button class="button img-a"value="4"name="button"onclick=" actionA();">ログアウト</button>
+
+
+<br>
+<div class="row">
+<div class="col-10">
+<h4><%=user.get(0)[0]%>さんのアカウント</h4>
+</div>
+
+<div class="col-2">
+<button class="btn btn-secondary"value="4"name="button"onclick=" actionA();">ログアウト</button>
 <input type="hidden"name="uid"value="<%=uid%>">
-<%=user.get(0)[0]%><br>
-<%=user.get(0)[1]%>
-<%=user.get(0)[2]%><br>
-<button class="button img-a"value="1"name="button"onclick=" actionA();">個人情報変更</button>
-<br><br>
-購入履歴<br><br>
-<%for(int i=0;i<recode.size();i++){%>
-<%=recode.get(i)[1]%>
-<br>
-<%if(i==3) break;%>
 
-<%}%>
-<button class="button img-a"value="2"name="button"onclick=" actionA();">購入履歴一覧へ</button><br>
+</div>
+</div>
 <br>
-<%for(int i=0;i<book.size();i++){%>
-<%=book.get(i)[1]%>
-<br>
-<%if(i==3) break;%>
-<%}%>
-<button class="button img-a"value="3"name="button"onclick=" actionA();">お気に入り一覧へ</button><br>
-</table>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">個人情報</h4>
+    <p class="card-text">
+    	<%=user.get(0)[0]%><br>
+     	<%=user.get(0)[1]%>
+		<%=user.get(0)[2]%><br>
+		<%=user.get(0)[3]%><br>
 
+    </p>
+    <button class="btn btn-primary"value="1"name="button" onclick=" actionA();">登録情報の変更へ</button>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">購入履歴</h4>
+    <p class="card-text">
+     	<%for(int i=0;i<recode.size();i++){%>
+		<br><%=recode.get(i)[1]%>
+		<%if(i==2) break;
+		}%>
+		<br>
+		<button class="btn btn-primary"value="2"name="button"onclick=" actionA();">購入履歴一覧へ</button><br>
+     </div>
+</div>
+
+<br>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">お気に入り</h4>
+    <p class="card-text">
+     	<%for(int i=0;i<book.size();i++){%>
+		<%=book.get(i)[1]%>
+		<br>
+		<%if(i==2) break;%>
+		<%}%>
+		<br>
+		<button class="btn btn-primary"value="3"name="button"onclick=" actionA();">お気に入り一覧へ</button><br>
+	 </div>
+</div>
 </form>
-<br><br><br><br>
+
+<br>
+<br>
+<h3 class="text-center">都道府県スタンプラリー</h3>
+<br>
+<br>
 <div id="map" align="center"></div>
+</div>
 </body>
 </html>
