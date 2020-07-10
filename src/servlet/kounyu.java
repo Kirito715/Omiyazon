@@ -36,26 +36,34 @@ public class kounyu extends HttpServlet {
 		HttpSession session = request.getSession();
 		String uid=(String)session.getAttribute("userId");
 		String action=request.getParameter("action");
-		String c=request.getParameter("count");
+
 		String sid=request.getParameter("sid");
 		String num=request.getParameter("num");
 		DBClass db = new DBClass();
 		db.dbOpen();
+
+
+		try {
+		int inum=Integer.parseInt(num);
+		 if(inum<1) {
+			action="del";
+		 }
 
 		if(action.equals("del")) {
 			db.deletecart(sid,uid);
 			ArrayList<String[]> ary = db.getcart(uid);
 			session.setAttribute("cart",ary);
 
-		}
-
-		else if(action.equals("upd")) {
+		}else if(action.equals("upd")) {
 			db.updcart(num, uid, sid);
 			ArrayList<String[]> ary = db.getcart(uid);
 			session.setAttribute("cart",ary);
 
 		}
 		db.dbClose();
+		}catch(Exception e){
+
+		}
 		response.sendRedirect("jsp/cart.jsp");
 
 	}
