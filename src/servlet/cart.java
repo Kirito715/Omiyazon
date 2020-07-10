@@ -39,10 +39,19 @@ public class cart extends HttpServlet {
 		id="1";
 		db.dbOpen();
 		ArrayList<String[]> ary = db.getcart(id);
+		ArrayList<Integer> ary2 = new ArrayList<Integer>();
+
+		int buyid=0;
+		for(int i=0;i<ary.size();i++) {
+			buyid=Integer.parseInt(ary.get(i)[0]);
+			ary2.add(db.getOrdable(buyid)-db.getStock(buyid));
+
+		}
+
 		db.dbClose();
 		session.setAttribute("cart",ary);
+		session.setAttribute("max",ary2);
 		session.setAttribute("uid",id);
-
 
 		response.sendRedirect("jsp/cart.jsp");
 	}

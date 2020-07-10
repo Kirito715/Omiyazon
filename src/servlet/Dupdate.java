@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -46,15 +45,13 @@ public class Dupdate extends HttpServlet {
 		if(button.equals("1"))
 			db.updD(date);
 		else {
-			if(did!=null){
+			if(!did[0].equals(null)){
 			for(int i=0;i<did.length;i++){
 				db.updD2(date,did[i]);
 			}
 			}
 		}
-		ArrayList<String[]> ary = db.getdenpyou();
 		db.dbClose();
-		session.setAttribute("denpyou", ary);
 		response.sendRedirect("jsp/denpyou.jsp");
 	}
 

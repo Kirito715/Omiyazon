@@ -1,14 +1,14 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@include file="header.jsp"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>カート</title>
-<%@include file="header.jsp"%>
+
 <link rel="stylesheet" href="../css/slide.css" type="text/css">
 
 <!-- BootstrapのCSS読み込み -->
@@ -47,6 +47,7 @@ $(function(){
 			<input type="hidden" value="<%=uid%>" name="uid">
 			<%
 				ArrayList<String[]> cart = (ArrayList<String[]>) session.getAttribute("cart");
+				ArrayList<Integer> max = (ArrayList<Integer>) session.getAttribute("max");
 			%>
 			<table class="table table-striped text-center" align="center" style="width:800px">
 				<thead>
@@ -61,7 +62,7 @@ $(function(){
 					<tr>
 						<td><%=cart.get(i)[1]%></td>
 						<td><input type="number" name="num"
-							value="<%=cart.get(i)[2]%>" style="text-align: right" min=1 required>個</td>
+							value="<%=cart.get(i)[2]%>" style="text-align: right" min=1 max=<%=max.get(0)%> required>個</td>
 						<td><button class="btu  btn-primary" value="<%=cart.get(i)[0]%>" type="button"  name="upd">数量更新</button>
 							<button class="btd  btn-primary" value="<%=cart.get(i)[0]%>" type="button" name="del">削除</button></td>
 					</tr>
@@ -77,6 +78,7 @@ $(function(){
 		</form>
 	</div>
 	<footer><p class="mt-5 mb-3 text-muted" align="center">&copy; Omiyazon</p></footer>
+
 </body>
 
 </html>
