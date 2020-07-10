@@ -61,6 +61,26 @@ $(function() {
 
         $('div.checkret').text(cnt + '件選択中');
     }).trigger('change');
+
+    var $children = $('.children'); //都道府県の要素を変数に入れます。
+	var original = $children.html(); //後のイベントで、不要なoption要素を削除するため、オリジナルをとっておく
+
+	//地方側のselect要素が変更になるとイベントが発生
+	$('.parent').change(function() {
+
+		//選択された地方のvalueを取得し変数に入れる
+		var val1 = $(this).val();
+
+		//削除された要素をもとに戻すため.html(original)を入れておく
+		$children.html(original).find('option').each(function() {
+			var val2 = $(this).data('val'); //data-valの値を取得
+
+			//valueと異なるdata-valを持つ要素を削除
+			if (val1 != val2 && val1 != 0) {
+				$(this).not(':first-child').remove();
+			}
+		});
+	});
 });
 </script>
 </head>
@@ -77,7 +97,7 @@ $(function() {
 		<div class="form-group row">
 			<label class="col-sm-2 col-form-label">地方</label>
 			<div class="col-sm-10">
-				<select class="custom-select" name="selectRegion" id="selectRegion">
+				<select class="custom-select parent" name="selectRegion" id="selectRegion">
 					<option value="0">指定なし</option>
 					<%
 					for(String[] a: region){
@@ -90,12 +110,12 @@ $(function() {
 		<div class="form-group row">
 			<label class="col-sm-2 col-form-label">都道府県</label>
 			<div class="col-sm-10">
-				<select class="custom-select" name="selectPref" id="selectPref">
+				<select class="custom-select children" name="selectPref" id="selectPref">
 					<option value="0">指定なし</option>
 					<%
 					for(String[] a: pref){
 					%>
-					<option value=<%=a[0] %>><%=a[1] %></option>
+					<option value=<%=a[0] %> data-val="<%=a[2] %>" ><%=a[1] %></option>
 					<%} %>
 				</select>
 			</div>

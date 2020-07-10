@@ -90,7 +90,28 @@
 		     path:'../../ratyimage' //サーバ上のRaty画像のパス
 		    });
     }
-  });
+
+	var $children = $('.children'); //都道府県の要素を変数に入れます。
+	var original = $children.html(); //後のイベントで、不要なoption要素を削除するため、オリジナルをとっておく
+
+	//地方側のselect要素が変更になるとイベントが発生
+	$('.parent').change(function() {
+
+		//選択された地方のvalueを取得し変数に入れる
+		var val1 = $(this).val();
+
+		//削除された要素をもとに戻すため.html(original)を入れておく
+		$children.html(original).find('option').each(function() {
+			var val2 = $(this).data('val'); //data-valの値を取得
+
+			//valueと異なるdata-valを持つ要素を削除
+			if (val1 != val2 && val1 != 0) {
+				$(this).not(':first-child').remove();
+			}
+		});
+	});
+
+});
 
   function select_checked() {
 		$("#selectRegion").val("<%=searchCondition[1]%>");
@@ -198,7 +219,7 @@
 
 <form action="../../ItemSearch" id="frm2" name="frm2">
 <br>
-	<select name="selectRegion" id="selectRegion" class="custom-select">
+	<select name="selectRegion" id="selectRegion" class="custom-select parent">
 		<option value ="0">地方</option>
 		<%
 			for(String[] a: region){
@@ -207,12 +228,12 @@
 		<%} %>
 	</select>
 	<br>
-	<select name="selectPref" id="selectPref" class="custom-select">
+	<select name="selectPref" id="selectPref" class="custom-select children">
 		<option value ="0">都道府県</option>
 		<%
 			for(String[] a: pref){
 		%>
-		<option value=<%=a[0] %>><%=a[1] %></option>
+		<option value=<%=a[0] %> data-val="<%=a[2] %>"><%=a[1] %></option>
 		<%} %>
 	</select>
 	<br>
