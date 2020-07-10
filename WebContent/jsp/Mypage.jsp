@@ -75,12 +75,11 @@ $(function(){
 <div class="col-2">
 <button class="btn btn-secondary"value="4"name="button"onclick=" actionA();">ログアウト</button>
 <input type="hidden"name="uid"value="<%=uid%>">
-
-
-
 </div>
 </div>
 <br>
+<div class="row">
+<div class="col-4">
 <div class="card">
   <div class="card-body">
     <h4 class="card-title">個人情報</h4>
@@ -96,32 +95,40 @@ $(function(){
     <button class="btn btn-primary"value="1"name="button" onclick=" actionA();">登録情報の変更へ</button>
   </div>
 </div>
+</div>
 <br>
+<div class="col-4">
 <div class="card">
   <div class="card-body">
     <h4 class="card-title">購入履歴</h4>
-    <p class="card-text">
+    <div class="card-text">
+    	<p class="text-secondary"><small>※上位3件を表示</small></p>
      	<%for(int i=0;i<recode.size();i++){%>
-			<%=recode.get(i)[1]%><br>
+     		<a href="../ItemDetail?itemid=<%=recode.get(i)[0]%>"><%=recode.get(i)[1]%></a><br>
 			<%if(i==2) break;
 		}%>
+		<br>
 		<button class="btn btn-primary"value="2"name="button"onclick=" actionA();">購入履歴一覧へ</button><br>
-     </p>
+     </div>
      </div>
 </div>
-
+</div>
 <br>
+<div class="col-4">
 <div class="card">
   <div class="card-body">
     <h4 class="card-title">お気に入り</h4>
-    <p class="card-text">
+    <div class="card-text">
+    	<p class="text-secondary"><small>※上位3件を表示</small></p>
      	<%for(int i=0;i<book.size();i++){%>
-		<%=book.get(i)[1]%>
-		<br>
+		<a href="../ItemDetail?itemid=<%=book.get(i)[0]%>"> <%=book.get(i)[1]%> </a><br>
 		<%if(i==2) break;%>
 		<%}%>
+		<br>
 		<button class="btn btn-primary"value="3"name="button"onclick=" actionA();">お気に入り一覧へ</button><br>
-	 </p>
+	 </div>
+	 </div>
+	 </div>
 	 </div>
 </div>
 </form>

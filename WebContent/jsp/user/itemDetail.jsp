@@ -315,19 +315,21 @@ $(function(){
 	</nav>
 <br>
 	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
+		<a href="itemList.jsp"><small> < 商品一覧へ</small></a>
+	<div class="row">
+		<div class="col-md-3">
 				<img class="d-flex align-self-center mr-3" id="itemimage"
 					alt="Generic placeholder image"
 					style="width: 200px; height: 200px; object-fit: cover;">
 			</div>
 			<div class="col-md-6">
 				<div class="media-body">
-					<div id="favorite" class="LikesIcon">
+					<span style="font-size: 24px" id="itemname"></span>
+					<span id="favorite" class="LikesIcon">
 					<i style="cursor: hand; cursor:pointer;"
 					class="far fa-heart LikesIcon-fa-heart"></i>
-					</div>
-					<h5 class="mt-0" id="itemname"></h5>
+					</span>
+
 					<p id="outline"><%=bean.getOutline()%></p>
 					<span id=avgquo></span> <span id="avgstar"></span><br>
 					<input type=button id="rebtn" class="btn btn-outline-primary">

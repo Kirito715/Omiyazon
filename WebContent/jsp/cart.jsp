@@ -27,7 +27,8 @@ $(function(){
 	 });
 	 $('.btd').on('click', function() {
 		 var sid = $(this).val();
-		 window.location.href = '../kounyu?action=del&sid='+sid;
+		 var num =$(this).closest('tr').find('input').val();
+		 window.location.href = '../kounyu?action=del&sid='+sid+'&num='+num;
 	 });
 });
 </script>
