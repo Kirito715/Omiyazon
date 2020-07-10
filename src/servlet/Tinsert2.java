@@ -38,7 +38,7 @@ public class Tinsert2 extends HttpServlet {
 		String n3=request.getParameter("fdate");
 		String n4=request.getParameter("edate");
 		String n5=request.getParameter("pasu");
-		String[] sid=request.getParameterValues("itemid");
+		String[] sid = (String[]) session.getAttribute("sid");
 
 
 		DBClass db = new DBClass();
