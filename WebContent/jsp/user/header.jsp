@@ -10,10 +10,7 @@
 	<!-- BootstrapのJS読み込み -->
 	<script src="../../js/bootstrap.min.js"></script>
  　　<script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
-	   <script type="text/javascript" src="../../js/jquery.japan-map.min.js"></script>
- 　　  <link rel="stylesheet" href="../../css/slick-theme.css" type="text/css">
- 　　  <link rel="stylesheet" href="../../css/slick.css" type="text/css">
- 　　  <script src="../../js/slick.js" type="text/javascript"></script>
+
 <%
 			//ログイン情報
 			String userId = (String)session.getAttribute("userId");

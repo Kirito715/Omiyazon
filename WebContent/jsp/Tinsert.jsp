@@ -8,10 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>特集作成</title>
- <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Sample</title>
     <!-- BootstrapのCSS読み込み -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery読み込み -->
@@ -19,33 +15,83 @@
     <!-- BootstrapのJS読み込み -->
     <script src="js/bootstrap.min.js"></script>
 </head>
-<body >
+<body>
 <%@include file="managerHeader.jsp" %>
 <%Date a = new Date();
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 String date = dateFormat.format(a); %>
-<form action="../Tinsert2">
-<%String[] sid = (String[]) session.getAttribute("sid");%>
-<%ArrayList<String[]> kanren = (ArrayList<String[]>) session.getAttribute("kanren");%>
-<div>タイトル</div><br>
+<br>
+<div class="container">
+	<form action="../Tinsert2">
+	<%String[] sid = (String[]) session.getAttribute("sid");%>
+	<%ArrayList<String[]> kanren = (ArrayList<String[]>) session.getAttribute("kanren");%>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">タイトル</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" name="title" placeholder="商品名を入力" required>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">商品概要</label>
+		<div class="col-sm-10">
+			<textarea style="width:100%; height:110px;" class="form-control" name="honbun" placeholder="特集本文を入力" required></textarea>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">公開開始</label>
+		<div class="col-sm-10">
+			<input type="date" class="form-control" name="fdate" value="<%=date%>" required>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">公開終了</label>
+		<div class="col-sm-10">
+			<input type="date" class="form-control" name="edate" required>
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label">特集用画像</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" name="pasu" required>
+		</div>
+	</div>
+表示される関連商品一覧
+<div class="container" style="width:100%; max-height:500px; overflow-y:auto;">
+	<table class="table table-sm table-hover">
+	<thead class="thead-dark">
+		<tr>
+			<th style="position: sticky; top: 0;"></th>
+			<th style="position: sticky; top: 0;">商品名</th>
+			<th style="position: sticky; top: 0;">価格</th>
+			<th style="position: sticky; top: 0;">加盟店</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tbody>
+<%
+	if(kanren != null){
+	int cnt = 1;
+	for(String[] k: kanren){
+%>
 
-<input type="text"name="title"><br>
-<textarea name="honbun"style="width:15em;height:8em"></textarea><br>
-<h>公開開始</h>
-<input type="date"name="fdate"value="<%=date%>">
-公開終了
-<input type="date"name="edate"><br>
-画像パス
-<input type="text"name="pasu"><br>
+		<tr>
+			<th scope="row"><%=cnt %></th>
+			<td><%=k[1] %></td>
+			<td><%=k[2] %></td>
+			<td><%=k[3] %></td>
+		</tr>
+<%
+		cnt++;
+	}
+	}
+%>
+	</tbody>
+</table>
+</div>
 
-<%if(sid!=null){%>
-関連商品
-	<%for(int i=0;i<sid.length;i++){ %>
-		<%=sid[i] %><%=kanren.get(i)[2]%><br>
-	<%} %><br>
-	<%}%>
-<input type="submit"value="作成する">
-<input type="hidden"value="">
-</form>
+	<input class="btn btn-primary" type="submit"value="作成する">
+	<input type="hidden"value="">
+	</form>
+</div>
 </body>
 </html>

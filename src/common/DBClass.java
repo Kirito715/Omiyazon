@@ -2707,6 +2707,8 @@ public class DBClass {
 
 	        	Adata.add(rset.getString("商品ID"));
 	        	Adata.add(rset.getString("商品名"));
+	        	Adata.add(rset.getString("単価"));
+	        	Adata.add(rset.getString("加盟店名"));
 
 
 	        	// リストに追加
@@ -2725,6 +2727,8 @@ public class DBClass {
 		return Adata;
 	}
 }
+
+
 
 
 

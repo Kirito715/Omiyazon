@@ -42,9 +42,11 @@ public class Tinsert extends HttpServlet {
 
 		for(int i=0;i<sid.length;i++) {
 			ArrayList<String> syouhin = db.getsyouhin(sid[i]);
-			String[] strData = new String[7];
+			String[] strData = new String[4];
         	strData[0] =syouhin.get(0);
         	strData[1] =syouhin.get(1);
+        	strData[2] =syouhin.get(2);
+        	strData[3] =syouhin.get(3);
         	kanren.add(strData);
 			}
 		}
