@@ -36,20 +36,24 @@ int pa2= Integer.parseInt(pa);
 <%ArrayList<String[]> tokusyuu = (ArrayList<String[]>) session.getAttribute("tokusyuu");%>
 <%int count=0,end=15,start=pa2*end,size=tokusyuu.size(),b=size/end;
 %>
+<br>
+<div class="container">
 <form id='form' name='form'>
-<select name="combo">
-<option value="1">新着順</option>
-<option value="2">投稿が古い物</option>
-</select>
-<input type="text"name="txt">
-
-<button class="btn btn-primary"value=""name="tid"onclick=" actionB();">検索</button><br>
+<div class="form-group row">
+	<select name="combo" class="custom-select col-sm-3" >
+		<option value="1">新着順</option>
+		<option value="2">投稿が古い物</option>
+	</select>
+	<div class="col-sm-8">
+		<input type="text" name="txt" class="form-control">
+	</div>
+	<button class="btn btn-primary"value=""name="tid"onclick=" actionB();">検索</button>
+</div>
  <input type="hidden"name="seni"value="1">
-
 
 <br>
 
-<table class="table table-striped">
+<table class="table table-hover table-sm">
     <thead>
       <tr>
         <th>#</th>
@@ -85,5 +89,6 @@ count++;
 	<%
  }%>
  </form>
+ </div>
 </body>
 </html>

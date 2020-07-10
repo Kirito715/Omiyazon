@@ -73,11 +73,6 @@ public class ItemSearch extends HttpServlet {
 			}
 		}
 
-		for (int i = 0; i < genrecon.length; i++){
-			System.out.println(genrecon[i]);
-			}
-
-
 		String[] searchCondition = {text,regionId,prefId,genrecon[0],genrecon[1],genrecon[2],genrecon[3],genrecon[4],genrecon[5],genrecon[6],genrecon[7]};
 
 		session.setAttribute("searchResult", searchResult);
