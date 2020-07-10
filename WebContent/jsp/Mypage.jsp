@@ -88,7 +88,10 @@ $(function(){
     	<%=user.get(0)[0]%><br>
     	<%=user.get(0)[3].substring(0,3)%>-<%=user.get(0)[3].substring(3)%><br>
      	<%=user.get(0)[1]%>
-		<%=user.get(0)[2]%><br>
+     	<%if(user.get(0)[2]!=null){ %>
+		<%=user.get(0)[2]%>
+		<%} %>
+		<br>
     </p>
     <button class="btn btn-primary"value="1"name="button" onclick=" actionA();">登録情報の変更へ</button>
   </div>
