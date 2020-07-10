@@ -9,11 +9,7 @@
 <meta charset="UTF-8">
 <title>カート</title>
 <link rel="stylesheet" href="../css/slide.css" type="text/css">
-<script type="text/javascript">
-	function actionA() {
-		document.getElementById('form').action = "../kounyu";
-	}
-</script>
+
 <!-- BootstrapのCSS読み込み -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <!-- jQuery読み込み -->
@@ -21,11 +17,27 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- BootstrapのJS読み込み -->
 <script src="../js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	 $('.btu').on('click', function() {
+		 var sid = $(this).val();
+		 var num =$(this).closest('tr').find('input').val();
+		 window.location.href = '../kounyu?action=upd&sid='+sid+'&num='+num;
+	 });
+	 $('.btd').on('click', function() {
+		 var sid = $(this).val();
+		 window.location.href = '../kounyu?action=del&sid='+sid;
+	 });
+});
+</script>
+
+
 </head>
 <body class="text-center">
 	<br>
 	<div class="body">
-		<form id='form' name='form'>
+		<form  action="../kounyu" method="post">
 			<%
 				String uid = (String) session.getAttribute("uid");
 			%>
@@ -46,12 +58,9 @@
 					<tr>
 						<td><%=cart.get(i)[1]%></td>
 						<td><input type="number" name="num"
-							value="<%=cart.get(i)[2]%>" style="text-align: right">個</td>
-						<input type="hidden" value="<%=cart.get(i)[0]%>" name="sid">
-						<td><button class="button  btn-primary" value="3"
-								name="button" onclick=" actionA();">数量更新</button>
-							<button class="button  btn-primary" value="1" name="button"
-								onclick=" actionA();">削除</button></td>
+							value="<%=cart.get(i)[2]%>" style="text-align: right" min=1 required>個</td>
+						<td><button class="btu  btn-primary" value="<%=cart.get(i)[0]%>" type="button"  name="upd">数量更新</button>
+							<button class="btd  btn-primary" value="<%=cart.get(i)[0]%>" type="button" name="del">削除</button></td>
 					</tr>
 					<%
 						}
@@ -59,8 +68,7 @@
 				</thead>
 			</table>
 			<br> <br>
-			<button class="button btn-primary" value="2" name="button"
-				onclick=" actionA();">購入へ進む</button>
+			<button class="btn btn-primary"  type="submit">購入へ進む</button>
 			<br>
 
 		</form>

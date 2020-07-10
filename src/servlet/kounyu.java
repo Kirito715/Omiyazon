@@ -34,35 +34,29 @@ public class kounyu extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		String uid=request.getParameter("uid");
-		String button=request.getParameter("button");
+		String uid=(String)session.getAttribute("userId");
+		String action=request.getParameter("action");
 		String c=request.getParameter("count");
 		String sid=request.getParameter("sid");
 		String num=request.getParameter("num");
 		DBClass db = new DBClass();
 		db.dbOpen();
-		if(button.equals("1")) {
+
+		if(action.equals("del")) {
 			db.deletecart(sid,uid);
 			ArrayList<String[]> ary = db.getcart(uid);
 			session.setAttribute("cart",ary);
-			response.sendRedirect("jsp/cart.jsp");
-		}
-		else if(button.equals("2")) {
-			ArrayList<String[]> ary = db.getuser(uid);
-			ArrayList<String[]> ary2 = db.getcart(uid);
-			session.setAttribute("user",ary);
-			session.setAttribute("cart",ary2);
-			session.setAttribute("uid",uid);
-			response.sendRedirect("jsp/kounyuu.jsp");
 
-			}
-		else if(button.equals("3")) {
+		}
+
+		else if(action.equals("upd")) {
 			db.updcart(num, uid, sid);
 			ArrayList<String[]> ary = db.getcart(uid);
 			session.setAttribute("cart",ary);
-			response.sendRedirect("jsp/cart.jsp");
+
 		}
 		db.dbClose();
+		response.sendRedirect("jsp/cart.jsp");
 
 	}
 
@@ -70,8 +64,24 @@ public class kounyu extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+		response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		String uid=(String)session.getAttribute("userId");
+
+		System.out.println("セッション取得後uid : "+uid);
+		DBClass db=new DBClass();
+		db.dbOpen();
+		ArrayList<String[]> ary = db.getUser(uid);
+		System.out.println("getuser後uid : "+uid);
+		ArrayList<String[]> ary2 = db.getcart(uid);
+		db.dbClose();
+		session.setAttribute("user",ary);
+		session.setAttribute("cart",ary2);
+		session.setAttribute("uid",uid);
+		response.sendRedirect("jsp/kounyuu.jsp");
+
 	}
 
 }

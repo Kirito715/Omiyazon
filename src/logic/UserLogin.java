@@ -61,16 +61,20 @@ public class UserLogin extends HttpServlet {
 			Session.setAttribute("userMail", UserMail);
 			Session.setAttribute("userId", db.getUserId(UserMail,UserPass));
 			//マイページ遷移
+			// DB切断
+			db.dbClose();
 			response.sendRedirect("Mypage");
+			// DB切断
 
 		} else {
 			System.out.println("エラー");
 			//ログイン画面遷移
+			// DB切断
+			db.dbClose();
 			response.sendRedirect("jsp/user/Login.jsp");
 		}
 
-		// DB切断
-		db.dbClose();
+
 	}
 
 	/**

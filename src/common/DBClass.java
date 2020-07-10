@@ -2467,27 +2467,33 @@ public class DBClass {
 
 		return Adata;
 	}
-	public ArrayList<String[]> getuser(String uid){
+
+	public ArrayList<String[]> getUser(String uid){
 
 		ArrayList<String[]> Adata = new ArrayList<String[]>();
-
-		//Statementを生成
-	    Statement stmt;
+		// データ取得
+		System.out.println("getuserに移動後uid : "+uid);
+	    int iuid=Integer.parseInt(uid);
+	    System.out.println("parseInt後uid : "+uid);
 
 		try {
-
-			stmt = objCon.createStatement();
 
 	        String sql = "";
 	        sql += " SELECT *";
 	        sql += " FROM 登録者マスタ";
-	        sql +=" where 登録者ID='"+uid+"'";
+	        sql += " WHERE 登録者ID = ?";
+
+	    	System.out.println("sql格納後 : "+sql);
+	    	PreparedStatement ps = objCon.prepareStatement(sql);
+	        System.out.println("ps格納後uid : "+uid);
 
 	        // 実行SQL確認
 	        System.out.println(sql);
 
+	    	ps.setInt(1, iuid);
+
 	        // 問い合わせの実行
-	        ResultSet rset = stmt.executeQuery(sql);
+	        ResultSet rset = ps.executeQuery();
 
 	        while(rset.next()) {
 
@@ -2505,9 +2511,7 @@ public class DBClass {
 
 	        }
 
-	        rset.close();	// ResultSetのクローズ
-	        stmt.close();	// Statementのクローズ
-
+	        ps.close();
 
 		} catch (SQLException e) {
 			// エラー表示
@@ -2516,6 +2520,7 @@ public class DBClass {
 
 		return Adata;
 	}
+
 	public int insertkanren( String sid) {
 
 		// 実行結果件数用変数

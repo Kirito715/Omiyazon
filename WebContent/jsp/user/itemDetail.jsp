@@ -40,7 +40,7 @@
 		searchCondition = new String[11];
 		searchCondition[0] = "";
 		for (int i = 1; i < 11; i++) {
-			searchCondition[i] = "0";
+	searchCondition[i] = "0";
 		}
 	}
 %>
