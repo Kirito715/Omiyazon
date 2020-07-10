@@ -12,9 +12,11 @@
 		document.getElementById('uid').value = u ;
 		document.getElementById('sid').value = s ;
 		document.getElementById('did').value = d ;
+
+		alert(document.cancelForm.action);
 		document.cancelForm.submit();
 
-	//	document.getElementById('form').action = "../recode2";
+	//document.getElementById('form').action = "../recode2";
 	}
 	function actionB() {
 		document.getElementById('form').action = "../ItemDetail";
@@ -69,7 +71,7 @@
 								if (recode.get(i)[4].equals("0")) {
 							%>
 
-							<td><button class="button img-a" value="1" name="button"
+							<td><button type="button" class="button img-a" value="1" name="button"
 									onclick=" actionA('<%=uid %>','<%=recode.get(i)[0]%>','<%=recode.get(i)[6]%>');">発送の中止</button></td>
 							<%
 								} else
