@@ -35,11 +35,15 @@ public class ItemDetail extends HttpServlet {
 		String action =request.getParameter("action");
 		HttpSession session = request.getSession();
 		DetailBean bean = new DetailBean();
+		String sitem=request.getParameter("itemid");
 
+		if(sitem==null) {
+			response.sendRedirect("TopPage");
+		}
 
 		//actionがnullのとき初期設定
 		if(action==null) {
-			int itemid= Integer.parseInt(request.getParameter("itemid"));
+			int itemid= Integer.parseInt(sitem);
 			bean.setItemid(itemid);
 			String uid = (String)session.getAttribute("userId");
 

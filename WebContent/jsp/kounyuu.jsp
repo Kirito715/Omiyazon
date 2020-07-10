@@ -30,7 +30,9 @@
 <td>〒</td><td><input type="number"name="num"value="<%=user.get(0)[3]%>"></td>
 <td style="width:100px">住所</td>
 <td style="width:100px"><input type="text"name="zyusyo1"value="<%=user.get(0)[1]%>">
+<%if(user.get(0)[2]!=null){ %>
 <input type="text"name="zyusyo2"value="<%=user.get(0)[2]%>"></td>
+<%} %>
 </tr></thead></table>
 <%int sum=0; %>
 <table class="table table-striped text-center" align="center" style="width:600px"style="height:900px">
