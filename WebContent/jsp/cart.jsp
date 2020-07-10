@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>カート</title>
+
 <link rel="stylesheet" href="../css/slide.css" type="text/css">
 
 <!-- BootstrapのCSS読み込み -->
@@ -36,6 +37,7 @@ $(function(){
 
 </head>
 <body class="text-center">
+
 	<br>
 	<div class="body">
 		<form  action="../kounyu" method="post">
@@ -75,6 +77,8 @@ $(function(){
 
 		</form>
 	</div>
+	<footer><p class="mt-5 mb-3 text-muted" align="center">&copy; Omiyazon</p></footer>
+
 </body>
 
 </html>

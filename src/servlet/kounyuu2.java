@@ -40,19 +40,35 @@ public class kounyuu2 extends HttpServlet {
 		String zyusyo2=request.getParameter("zyusyo2");
 		String uid=request.getParameter("uid");
 		String num=request.getParameter("num");
+		String path=null;
 		Date a = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String date = dateFormat.format(a);
 		DBClass db = new DBClass();
 		db.dbOpen();
 		ArrayList<String[]> ary = db.getcart(uid);
+		int buynum = 0;
+		int buyid=0;
+
+		for(int i=0;i<ary.size();i++) {
+			buyid=Integer.parseInt(ary.get(i)[0]);
+			buynum=Integer.parseInt(ary.get(i)[2]);
+			if(db.getOrdable(buyid)-db.getStock(buyid)-buynum < 0) {
+				session.setAttribute("overid",buyid);
+				session.setAttribute("overitem",(String)db.getItemName(buyid));
+				path="jsp/cartError.jsp";
+			}
+		}
+		if(path==null) {
 		db.insertdenpyou(uid,date,num,zyusyo1,zyusyo2);
 		for(int i=0;i<ary.size();i++) {
 			db.inserturiage(ary.get(i)[0],ary.get(i)[2] ,ary.get(i)[5]);
 		}
 		db.deleteAllcart(uid);
+		path="jsp/Complete.jsp";
+		}
 		db.dbClose();
-			response.sendRedirect("jsp/Complete.jsp");
+			response.sendRedirect(path);
 		}
 
 	/**
