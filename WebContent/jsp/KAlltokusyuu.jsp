@@ -47,7 +47,7 @@ int pa2= Integer.parseInt(pa);
 	<div class="col-sm-8">
 		<input type="text" name="txt" class="form-control">
 	</div>
-	<button class="btn btn-primary"value=""name="tid"onclick=" actionB();">検索</button>
+	<button class="btn btn-outline-primary"value=""name="tid"onclick=" actionB();">検索</button>
 </div>
  <input type="hidden"name="seni"value="1">
 
@@ -56,7 +56,7 @@ int pa2= Integer.parseInt(pa);
 <table class="table table-hover table-sm">
     <thead>
       <tr>
-        <th>#</th>
+        <th></th>
         <th>特集名</th>
         <th>公開日時</th>
         <th>公開</th>
@@ -73,7 +73,7 @@ int pa2= Integer.parseInt(pa);
           if(tokusyuu.get(i)[3].equals("0"))a="公開";
           else a="非公開"; %>
           <td> <%=a%></td>
-          <td><button class="btn btn-primary"value="<%=tokusyuu.get(i)[0]%>"name="tid"onclick=" actionA();">詳細</button></td>
+          <td><button class="btn btn-outline-primary"value="<%=tokusyuu.get(i)[0]%>"name="tid"onclick=" actionA();">詳細</button></td>
       </tr>
       <%if(count==end){
 break;

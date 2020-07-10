@@ -50,7 +50,7 @@ int pa2= Integer.parseInt(pa);
 	<div class="col-sm-8">
 		<input type="text" name="txt" class="form-control" value="<%=txt%>">
 	</div>
-	<button class="btn btn-primary"value=""name="tid"onclick=" actionB();">検索</button>
+	<button class="btn btn-outline-primary"value=""name="tid"onclick=" actionB();">検索</button>
 </div>
 
 <br>
@@ -59,7 +59,7 @@ int pa2= Integer.parseInt(pa);
 	<table class="table table-hover table-sm">
 	<thead>
 		<tr>
-			<th>選択</th>
+			<th></th>
 			<th>id </th>
 			<th>購入日時</th>
 			<th>注文状態</th>
@@ -81,7 +81,7 @@ else if(denpyou.get(i)[3].equals("1")){
 }
 %>
 			<td><%=a %></td>
-			<td><button class="btn btn-primary"value="<%=denpyou.get(i)[0]%>"name="did"onclick=" actionA();">詳細</button><br></td>
+			<td><button class="btn btn-outline-primary"value="<%=denpyou.get(i)[0]%>"name="did"onclick=" actionA();">詳細</button><br></td>
 <%if(count==end){
 break;
 }
