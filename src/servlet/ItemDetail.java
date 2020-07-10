@@ -37,9 +37,6 @@ public class ItemDetail extends HttpServlet {
 		DetailBean bean = new DetailBean();
 		String sitem=request.getParameter("itemid");
 
-		if(sitem==null) {
-			response.sendRedirect("TopPage");
-		}
 
 		//actionがnullのとき初期設定
 		if(action==null) {
