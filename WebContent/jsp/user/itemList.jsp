@@ -34,11 +34,12 @@
 		searchCondition = new String[11];
 		searchCondition[0] ="";
 		for(int i = 1;i<11;i++){
-			searchCondition[i] ="0";
+	searchCondition[i] ="0";
 		}
 	}
 %>
-<%	//検索結果
+<%
+	//検索結果
 	ArrayList<String[]>searchResult = (ArrayList<String[]>)session.getAttribute("searchResult");
 	if(searchResult == null){
 		searchResult = new ArrayList<String[]>();
@@ -94,14 +95,30 @@
   function select_checked() {
 		$("#selectRegion").val("<%=searchCondition[1]%>");
 		$("#selectPref").val("<%=searchCondition[2]%>");
-		$(".genre[value=<%=searchCondition[3]%>]").attr("checked","checked");
-		$(".genre[value=<%=searchCondition[4]%>]").attr("checked","checked");
-		$(".genre[value=<%=searchCondition[5]%>]").attr("checked","checked");
-		$(".genre[value=<%=searchCondition[6]%>]").attr("checked","checked");
-		$(".genre[value=<%=searchCondition[7]%>]").attr("checked","checked");
-		$(".genre[value=<%=searchCondition[8]%>]").attr("checked","checked");
-		$(".genre[value=<%=searchCondition[9]%>]").attr("checked","checked");
-		$(".genre[value=<%=searchCondition[10]%>]").attr("checked","checked");
+		if(<%=searchCondition[3]%> > 0){
+			$("#check1").prop("checked",true);
+		}
+		if(<%=searchCondition[4]%> > 0){
+			$("#check2").prop("checked",true);
+		}
+		if(<%=searchCondition[5]%> > 0){
+			$("#check3").prop("checked",true);
+		}
+		if(<%=searchCondition[6]%> > 0){
+			$("#check4").prop("checked",true);
+		}
+		if(<%=searchCondition[7]%> > 0){
+			$("#check5").prop("checked",true);
+		}
+		if(<%=searchCondition[8]%> > 0){
+			$("#check6").prop("checked",true);
+		}
+		if(<%=searchCondition[9]%> > 0){
+			$("#check7").prop("checked",true);
+		}
+		if(<%=searchCondition[10]%> > 0){
+			$("#check8").prop("checked",true);
+		}
   }
 
   function goDetail(id){
