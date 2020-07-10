@@ -417,6 +417,6 @@ $(function(){
 		</div>
 	</section>
 	<br>
-	<br>
+	<p class="mt-5 mb-3 text-muted" align="center">&copy; Omiyazon</p>
 </body>
 </html>
