@@ -38,6 +38,7 @@ public class ItemDetail extends HttpServlet {
 		String sitem=request.getParameter("itemid");
 
 
+
 		//actionがnullのとき初期設定
 		if(action==null) {
 			int itemid= Integer.parseInt(sitem);
