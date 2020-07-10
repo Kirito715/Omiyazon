@@ -7,7 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<%DetailBean bean = (DetailBean) session.getAttribute("DetaillBean");%>
+<title><%=bean.getItemname() %></title>
 <%
 	//ログイン情報
 	String userId = (String) session.getAttribute("userId");
@@ -73,7 +74,7 @@
 
 <script type="text/javascript">
 $(function(){
-	<%DetailBean bean = (DetailBean) session.getAttribute("DetaillBean");%>
+
 
 	$('#itemname').text("<%=bean.getItemname()%>");
 	$('#favorite').hide();
