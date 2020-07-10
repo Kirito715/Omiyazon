@@ -34,11 +34,12 @@
 		searchCondition = new String[11];
 		searchCondition[0] ="";
 		for(int i = 1;i<11;i++){
-			searchCondition[i] ="0";
+	searchCondition[i] ="0";
 		}
 	}
 %>
-<%	//検索結果
+<%
+	//検索結果
 	ArrayList<String[]>searchResult = (ArrayList<String[]>)session.getAttribute("searchResult");
 	if(searchResult == null){
 		searchResult = new ArrayList<String[]>();

@@ -18,14 +18,14 @@
  　　  <script src="../js/slick.js" type="text/javascript"></script>
 <title>Insert title here</title>
 <%
-			//ログイン情報
-			String userId = (String)session.getAttribute("userId");
+	//ログイン情報
+	String userId = (String)session.getAttribute("userId");
 
-			//if(userId == null){
-			//	userId = "1";
-			//	session.setAttribute("userId",userId);
-			//}
-		%>
+	//if(userId == null){
+	//	userId = "1";
+	//	session.setAttribute("userId",userId);
+	//}
+%>
 		<%
 			//カート
 			String cartNum = "0";
@@ -64,7 +64,7 @@
 			<img alt="カート" src="../img/cart.png"  width=40 height=35 >
 			<span class="text-warning" style="position:relative; left:-29px; top:-8px; font-size: 20px; font-weight: bold"><%=cartNum %></span>
 			</a>
-			<a class="btn btn-warning text-right" href="Mypage.jsp" role="button">マイページ</a>
+			<a class="btn btn-warning text-right" href="../Mypage" role="button">マイページ</a>
 		<%}else{%>
 			<a class="btn btn-warning text-right" href="user/Login.jsp" role="button">ログイン</a>
 		<%} %>
