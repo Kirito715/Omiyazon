@@ -2383,6 +2383,7 @@ public class DBClass {
 	        sql += " FROM  伝票マスタ as a inner join 売上明細マスタ as b on a.伝票ID=b.伝票ID";
 	        sql += " inner join 商品マスタ as c on b.商品ID=c.商品ID";
 	        sql +=" where 登録者ID='"+uid+"'";
+	        sql +=" order by 購入日時 desc";
 
 	        // 実行SQL確認
 	        System.out.println(sql);
