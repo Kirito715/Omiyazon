@@ -60,7 +60,7 @@ public class Mypage extends HttpServlet {
 					color[Integer.parseInt(region.get(i))-1][1]="#d8ffb2";
 				 }
 				}
-		ArrayList<String[]> a = db.getuser(uid);
+		ArrayList<String[]> a = db.getUser(uid);
 		ArrayList<String[]> b = db.getrecode(uid);
 		ArrayList<String[]> c = db.getbook(uid);
 
