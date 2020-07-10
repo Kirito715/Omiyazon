@@ -41,7 +41,7 @@ String date = dateFormat.format(a); %>
 <%if(sid!=null){%>
 関連商品
 	<%for(int i=0;i<sid.length;i++){ %>
-		<%=sid[i] %>
+		<%=sid[i] %><%=kanren.get(i)[2]%><br>
 	<%} %><br>
 	<%}%>
 <input type="submit"value="作成する">
