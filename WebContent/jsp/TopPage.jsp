@@ -307,8 +307,14 @@ function nextPage(id){
     	</div>
 
 <br><br><br><br>
-<div id="map" align="center"></div>
 
+<h3 class="text-center">全国地方スタンプラリー</h3>
+<br>
+<div id="map" align="center"></div>
+<br>
+<p class="text-center">商品を購入することで、商品を購入した地方の色が染まります</p>
+<p class="text-center">すべての地方を制覇すると特典が・・・？</p>
+<br>
 <p class="mt-5 mb-3 text-muted" align="center">&copy; Omiyazon</p>
 
 </div>
