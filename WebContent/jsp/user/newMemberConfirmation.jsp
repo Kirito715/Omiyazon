@@ -93,7 +93,8 @@
 
 					<div class="mb-3">
 						<label for="pass">パスワード</label>
-						<h4><%=sPass%></h4>
+
+						<h4><%for(int i=0;i < sPass.length();i++){%>*<%} %></h4>
 					</div>
 
 
