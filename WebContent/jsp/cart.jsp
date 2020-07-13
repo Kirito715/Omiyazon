@@ -64,7 +64,7 @@ $(function(){
 						<td><input type="number" name="num" class="upd"
 							value="<%=cart.get(i)[2]%>" style="text-align: right" min=1 max=<%=max.get(0)%> required>個</td>
 						<td>
-							<button class="btd  btn-primary" value="<%=cart.get(i)[0]%>" type="button" name="del">削除</button>
+							<button class="btn btn-primary" value="<%=cart.get(i)[0]%>" type="button" name="del">削除</button>
 						</td>
 					</tr>
 					<%

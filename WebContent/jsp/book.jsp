@@ -100,7 +100,7 @@ $('.LikesIcon').on('click', function() {
 <input type="hidden" value="<%=book.get(i)[0]%>"/>
 </td>
 <td align="center"><%=book.get(i)[1]%></td>
-<td align="left"><button class="button  btn-primary"value="<%=book.get(i)[0]%>"name="itemid"onclick=" actionA();">詳細</button><br></td>
+<td align="left"><button class="btn btn-primary"value="<%=book.get(i)[0]%>"name="itemid"onclick=" actionA();">詳細</button><br></td>
 </tr>
 <%}%>
 </table>

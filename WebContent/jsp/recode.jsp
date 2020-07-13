@@ -36,7 +36,7 @@
 	<body class="text-center">
 		<div class="container-fluid">
 			<form id='form' name='form'>
-				<table class="table table-striped">
+				<table class="table table-hover table-sm">
 					<thead>
 						<tr>購入履歴
 						</tr>
@@ -79,7 +79,7 @@
 								;
 							%>
 
-							<td><button class="button img-a"
+							<td><button class="btn btn-primary"
 									value="<%=recode.get(i)[0]%>" name="itemid"
 									onclick=" actionB();">詳細へ</button></td>
 						</tr>
