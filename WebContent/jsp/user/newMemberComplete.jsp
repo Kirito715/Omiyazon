@@ -60,8 +60,8 @@
 		</div>
 		<div class="row">
 			<div class="col-auto p-3">
-				<a href="../TopPage.jsp"
-					class="btn btn-outline-primary btn-lg float-left" role="button">トップページへ</a>
+				<a href="../../Mypage"
+					class="btn btn-outline-primary btn-lg float-left" role="button">マイページへ</a>
 			</div>
 
 
