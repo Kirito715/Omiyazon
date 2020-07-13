@@ -13,6 +13,7 @@
 		document.getElementById('sid').value = s ;
 		document.getElementById('did').value = d ;
 
+
 		document.cancelForm.submit();
 
 	//document.getElementById('form').action = "../recode2";
