@@ -1,14 +1,14 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="header.jsp"%>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>カート</title>
-
+<%@include file="header.jsp"%>
 <link rel="stylesheet" href="../css/slide.css" type="text/css">
 
 <!-- BootstrapのCSS読み込み -->
