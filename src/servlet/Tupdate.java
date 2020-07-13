@@ -48,7 +48,7 @@ public class Tupdate extends HttpServlet {
 		}
 		db.dbClose();
 		System.out.println(txt3);
-		response.sendRedirect("jsp/KAlltokusyuu.jsp");
+		response.sendRedirect("KAlltokusyuu");
 	}
 
 	/**
