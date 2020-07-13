@@ -48,7 +48,7 @@ int pa2= Integer.parseInt(pa);
 		<option value="3">未発送</option>
 	</select>
 	<div class="col-sm-8">
-		<input type="text" name="txt" class="form-control" value="<%=txt%>">
+		<input type="text" name="txt" class="form-control" value="<%=txt%>" placeholder="商品名(あいまい検索)">
 	</div>
 	<button class="btn btn-outline-primary"value=""name="tid"onclick=" actionB();">検索</button>
 </div>
