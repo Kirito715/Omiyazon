@@ -917,7 +917,7 @@ public class DBClass {
 	        String sql = "";
 	        sql += " SELECT ニックネーム";
 	        sql += " FROM 伝票マスタ dm INNER JOIN 売上明細マスタ umm on dm.伝票ID=umm.伝票ID inner join 登録者マスタ tm on dm.登録者ID=dm.登録者ID";
-	        sql += " WHERE tm.登録者ID = ? AND 商品ID = ? AND 注文状態 = '2'";
+	        sql += " WHERE tm.登録者ID = ? AND 商品ID = ? AND (注文状態 = '1' OR 注文状態 = '2')";
 
 			// データ取得
 			PreparedStatement ps = objCon.prepareStatement(sql);
@@ -2094,9 +2094,15 @@ public class DBClass {
 			stmt = objCon.createStatement();
 
 	        String sql = "";
-	        sql += " SELECT 伝票ID,登録者ID,CONVERT(date, 購入日時) as 購入日時2,注文状態,発送日時";
-	        sql += " FROM  伝票マスタ";
-	        sql += " order by 購入日時 desc";
+//	        sql += " SELECT 伝票ID,登録者ID,CONVERT(date, 購入日時) as 購入日時2,注文状態,発送日時";
+//	        sql += " FROM  伝票マスタ";
+//	        sql += " order by 購入日時 desc";
+
+	        sql += " SELECT a.伝票ID,a.登録者ID,CONVERT(date, 購入日時) as 購入日時2,注文状態,発送日時";
+	        sql += " FROM  伝票マスタ as a inner join 売上明細マスタ as b on a.伝票ID=b.伝票ID";
+	        sql += " inner join 商品マスタ as c on b.商品ID=c.商品ID";
+	        sql +=" group by a.伝票ID,a.登録者ID,購入日時,注文状態,発送日時";
+        	sql += " order by 購入日時";
 
 	        // 実行SQL確認
 	        System.out.println(sql);
