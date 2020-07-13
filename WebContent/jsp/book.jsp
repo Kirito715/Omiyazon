@@ -90,6 +90,7 @@ $('.LikesIcon').on('click', function() {
 <%@include file="header.jsp" %>
 <div class="body">
 <br>
+<h3 class="text-center">お気に入り一覧</h3>
 <br>
 <form id='form' name='form'>
 <table class="table table-striped">

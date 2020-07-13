@@ -36,12 +36,9 @@
 <div class="body">
 	<body class="text-center">
 		<div class="container-fluid">
+			<br><h3 class="text-center">購入履歴</h3><br>
 			<form id='form' name='form'>
 				<table class="table table-hover table-sm">
-					<thead>
-						<tr>購入履歴
-						</tr>
-					</thead>
 					<tr>
 						<td>購入日付</td>
 						<td>商品名</td>
