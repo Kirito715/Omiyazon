@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -51,6 +52,8 @@ public class Dupdate extends HttpServlet {
 			}
 			}
 		}
+		ArrayList<String[]> ary = db.getdenpyou();
+		session.setAttribute("denpyou", ary);
 		db.dbClose();
 		response.sendRedirect("jsp/denpyou.jsp");
 	}
