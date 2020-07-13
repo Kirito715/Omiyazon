@@ -35,8 +35,7 @@ public class cart extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		DBClass db = new DBClass();
-		String id=request.getParameter("id");
-		id="1";
+		String id=(String)session.getAttribute("userId");
 		db.dbOpen();
 		ArrayList<String[]> ary = db.getcart(id);
 		ArrayList<Integer> ary2 = new ArrayList<Integer>();

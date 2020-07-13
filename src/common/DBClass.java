@@ -2326,7 +2326,7 @@ public class DBClass {
 	        String sql = "";
 	        sql += " SELECT *";
 	        sql += " FROM  商品マスタ as a inner join カートマスタ as b on a.商品ID=b.商品ID";
-	        sql += " where 登録者ID='"+uid+"'";
+	        sql += " where 登録者ID='"+uid+"'" ;
 
 	        // 実行SQL確認
 	        System.out.println(sql);
