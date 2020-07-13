@@ -917,7 +917,7 @@ public class DBClass {
 	        String sql = "";
 	        sql += " SELECT ニックネーム";
 	        sql += " FROM 伝票マスタ dm INNER JOIN 売上明細マスタ umm on dm.伝票ID=umm.伝票ID inner join 登録者マスタ tm on dm.登録者ID=dm.登録者ID";
-	        sql += " WHERE tm.登録者ID = ? AND 商品ID = ? AND 注文状態 = '2'";
+	        sql += " WHERE tm.登録者ID = ? AND 商品ID = ? AND (注文状態 = '1' OR 注文状態 = '2')";
 
 			// データ取得
 			PreparedStatement ps = objCon.prepareStatement(sql);
