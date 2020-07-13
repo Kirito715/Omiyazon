@@ -44,9 +44,11 @@ public class kounyu extends HttpServlet {
 
 		try {
 		int inum=Integer.parseInt(num);
-		 if(inum<1) {
+
+		if(inum<1) {
 			action="zero";
 		 }
+
 
 		if(action.equals("del")) {
 			db.deletecart(sid,uid);
@@ -54,12 +56,16 @@ public class kounyu extends HttpServlet {
 			session.setAttribute("cart",ary);
 
 		}else if(action.equals("upd")) {
-			db.updcart(num, uid, sid);
-			ArrayList<String[]> ary = db.getcart(uid);
-			session.setAttribute("cart",ary);
-
+			 int buyid=Integer.parseInt(sid);
+			 int ordable=db.getOrdable(buyid)-db.getStock(buyid);
+			 if(inum<=ordable) {
+				 db.updcart(num, uid, sid);
+				 ArrayList<String[]> ary = db.getcart(uid);
+				 session.setAttribute("cart",ary);
+			 }
 		}
 		db.dbClose();
+
 		}catch(Exception e){
 
 		}

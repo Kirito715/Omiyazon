@@ -42,10 +42,14 @@ public class cart extends HttpServlet {
 		ArrayList<Integer> ary2 = new ArrayList<Integer>();
 
 		int buyid=0;
+		int ordable=0;
 		for(int i=0;i<ary.size();i++) {
 			buyid=Integer.parseInt(ary.get(i)[0]);
-			ary2.add(db.getOrdable(buyid)-db.getStock(buyid));
-
+			ordable=db.getOrdable(buyid)-db.getStock(buyid);
+			ary2.add(ordable);
+			if(ordable<1) {
+				ary.get(i)[2]="在庫がありません";
+			}
 		}
 
 		db.dbClose();
