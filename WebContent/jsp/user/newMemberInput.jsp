@@ -69,19 +69,19 @@
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="Name">氏名</label> <input type="text" name="name"
-								class="form-control" id="name" placeholder="山田健太" required>
+								class="form-control" id="name" placeholder="大宮撫存" required>
 							<div class="invalid-feedback">名前エラー</div>
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="furigana">フリガナ</label> <input type="text"
 								name="furigana" class="form-control" id="furigana"
-								placeholder="ヤマダケンタ" required>
+								placeholder="オオミヤブゾン" required>
 							<div class="invalid-feedback">フリガナエラー</div>
 						</div>
 					</div>
 
 					<div class="mb-3">
-						<label for="email">メールアドレス</label> <input type="email" name="email"
+						<label for="email">メールアドレス</label> <input type="email" name="email"  placeholder="miyazon@zonmail.com"
 							maxlength="100" class="form-control" id="Email" placeholder=""  required>
 						<div class="invalid-feedback">アドレスエラー</div>
 					</div>
@@ -229,7 +229,7 @@
 					</div>
 
 					<div class="mb-3">
-						<label for="add2">マンション・アパート名<span class="text-muted">(ない場合は未入力OK)</span></label>
+						<label for="add2">マンション・アパート名<span class="text-muted">(未入力可)</span></label>
 						<input type="text" name="add2" class="form-control"
 							id="add2" placeholder="">
 					</div>
@@ -302,6 +302,11 @@
 				$('#year').val("<%=bean.getYear()%>");
 				$('#month').val("<%=bean.getMonth()%>");
 				$('#day').val("<%=bean.getDay()%>");
+
+				if("<%=bean.getGender()%>" == "女"){
+				$('#woman').prop('checked',true);
+				}
+
 				$('#Email').val("<%=bean.getEmail()%>");
 				$('#furigana').val("<%=bean.getFurigana()%>");
 				$('#pcode').val("<%=bean.getPcode()%>");

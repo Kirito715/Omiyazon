@@ -304,6 +304,9 @@
 				$('#year').val("<%=bean.getYear()%>");
 				$('#month').val("<%=bean.getMonth()%>");
 				$('#day').val("<%=bean.getDay()%>");
+				if("<%=bean.getGender()%>" == "女"){
+					$('#woman').prop('checked',true);
+				}
 				$('#Email').val("<%=bean.getEmail()%>");
 				$('#furigana').val("<%=bean.getFurigana()%>");
 				$('#pcode').val("<%=bean.getPcode()%>");
