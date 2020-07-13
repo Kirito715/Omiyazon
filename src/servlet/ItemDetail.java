@@ -65,10 +65,10 @@ public class ItemDetail extends HttpServlet {
 		 //カートの追加
 		else if(action.equals("cart")) {
 			bean = (DetailBean)session.getAttribute("DetaillBean");
-			System.out.println("カートに追加");
 			DBClass db=new DBClass();
 			db.dbOpen();
 			db.addCart(bean);
+			bean=db.judgeCart(bean);
 			db.dbClose();
 		}
 		else{
