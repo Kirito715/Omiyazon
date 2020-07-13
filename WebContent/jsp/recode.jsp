@@ -70,7 +70,7 @@
 								if (recode.get(i)[4].equals("0")) {
 							%>
 
-							<td><button type="button" class="button img-a" value="1" name="button"
+							<td><button type="button" class="btn btn-outline-warning" value="1" name="button"
 									onclick=" actionA('<%=uid %>','<%=recode.get(i)[0]%>','<%=recode.get(i)[6]%>');">発送の中止</button></td>
 							<%
 								} else
@@ -79,7 +79,7 @@
 								;
 							%>
 
-							<td><button class="btn btn-primary"
+							<td><button class="btn btn-outline-primary"
 									value="<%=recode.get(i)[0]%>" name="itemid"
 									onclick=" actionB();">詳細へ</button></td>
 						</tr>
