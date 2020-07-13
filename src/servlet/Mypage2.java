@@ -46,7 +46,7 @@ public class Mypage2 extends HttpServlet {
 		//購入履歴一覧
 		else if(button.equals("2")) {
 			ArrayList<String[]> b = db.getrecode(uid);
-			session.setAttribute("recode",b);
+			session.setAttribute("myrecode",b);
 			response.sendRedirect("jsp/recode.jsp");
 			}
 		//お気に入り一覧
