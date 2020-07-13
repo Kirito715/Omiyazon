@@ -64,7 +64,8 @@ $(function(){
 						<td><input type="number" name="num" class="upd"
 							value="<%=cart.get(i)[2]%>" style="text-align: right" min=1 max=<%=max.get(0)%> required>個</td>
 						<td>
-							<button class="btd  btn-primary" value="<%=cart.get(i)[0]%>" type="button" name="del">削除</button></td>
+							<button class="btd  btn-primary" value="<%=cart.get(i)[0]%>" type="button" name="del">削除</button>
+						</td>
 					</tr>
 					<%
 						}
@@ -72,7 +73,11 @@ $(function(){
 				</thead>
 			</table>
 			<br> <br>
+			<%if(cart.size()==0){%>
+				<p>カートの中身がありません</p>
+			<% }else{ %>
 			<button class="btn btn-primary"  type="submit">購入へ進む</button>
+			<%} %>
 			<br>
 
 		</form>
