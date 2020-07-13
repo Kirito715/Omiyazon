@@ -48,6 +48,7 @@ public class NewMember extends HttpServlet {
 			MemberBean mb = (MemberBean)session.getAttribute("beanData");
 			InsertUserData iud = new InsertUserData();
 			iud.insert(mb);
+			session.setAttribute("userId",mb.getUserId());
 			session.removeAttribute("beanData");
 			Path="jsp/user/newMemberComplete.jsp";
 		}
