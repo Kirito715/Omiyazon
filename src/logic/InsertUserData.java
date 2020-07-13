@@ -5,11 +5,12 @@ import common.DBClass;
 
 public class InsertUserData {
 
-	public void insert(MemberBean mb) {
+	public String insert(MemberBean mb) {
 		DBClass db = new DBClass();
 		db.dbOpen();
 		db.insertUserData(mb);
-		return;
+		String userId = db.getUserId(mb.getEmail(),mb.getPass());
+		return userId;
 	}
 
 }
