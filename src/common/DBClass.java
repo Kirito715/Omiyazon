@@ -980,7 +980,7 @@ public class DBClass {
 			try {
 
 	        String sql = "";
-	        sql += " 商品名";
+	        sql += " SELECT 商品名";
 	        sql += " FROM 商品マスタ";
 	        sql += " WHERE 商品ID = ? ";
 
