@@ -42,11 +42,10 @@ public class kounyu extends HttpServlet {
 		DBClass db = new DBClass();
 		db.dbOpen();
 
-
 		try {
 		int inum=Integer.parseInt(num);
 		 if(inum<1) {
-			action="del";
+			action="zero";
 		 }
 
 		if(action.equals("del")) {

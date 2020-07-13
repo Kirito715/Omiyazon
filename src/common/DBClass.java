@@ -942,6 +942,69 @@ public class DBClass {
 			return bean;
 		}
 
+		public int getOrdable(int itemid) {
+
+			int iStock=0;
+			try {
+
+	        String sql = "";
+	        sql += " SELECT 注文上限数";
+	        sql += " FROM 商品マスタ";
+	        sql += " WHERE 商品ID = ? ";
+
+			// データ取得
+			PreparedStatement ps = objCon.prepareStatement(sql);
+			// プレースホルダにパラメータを設定
+			ps.setInt(1, itemid);
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// sqlを実行し、結果を取得
+			ResultSet rset = ps.executeQuery();
+			rset.next();
+			iStock=rset.getInt("注文上限数");
+
+	        rset.close();	// ResultSetのクローズ
+	        ps.close();
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		  }
+			return iStock;
+
+		}
+
+		public String getItemName(int itemid) {
+
+			String itemname=null;
+			try {
+
+	        String sql = "";
+	        sql += " 商品名";
+	        sql += " FROM 商品マスタ";
+	        sql += " WHERE 商品ID = ? ";
+
+			// データ取得
+			PreparedStatement ps = objCon.prepareStatement(sql);
+			// プレースホルダにパラメータを設定
+			ps.setInt(1, itemid);
+			// 実行SQL確認
+			System.out.println(sql);
+
+			// sqlを実行し、結果を取得
+			ResultSet rset = ps.executeQuery();
+			rset.next();
+			itemname=rset.getString("商品名");
+
+	        rset.close();	// ResultSetのクローズ
+	        ps.close();
+		} catch (SQLException e) {
+			// エラー表示
+			System.err.println(e.getClass().getName() + ":" + e.getMessage());
+		  }
+
+			return itemname;
+		}
 
 
 		public int getStock(int itemid) {

@@ -21,8 +21,8 @@
 
 <script type="text/javascript">
 $(function(){
-	 $('.btu').on('click', function() {
-		 var sid = $(this).val();
+	 $('.upd').change(function() {
+		 var sid = $(this).closest('tr').find('.btd').val();
 		 var num =$(this).closest('tr').find('input').val();
 		 window.location.href = '../kounyu?action=upd&sid='+sid+'&num='+num;
 	 });
@@ -54,16 +54,16 @@ $(function(){
 					<tr>
 						<th>商品名</th>
 						<th>個数</th>
-						<th>更新・削除</th>
+						<th>削除</th>
 					</tr>
 					<%
 						for (int i = 0; i < cart.size(); i++) {
 					%>
 					<tr>
 						<td><%=cart.get(i)[1]%></td>
-						<td><input type="number" name="num"
+						<td><input type="number" name="num" class="upd"
 							value="<%=cart.get(i)[2]%>" style="text-align: right" min=1 max=<%=max.get(0)%> required>個</td>
-						<td><button class="btu  btn-primary" value="<%=cart.get(i)[0]%>" type="button"  name="upd">数量更新</button>
+						<td>
 							<button class="btd  btn-primary" value="<%=cart.get(i)[0]%>" type="button" name="del">削除</button></td>
 					</tr>
 					<%
