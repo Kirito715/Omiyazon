@@ -45,15 +45,15 @@
 $(function(){
 	  $('.single-item').slick({
 	    accessibility: true,
-	    autoplay: true,
-	    autoplaySpeed: 6000,
+	    autoplay: false,
+	    autoplaySpeed: 1000,
 	    dots: true,
 	    fade: true,
 	  });
 	  $('.multiple-items').slick({
 		  infinite: true,
 		  autoplay: true,
-		  autoplaySpeed: 5000,
+		  autoplaySpeed: 4000,
 		  slidesToShow: 3,
 		  slidesToScroll: 3
 		});
