@@ -10,6 +10,7 @@ public class InsertUserData {
 		db.dbOpen();
 		db.insertUserData(mb);
 		String userId = db.getUserId(mb.getEmail(),mb.getPass());
+		db.dbClose();
 		return userId;
 	}
 
