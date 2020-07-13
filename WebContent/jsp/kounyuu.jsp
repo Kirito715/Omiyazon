@@ -51,7 +51,7 @@ sum+=a*b;
 <table class="table table-striped text-center" align="center" style="width:600px">
 <thead><tr>
 <td style="width:600px">合計<%=sum%>円
-<button class="button btn-primary">購入</button></td></tr></thead></table>
+<button class="btn btn-primary">購入</button></td></tr></thead></table>
 <input type="hidden"name="uid"value="<%=uid%>">
 </form>
 </div>
