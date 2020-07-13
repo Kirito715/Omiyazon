@@ -69,7 +69,6 @@ public class ItemDetail extends HttpServlet {
 			DBClass db=new DBClass();
 			db.dbOpen();
 			db.addCart(bean);
-			bean = db.getDetailData(bean);
 			db.dbClose();
 		}
 		else{
@@ -82,7 +81,6 @@ public class ItemDetail extends HttpServlet {
 				db.getReview(bean,0);
 
 			}
-			bean = db.getDetailData(bean);
 			db.dbClose();
 			session.setAttribute("DetaillBean",bean);
 		}

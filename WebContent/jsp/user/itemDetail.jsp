@@ -353,7 +353,7 @@ $(function(){
 <div class="row">
 			<div class="col-3"></div>
 			<div class="col-6">
-			<h5>購入者のレビュー</h5>
+			<span style="font-size:140%">購入者のレビュー</span>
 		<%if (bean.getReviewList().size()>1) { %>
 			<select id="sort">
 				<option value="new">最新順</option>
@@ -364,7 +364,7 @@ $(function(){
 		<br><span>【ユーザ】<%=bean.getReviewList().get(i)[0]%></span><br>
 
 		【レビュー】<span id="userRev<%=i%>"></span><br>
-		<span><%=bean.getReviewList().get(i)[1]%></span><br>
+		<span style="font-size:90%"><%=bean.getReviewList().get(i)[1]%></span><br>
 		<%}%>
 		</div>
 		<div class="col-3"></div>

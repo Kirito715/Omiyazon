@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import bean.DetailBean;
 import common.DBClass;
 
 /**
@@ -44,6 +46,10 @@ public class AjaxServlet extends HttpServlet {
 			System.out.println("delete");
 			db.deleteFavorite(itemid,userid);
 		}
+		HttpSession session = request.getSession();
+		DetailBean bean = (DetailBean)session.getAttribute("DetaillBean");
+		bean = db.judgeFavorite(bean);
+		session.setAttribute("DetaillBean",bean);
 		db.dbClose();
 	}
 

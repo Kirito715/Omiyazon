@@ -834,7 +834,7 @@ public class DBClass {
 			return bean;
 		}
 
-		private DetailBean judgeFavorite(DetailBean bean) {
+		public DetailBean judgeFavorite(DetailBean bean) {
 
 			try {
 
