@@ -82,9 +82,16 @@ $(function() {
 		});
 	});
 });
+
+function select_checked() {
+	$("#selectRegion").val("<%=searchCondition[1]%>");
+	$("#selectPref").val("<%=searchCondition[2]%>");
+	$("#selectGenre").val("<%=searchCondition[3]%>");
+	$(".itemState[value=<%=searchCondition[4]%>]").attr("checked","checked");
+}
 </script>
 </head>
-<body>
+<body onLoad="select_checked()">
 <%@include file="managerHeader.jsp" %>
 
 <!-------------------------------------------------------------------------------------------------------------------->
