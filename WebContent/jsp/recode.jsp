@@ -43,7 +43,6 @@
 						<td>購入日付</td>
 						<td>商品名</td>
 						<td>発送の中止</td>
-						<td>カート</td>
 					</tr>
 					<%
 						String uid = (String) session.getAttribute("uid");
