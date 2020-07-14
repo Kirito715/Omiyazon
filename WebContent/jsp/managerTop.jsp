@@ -151,7 +151,7 @@ function select_checked() {
 		</div>
 		<div class="form-group">
 			<div class="custom-control custom-radio">
-				<input type="radio" id="Radio1" name="itemState" class="custom-control-input itemState" value="0" checked="checked">
+				<input type="radio" id="Radio1" name="itemState" class="custom-control-input itemState" value="0">
 				<label class="custom-control-label" for="Radio1">販売中</label>
 			</div>
 			<div class="custom-control custom-radio">
